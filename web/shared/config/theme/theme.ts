@@ -23,6 +23,15 @@ const theme = createTheme({
     typography: {
         allVariants: font.style,
     },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    textTransform: 'none',
+                },
+            },
+        },
+    },
 });
 
 export default theme;
