@@ -1,4 +1,16 @@
 {
+    "header": {
+        "youtubeBanner": {
+            "title_1": "НОВОЕ ВИДЕО",
+            "title_2": "СМОТРИТЕ УЖЕ НА YOUTUBE",
+            "description": "не пропустите свежий контент!"
+        },
+        "lawyerBanner": {
+            "title_1": "ВАС ОБМАНУЛИ?",
+            "title_2": "ОБРАТИТЕСЬ К НАШЕМУ ЮРИСТУ",
+            "description": "для возврата украденных средств"
+        }
+    },
     "main": {
         "title": "Init page title"
     }
