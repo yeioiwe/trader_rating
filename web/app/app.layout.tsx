@@ -1,5 +1,5 @@
 'use client';
-import theme from '@/config/theme/theme';
+import theme from '@/shared/config/theme/theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import React from 'react';
 

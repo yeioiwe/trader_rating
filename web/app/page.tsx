@@ -1,6 +1,6 @@
 'use client';
 import { useTranslation } from 'react-i18next';
-import '../config/i18n/i18n';
+import '../shared/config/i18n/i18n';
 
 export default function Home() {
     const { t } = useTranslation();
