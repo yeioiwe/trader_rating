@@ -1,18 +1,21 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
+import { AppLayout } from './app.layout';
 
 export const metadata: Metadata = {
-  title: "Init page",
-  description: "Description init page",
+    title: 'Init page',
+    description: 'Description init page',
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
+    return (
+        <html lang="ru">
+            <body>
+                <AppLayout>{children}</AppLayout>
+            </body>
+        </html>
+    );
 }
