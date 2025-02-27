@@ -50,5 +50,19 @@ export interface TranslationTypes {
     };
     main: {
         title: string;
+        updated_at: string;
+        description: string;
+
+        scammers: {
+            title: string;
+            statistic_reports: string;
+            statistic_comments: string;
+            statistic_rate: string;
+            project_link: string;
+            button_review: string;
+        };
+
+        button_full_list: string;
+        button_how_review: string;
     };
 }

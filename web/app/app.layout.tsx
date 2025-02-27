@@ -13,7 +13,7 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
             <Col>
                 <HeaderMain />
                 <Container maxWidth="xl">
-                    <Row justifyContent={'space-between'} alignItems={'flex-start'}>
+                    <Row justifyContent={'space-between'} alignItems={'flex-start'} gap={2}>
                         {children}
                         <SideBarMain />
                     </Row>
