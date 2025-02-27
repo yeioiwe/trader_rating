@@ -33,6 +33,20 @@ export interface TranslationTypes {
             button_card: string;
             button: string;
         };
+        verified: {
+            title: string;
+            description: string;
+            button_card: string;
+            button: string;
+        };
+        posts: {
+            title: string;
+            button: string;
+        };
+        news: {
+            title: string;
+            button: string;
+        };
     };
     main: {
         title: string;

@@ -1,4 +1,4 @@
-import WarningIcon from '@/public/icons/layout_warning.svg';
+import VerifiedIcon from '@/public/icons/layout_verified.svg';
 import { Col, Row } from '@/shared/ui/boxes';
 import { StarsGroup } from '@/shared/ui/stars.group';
 import { Box, Button, Typography } from '@mui/material';
@@ -6,52 +6,52 @@ import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { SidebarCard } from './card';
 
-export const ScammersCard = () => {
+export const VerifiedsCard = () => {
     const { t } = useTranslation();
 
     return (
-        <SidebarCard bgcolor={'#ECF5FF'} icon={<WarningIcon />}>
+        <SidebarCard bgcolor={'#ECF5FF'} icon={<VerifiedIcon />}>
             <Col gap={2}>
                 <Col gap={0.5}>
                     <Typography fontSize={20} fontWeight={700}>
-                        {t('sidebar.scammers.title')}
+                        {t('sidebar.verified.title')}
                     </Typography>
 
                     <Typography color="#97A6A7" fontSize={16}>
-                        {t('sidebar.scammers.description')}
+                        {t('sidebar.verified.description')}
                     </Typography>
                 </Col>
 
                 <Col gap={1}>
-                    <ScammerCard
+                    <VerifiedCard
                         name="TopTrader"
                         position={1}
                         rating={1}
                         avatarUrl={'/avatar.jpg'}
                         profileUrl={'google.com'}
                     />
-                    <ScammerCard
+                    <VerifiedCard
                         name="TopTrader"
                         position={2}
                         rating={1}
                         avatarUrl={'/avatar.jpg'}
                         profileUrl={'google.com'}
                     />
-                    <ScammerCard
+                    <VerifiedCard
                         name="TopTrader"
                         position={3}
                         rating={2}
                         avatarUrl={'/avatar.jpg'}
                         profileUrl={'google.com'}
                     />
-                    <ScammerCard
+                    <VerifiedCard
                         name="TopTrader"
                         position={4}
                         rating={2}
                         avatarUrl={'/avatar.jpg'}
                         profileUrl={'google.com'}
                     />
-                    <ScammerCard
+                    <VerifiedCard
                         name="TopTrader"
                         position={5}
                         rating={3}
@@ -66,7 +66,7 @@ export const ScammersCard = () => {
     );
 };
 
-const ScammerCard = ({
+const VerifiedCard = ({
     name,
     rating,
     avatarUrl,
@@ -119,22 +119,22 @@ const ScammerCard = ({
                 </Col>
             </Row>
 
-            <Button sx={{ py: 1.25, px: 2, bgcolor: '#F26E71', borderRadius: '8px' }}>
+            <Button sx={{ py: 1.25, px: 2, bgcolor: '#37E585', borderRadius: '8px' }}>
                 <Typography fontSize={16} fontWeight={700} color="white">
-                    {t('sidebar.scammers.button_card')}
+                    {t('sidebar.verified.button_card')}
                 </Typography>
             </Button>
         </Row>
     );
 };
 
-export const AllListButton = () => {
+const AllListButton = () => {
     const { t } = useTranslation();
 
     return (
         <Button sx={{ bgcolor: '#FFFFFF', py: 1.75, borderRadius: '13px' }}>
             <Typography color="#5297FF" fontSize={16} fontWeight={700}>
-                {t('sidebar.scammers.button')}
+                {t('sidebar.verified.button')}
             </Typography>
         </Button>
     );
