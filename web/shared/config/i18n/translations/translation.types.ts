@@ -27,6 +27,12 @@ export interface TranslationTypes {
             tg_button: string;
             yt_button: string;
         };
+        scammers: {
+            title: string;
+            description: string;
+            button_card: string;
+            button: string;
+        };
     };
     main: {
         title: string;
