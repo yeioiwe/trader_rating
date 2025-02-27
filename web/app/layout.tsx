@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { AppLayout } from './app.layout';
 
 export const metadata: Metadata = {
-    title: 'Init page',
+    title: 'ANTI SCAMMER',
     description: 'Description init page',
 };
 
