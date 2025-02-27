@@ -61,6 +61,14 @@ export interface TranslationTypes {
             project_link: string;
             button_review: string;
         };
+        verified: {
+            title: string;
+            statistic_profit: string;
+            statistic_comments: string;
+            statistic_rate: string;
+            project_link: string;
+            button_review: string;
+        };
 
         button_full_list: string;
         button_how_review: string;
