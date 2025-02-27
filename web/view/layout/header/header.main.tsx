@@ -5,7 +5,7 @@ import { HederNavbar } from './header.navbar';
 
 export const HeaderMain = () => {
     return (
-        <Container maxWidth="lg" sx={{ my: 2 }}>
+        <Container maxWidth="xl" sx={{ my: 2 }}>
             <Col>
                 <HeaderLogo />
                 <HederNavbar />

@@ -12,7 +12,7 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
             <CssBaseline />
             <Col>
                 <HeaderMain />
-                <Container maxWidth="lg">
+                <Container maxWidth="xl">
                     <Row justifyContent={'space-between'} alignItems={'flex-start'}>
                         {children}
                         <SideBarMain />

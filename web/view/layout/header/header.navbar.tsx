@@ -5,7 +5,7 @@ const NavbarDemo = ['Главная', 'Проверенные', 'Мошенни�
 
 export const HederNavbar = () => {
     return (
-        <Row justifyContent={'space-between'} mt={2}>
+        <Row justifyContent={'space-between'} my={2}>
             {NavbarDemo.map((b, i) => (
                 <NavbarButton key={i} name={b} />
             ))}
