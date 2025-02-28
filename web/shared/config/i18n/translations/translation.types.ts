@@ -69,6 +69,11 @@ export interface TranslationTypes {
             project_link: string;
             button_review: string;
         };
+        requestVerification: {
+            title: string;
+            description: string;
+            button_send_request: string;
+        };
 
         button_full_list: string;
         button_how_review: string;
