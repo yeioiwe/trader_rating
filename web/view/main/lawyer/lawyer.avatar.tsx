@@ -1,0 +1,28 @@
+import { Col } from '@/shared/ui/boxes';
+import { Typography } from '@mui/material';
+import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
+
+export const LawyerAvatar = () => {
+    const { t } = useTranslation();
+
+    return (
+        <Col alignItems={'center'} gap={0.4}>
+            <Image
+                width={210}
+                height={210}
+                src={'/lawyer.png'}
+                style={{ borderRadius: '50%', border: '8px solid #69B2E4' }}
+                alt="lawyer"
+            />
+
+            <Typography fontSize={24} color="white" fontWeight={700}>
+                {t('main.lawyer.avatar.name')}
+            </Typography>
+
+            <Typography fontWeight={300} fontSize={20} color="white">
+                {t('main.lawyer.avatar.description')}
+            </Typography>
+        </Col>
+    );
+};

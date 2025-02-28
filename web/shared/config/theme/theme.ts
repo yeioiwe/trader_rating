@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material';
 import { Inter } from 'next/font/google';
 
-const font = Inter({ weight: ['400', '500', '700'], subsets: ['latin', 'cyrillic'] });
+const font = Inter({ weight: ['300', '400', '500', '700'], subsets: ['latin', 'cyrillic'] });
 
 const theme = createTheme({
     palette: {
