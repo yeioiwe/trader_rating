@@ -31,6 +31,17 @@ const theme = createTheme({
                 },
             },
         },
+        MuiLink: {
+            styleOverrides: {
+                root: {
+                    color: 'inherit',
+                    textDecoration: 'none',
+                    '&:hover': {
+                        textDecoration: 'none',
+                    },
+                },
+            },
+        },
     },
 });
 
