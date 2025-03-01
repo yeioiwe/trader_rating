@@ -33,10 +33,15 @@ const PostItem = ({ title }: { title: string }) => {
         <Row
             px={2}
             py={1.5}
-            bgcolor={'white'}
             borderRadius={'8px'}
             justifyContent={'space-between'}
-            sx={{ cursor: 'pointer' }}
+            sx={{
+                cursor: 'pointer',
+                bgcolor: '#FFFFFF',
+                '&:hover': {
+                    bgcolor: '#f0f8ff',
+                },
+            }}
         >
             <Typography fontSize={14}>{title}</Typography>
 

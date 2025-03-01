@@ -74,6 +74,10 @@ export interface TranslationTypes {
             description: string;
             button_send_request: string;
         };
+        posts: {
+            title: string;
+            description: string;
+        };
 
         button_full_list: string;
         button_how_review: string;

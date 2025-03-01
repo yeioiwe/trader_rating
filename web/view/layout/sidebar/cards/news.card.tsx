@@ -49,11 +49,16 @@ const NewsItem = ({ title, like, date, photoUrl }: { title: string; like: number
         <Row
             p={1}
             gap={2}
-            bgcolor={'white'}
             borderRadius={'9px'}
             justifyContent={'flex-start'}
             height={'100px'}
-            sx={{ cursor: 'pointer' }}
+            sx={{
+                cursor: 'pointer',
+                bgcolor: '#FFFFFF',
+                '&:hover': {
+                    bgcolor: '#f0f8ff',
+                },
+            }}
         >
             <Image src={'/news.jpg'} alt="news" width={110} height={85} style={{ borderRadius: '8px' }} />
 
