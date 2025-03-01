@@ -119,7 +119,7 @@ const ScammerCard = ({
                 </Col>
             </Row>
 
-            <Button sx={{ py: 1.25, px: 2, bgcolor: '#F26E71', borderRadius: '8px' }}>
+            <Button sx={{ py: 1.25, px: 2, bgcolor: '#C53D3D', borderRadius: '8px' }}>
                 <Typography fontSize={16} fontWeight={700} color="white">
                     {t('sidebar.scammers.button_card')}
                 </Typography>

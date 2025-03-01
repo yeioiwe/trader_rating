@@ -37,7 +37,7 @@ const RequestButton = () => {
     const { t } = useTranslation();
 
     return (
-        <Button sx={{ bgcolor: '#37E585', borderRadius: '9px', minWidth: 270, minHeight: 50 }}>
+        <Button sx={{ bgcolor: '#3BB974', borderRadius: '9px', minWidth: 270, minHeight: 50 }}>
             <Row gap={2}>
                 <Typography fontSize={20} fontWeight={700} color="white">
                     {t('main.requestVerification.button_send_request')}

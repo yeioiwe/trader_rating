@@ -20,7 +20,7 @@ export const CheckCard = () => {
                     </Typography>
                 </Col>
 
-                <Button sx={{ bgcolor: '#37E585', color: '#FFFFFF', minHeight: '50px', borderRadius: '9px' }}>
+                <Button sx={{ bgcolor: '#3BB974', color: '#FFFFFF', minHeight: '50px', borderRadius: '9px' }}>
                     <Typography fontSize={20} fontWeight={700}>
                         {t('sidebar.check.button')}
                     </Typography>

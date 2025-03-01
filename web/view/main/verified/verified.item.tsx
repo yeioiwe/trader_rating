@@ -1,5 +1,5 @@
 import VerifiedIcon from '@/public/icons/about_verified.svg';
-import ReviewIcon from '@/public/icons/review_icon.svg';
+import ReviewIcon from '@/public/icons/arrow_icon.svg';
 import StatisticCommentsIcon from '@/public/icons/statistic_commnets.svg';
 import StatisticWarningIcon from '@/public/icons/statistic_warning.svg';
 import { Col, Row } from '@/shared/ui/boxes';
@@ -40,12 +40,12 @@ export const VerifiedItem = ({
                         width={34}
                         height={39}
                         sx={{ borderTopRightRadius: '7px', borderBottomRightRadius: '7px' }}
-                        bgcolor={'#ECF2FF'}
+                        bgcolor={'#3BB974'}
                         display={'flex'}
                         justifyContent={'center'}
                         alignItems={'center'}
                     >
-                        <Typography fontWeight={700} fontSize={16} color="black">
+                        <Typography fontWeight={700} fontSize={16} color="white">
                             {position}
                         </Typography>
                     </Box>
@@ -69,14 +69,14 @@ export const VerifiedItem = ({
                     <StatisticItem
                         title={t('main.verified.statistic_profit')}
                         icon={<StatisticWarningIcon />}
-                        bgcolor={'#37E585'}
+                        bgcolor={'#3BB974'}
                         value={reports}
                     />
 
                     <StatisticItem
                         title={t('main.verified.statistic_comments')}
                         icon={<StatisticCommentsIcon />}
-                        bgcolor={'#97A6A7'}
+                        bgcolor={'#6a7474'}
                         value={reviews}
                     />
                 </Row>
@@ -90,9 +90,9 @@ export const VerifiedItem = ({
                 </Row>
 
                 <Row gap={1} justifyContent={'flex-start'}>
-                    <Typography fontWeight={500}>{t('main.verified.project_link')}</Typography>
+                    <Typography fontWeight={700}>{t('main.verified.project_link')}</Typography>
 
-                    <Typography fontWeight={700} color={'#37E585'}>
+                    <Typography fontWeight={700} color={'#3BB974'}>
                         {projectLink}
                     </Typography>
                 </Row>
@@ -120,7 +120,7 @@ const RateCircle = ({ percent }: { percent: number }) => {
                 bgcolor={'#ECF2FF'}
                 position={'relative'}
                 overflow={'hidden'}
-                sx={{ background: `conic-gradient(#37E585 0% ${percent}%, #ECF2FF ${percent}% 100%)` }}
+                sx={{ background: `conic-gradient(#3BB974 0% ${percent}%, #ECF2FF ${percent}% 100%)` }}
             >
                 <Box
                     width={40}
@@ -176,12 +176,12 @@ const StatisticItem = ({
 
 const TraderAbout = ({ about }: { about: string }) => {
     return (
-        <Box position={'relative'} borderRadius={'9px'} border={'3px solid #37E585'} p={1.5}>
+        <Box position={'relative'} borderRadius={'9px'} border={'3px solid #3BB974'} p={1.5}>
             <Box position={'absolute'} top={'-10px'} left={'-10px'}>
                 <VerifiedIcon />
             </Box>
 
-            <Typography>{about}</Typography>
+            <Typography fontWeight={300}>{about}</Typography>
         </Box>
     );
 };
@@ -192,7 +192,7 @@ const ReviewButton = () => {
     return (
         <Button sx={{ bgcolor: '#DFEBF7', borderRadius: '8px', p: 2, minWidth: '130px' }}>
             <Row gap={2}>
-                <Typography fontWeight={700} fontSize={16} color={'#449FE8'}>
+                <Typography fontWeight={500} fontSize={16} color={'#449FE8'}>
                     {t('main.verified.button_review')}
                 </Typography>
 

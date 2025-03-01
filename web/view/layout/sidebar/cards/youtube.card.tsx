@@ -35,7 +35,7 @@ const CardButton = ({ name, icon }: { name: string; icon: ReactNode }) => {
     return (
         <Button sx={{ bgcolor: '#FFFFFF', minHeight: '50px', borderRadius: '9px' }}>
             <Row width={'100%'} px={2} justifyContent={'space-between'}>
-                <Typography fontSize={20} color="#449FE8">
+                <Typography fontWeight={300} fontSize={20} color="#449FE8">
                     {name}
                 </Typography>
 

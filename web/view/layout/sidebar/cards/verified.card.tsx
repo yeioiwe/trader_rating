@@ -119,7 +119,7 @@ const VerifiedCard = ({
                 </Col>
             </Row>
 
-            <Button sx={{ py: 1.25, px: 2, bgcolor: '#37E585', borderRadius: '8px' }}>
+            <Button sx={{ py: 1.25, px: 2, bgcolor: '#3BB974', borderRadius: '8px' }}>
                 <Typography fontSize={16} fontWeight={700} color="white">
                     {t('sidebar.verified.button_card')}
                 </Typography>

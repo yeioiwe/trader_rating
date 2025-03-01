@@ -1,4 +1,4 @@
-import ReviewIcon from '@/public/icons/review_icon.svg';
+import ReviewIcon from '@/public/icons/arrow_icon.svg';
 import AboutIcon from '@/public/icons/scammer_about.svg';
 import StatisticCommentsIcon from '@/public/icons/statistic_commnets.svg';
 import StatisticWarningIcon from '@/public/icons/statistic_warning.svg';
@@ -40,7 +40,7 @@ export const ScammerItem = ({
                         width={34}
                         height={39}
                         sx={{ borderTopRightRadius: '7px', borderBottomRightRadius: '7px' }}
-                        bgcolor={'#F26E71'}
+                        bgcolor={'#C53D3D'}
                         display={'flex'}
                         justifyContent={'center'}
                         alignItems={'center'}
@@ -69,14 +69,14 @@ export const ScammerItem = ({
                     <StatisticItem
                         title={t('main.scammers.statistic_reports')}
                         icon={<StatisticWarningIcon />}
-                        bgcolor={'#F26E71'}
+                        bgcolor={'#C53D3D'}
                         value={reports}
                     />
 
                     <StatisticItem
                         title={t('main.scammers.statistic_comments')}
                         icon={<StatisticCommentsIcon />}
-                        bgcolor={'#97A6A7'}
+                        bgcolor={'#6a7474'}
                         value={reviews}
                     />
                 </Row>
@@ -90,7 +90,7 @@ export const ScammerItem = ({
                 </Row>
 
                 <Row gap={1} justifyContent={'flex-start'}>
-                    <Typography fontWeight={500}>{t('main.scammers.project_link')}</Typography>
+                    <Typography fontWeight={700}>{t('main.scammers.project_link')}</Typography>
 
                     <Typography fontWeight={700} color={'#C53D3D'}>
                         {projectLink}
@@ -120,7 +120,7 @@ const RateCircle = ({ percent }: { percent: number }) => {
                 bgcolor={'#ECF2FF'}
                 position={'relative'}
                 overflow={'hidden'}
-                sx={{ background: `conic-gradient(#F26E71 0% ${percent}%, #ECF2FF ${percent}% 100%)` }}
+                sx={{ background: `conic-gradient(#C53D3D 0% ${percent}%, #ECF2FF ${percent}% 100%)` }}
             >
                 <Box
                     width={40}
@@ -176,12 +176,12 @@ const StatisticItem = ({
 
 const TraderAbout = ({ about }: { about: string }) => {
     return (
-        <Box position={'relative'} borderRadius={'9px'} border={'3px solid #F26E71'} p={1.5}>
+        <Box position={'relative'} borderRadius={'9px'} border={'3px solid #C53D3D'} p={1.5}>
             <Box position={'absolute'} top={'-10px'} left={'-10px'}>
                 <AboutIcon />
             </Box>
 
-            <Typography>{about}</Typography>
+            <Typography fontWeight={300}>{about}</Typography>
         </Box>
     );
 };
@@ -192,7 +192,7 @@ const ReviewButton = () => {
     return (
         <Button sx={{ bgcolor: '#DFEBF7', borderRadius: '8px', p: 2, minWidth: '130px' }}>
             <Row gap={2}>
-                <Typography fontWeight={700} fontSize={16} color={'#449FE8'}>
+                <Typography fontWeight={500} fontSize={16} color={'#449FE8'}>
                     {t('main.scammers.button_review')}
                 </Typography>
 
