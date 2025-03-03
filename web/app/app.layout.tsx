@@ -1,6 +1,8 @@
 'use client';
 import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
+import { Footer } from '@/view/layout/footer/footer';
+import { StripBar } from '@/view/layout/footer/strip.bar';
 import { HeaderMain } from '@/view/layout/header/header.main';
 import { SideBarMain } from '@/view/layout/sidebar/sidebar.main';
 import { Container, CssBaseline, ThemeProvider } from '@mui/material';
@@ -18,6 +20,9 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
                         <SideBarMain />
                     </Row>
                 </Container>
+
+                <Footer />
+                <StripBar />
             </Col>
         </ThemeProvider>
     );
