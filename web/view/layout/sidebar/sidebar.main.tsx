@@ -1,4 +1,6 @@
+import theme from '@/shared/config/theme/theme';
 import { Col } from '@/shared/ui/boxes';
+import { useMediaQuery } from '@mui/material';
 import { CheckCard } from './cards/check.card';
 import { NewsCard } from './cards/news.card';
 import { PostsCard } from './cards/posts.card';
@@ -8,8 +10,10 @@ import { VerifiedsCard } from './cards/verified.card';
 import { YoutubeCard } from './cards/youtube.card';
 
 export const SideBarMain = () => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
-        <Col gap={5.5} mb={10} mt={4}>
+        <Col width={378} gap={5.5} mb={10} mt={4} sx={{ display: isSm ? 'none' : 'flex' }}>
             <SearchCard />
             <CheckCard />
             <YoutubeCard />

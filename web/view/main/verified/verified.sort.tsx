@@ -1,5 +1,6 @@
+import theme from '@/shared/config/theme/theme';
 import { Row } from '@/shared/ui/boxes';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography, useMediaQuery } from '@mui/material';
 import { Dispatch, SetStateAction } from 'react';
 import { sortParams, SortType } from './verified.main';
 
@@ -10,9 +11,11 @@ export const VerifiedTypeSort = ({
     sort: SortType;
     setSort: Dispatch<SetStateAction<SortType>>;
 }) => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
         <Box width={'100%'} sx={{ overflowX: 'auto' }}>
-            <Row gap={2} width={'100%'} justifyContent={'flex-start'}>
+            <Row gap={isSm ? 1 : 2} width={'100%'} justifyContent={'flex-start'}>
                 {sortParams.map((s, i) => (
                     <TypeSortButton active={sort.id === s.id} sort={s} key={i} setSort={setSort} />
                 ))}

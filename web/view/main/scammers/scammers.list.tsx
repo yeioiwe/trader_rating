@@ -1,21 +1,24 @@
+import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { ScammerMobileItem } from './mobile/scammers.mobile.item';
 import { ScammerItem } from './scammers.item';
 
 export const ScammersList = () => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     const { t } = useTranslation();
 
     return (
-        <Col p={2.5} bgcolor={'#ECF2FF'} borderRadius={'19px'} gap={2.25}>
-            {demoScammerUsers.map((s, i) => (
-                <ScammerItem {...s} key={i} />
-            ))}
+        <Col p={isSm ? 1.5 : 2.5} bgcolor={'#ECF2FF'} borderRadius={'19px'} gap={2.25}>
+            {demoScammerUsers.map((s, i) =>
+                isSm ? <ScammerMobileItem {...s} key={i} /> : <ScammerItem {...s} key={i} />,
+            )}
 
             <Row justifyContent={'space-between'}>
                 <FullListButton text={t('main.button_full_list')} />
 
-                <Typography color={'#5297FF'} fontSize={16} fontWeight={700}>
+                <Typography sx={{ display: isSm ? 'none' : null }} color={'#5297FF'} fontSize={16} fontWeight={700}>
                     {t('main.button_how_review')}
                 </Typography>
             </Row>
@@ -24,8 +27,10 @@ export const ScammersList = () => {
 };
 
 const FullListButton = ({ text }: { text: string }) => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
-        <Button sx={{ bgcolor: 'white', borderRadius: '9px', minWidth: 250, minHeight: 50 }}>
+        <Button sx={{ bgcolor: 'white', borderRadius: '9px', minWidth: isSm ? '100%' : 250, minHeight: 50 }}>
             <Typography color="#5297FF" fontSize={16} fontWeight={700}>
                 {text}
             </Typography>

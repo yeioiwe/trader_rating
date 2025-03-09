@@ -8,7 +8,7 @@ import { Button, Typography } from '@mui/material';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export const LaweyrAbout = () => {
+export const LaweyrMobileAbout = () => {
     const { t } = useTranslation();
 
     return (
@@ -25,8 +25,8 @@ export const LaweyrAbout = () => {
                 {t('main.lawyer.about.description')}
             </Typography>
 
-            <Col gap={1}>
-                <Row gap={2} justifyContent={'flex-start'}>
+            <Col gap={2}>
+                <Col gap={2} justifyContent={'flex-start'}>
                     <LawyerStatisticItem
                         icon={<LawyerCommentsIcon />}
                         text={t('main.lawyer.about.statistics_rewiew')}
@@ -38,13 +38,13 @@ export const LaweyrAbout = () => {
                         text={t('main.lawyer.about.statistics_reports')}
                         value="15 903"
                     />
-                </Row>
+                </Col>
 
-                <Row gap={2} justifyContent={'flex-start'}>
+                <Col gap={2} justifyContent={'flex-start'}>
                     <LawyerSocialButtons icon={<TelegramButtonIcon />} text={t('main.lawyer.about.button_tg')} />
 
                     <LawyerSocialButtons icon={<AboutButtonIcon />} text={t('main.lawyer.about.button_about')} />
-                </Row>
+                </Col>
             </Col>
         </Col>
     );

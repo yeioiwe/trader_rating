@@ -9,8 +9,8 @@ export const VerifiedTitle = () => {
             <Row gap={1.5}>
                 <VerifiedIcon />
 
-                <Typography fontSize={24} fontWeight={700}>
-                    Проверенные трейдеры
+                <Typography fontSize={21} fontWeight={700}>
+                    Проверенные проекты
                 </Typography>
             </Row>
 

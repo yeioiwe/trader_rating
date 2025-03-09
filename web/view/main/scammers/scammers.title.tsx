@@ -9,7 +9,7 @@ export const ScammersTitle = () => {
             <Row gap={1.5}>
                 <WarningIcon />
 
-                <Typography fontSize={24} fontWeight={700}>
+                <Typography fontSize={21} fontWeight={700}>
                     Список мошенников
                 </Typography>
             </Row>

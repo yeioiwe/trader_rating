@@ -1,13 +1,20 @@
+import theme from '@/shared/config/theme/theme';
 import { Col } from '@/shared/ui/boxes';
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 
 export const LawyerAvatar = () => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     const { t } = useTranslation();
 
     return (
-        <Col alignItems={'center'} gap={0.4}>
+        <Col
+            width={isSm ? '100%' : undefined}
+            justifyContent={isSm ? 'center' : undefined}
+            alignItems={'center'}
+            gap={0.4}
+        >
             <Image
                 width={210}
                 height={210}

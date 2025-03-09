@@ -2,17 +2,25 @@ import TrustIcon1 from '@/public/icons/trust_icon_1.svg';
 import TrustIcon2 from '@/public/icons/trust_icon_2.svg';
 import TrustIcon3 from '@/public/icons/trust_icon_3.svg';
 import TrustIcon4 from '@/public/icons/trust_icon_4.svg';
-import { Col, Row } from '@/shared/ui/boxes';
-import { Button, Typography } from '@mui/material';
+import theme from '@/shared/config/theme/theme';
+import { Col } from '@/shared/ui/boxes';
+import { Box, Button, Typography, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { TrustItem } from './trust.item';
 
 export const TrustList = () => {
     const { t } = useTranslation();
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
         <Col p={2.5} bgcolor={'#ECF2FF'} borderRadius={'19px'} gap={2.25}>
-            <Row justifyContent={'space-between'} alignItems={'stretch'} gap={2}>
+            <Box
+                display={'flex'}
+                flexDirection={isSm ? 'column' : 'row'}
+                justifyContent={'space-between'}
+                alignItems={'stretch'}
+                gap={2}
+            >
                 <TrustItem
                     icon={<TrustIcon1 />}
                     sortNumber={1}
@@ -36,7 +44,7 @@ export const TrustList = () => {
                     sortNumber={4}
                     description="Наши аналитики изучают стратегии трейдеров, исключая мошенников и манипуляции."
                 />
-            </Row>
+            </Box>
 
             <Col p={0.25} gap={2}>
                 <Typography fontWeight={500}>

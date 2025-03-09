@@ -3,8 +3,9 @@ import PostCommentsIcon from '@/public/icons/post_comments.svg';
 import PostLikeIcon from '@/public/icons/post_like.svg';
 import PostReadtimeIcon from '@/public/icons/post_time.svg';
 import PostWatchIcon from '@/public/icons/post_watch.svg';
+import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 
 export const PostItem = ({
     title,
@@ -21,10 +22,13 @@ export const PostItem = ({
     comments: number;
     likes: number;
 }) => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
         <Col
             px={2}
             py={1.5}
+            gap={isSm ? 2 : 0}
             borderRadius={'9px'}
             minHeight={'95px'}
             justifyContent={'space-between'}
@@ -37,7 +41,7 @@ export const PostItem = ({
             }}
         >
             <Row justifyContent={'space-between'}>
-                <Typography fontSize={16} fontWeight={700}>
+                <Typography fontSize={16} fontWeight={700} sx={{ maxWidth: isSm ? '90%' : '100%' }}>
                     {title}
                 </Typography>
 
@@ -64,13 +68,25 @@ export const PostItem = ({
                         <Typography>{watch}</Typography>
                     </Row>
 
-                    <Row gap={1} fontWeight={300} color={'#918C8C'} fontSize={14}>
+                    <Row
+                        gap={1}
+                        fontWeight={300}
+                        color={'#918C8C'}
+                        fontSize={14}
+                        sx={{ display: isSm ? 'none' : 'flex' }}
+                    >
                         <PostCommentsIcon />
 
                         <Typography>{comments}</Typography>
                     </Row>
 
-                    <Row gap={1} fontWeight={300} color={'#918C8C'} fontSize={14}>
+                    <Row
+                        gap={1}
+                        fontWeight={300}
+                        color={'#918C8C'}
+                        fontSize={14}
+                        sx={{ display: isSm ? 'none' : 'flex' }}
+                    >
                         <PostLikeIcon />
 
                         <Typography>{likes}</Typography>

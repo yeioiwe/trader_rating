@@ -1,5 +1,4 @@
 import VerifiedIcon from '@/public/icons/about_verified.svg';
-import ReviewIcon from '@/public/icons/arrow_icon.svg';
 import StatisticCommentsIcon from '@/public/icons/statistic_commnets.svg';
 import VerifiedProfitIcon from '@/public/icons/verified_profit.svg';
 import { Col, Row } from '@/shared/ui/boxes';
@@ -9,7 +8,7 @@ import Image from 'next/image';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export const VerifiedItem = ({
+export const VerifiedMobileItem = ({
     position,
     avatarURL,
     username,
@@ -33,70 +32,72 @@ export const VerifiedItem = ({
     const { t } = useTranslation();
 
     return (
-        <Col bgcolor={'#FFFFFF'} borderRadius={'8px'} width={'100%'} pr={2.5}>
+        <Col bgcolor={'#FFFFFF'} borderRadius={'8px'} width={'100%'} pr={1.5}>
             <Row justifyContent={'space-between'} py={1.75}>
-                <Row gap={2}>
-                    <Box
-                        width={34}
-                        height={39}
-                        sx={{ borderTopRightRadius: '7px', borderBottomRightRadius: '7px' }}
-                        bgcolor={'#3BB974'}
-                        display={'flex'}
-                        justifyContent={'center'}
-                        alignItems={'center'}
-                    >
-                        <Typography fontWeight={700} fontSize={16} color="white">
-                            {position}
+                <Box
+                    width={24}
+                    height={28}
+                    sx={{ borderTopRightRadius: '7px', borderBottomRightRadius: '7px' }}
+                    bgcolor={'#3BB974'}
+                    display={'flex'}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                >
+                    <Typography fontWeight={700} fontSize={14} color="white">
+                        {position}
+                    </Typography>
+                </Box>
+
+                <Row gap={1}>
+                    <Image src={avatarURL} alt="avatar" width={45} height={45} style={{ borderRadius: '6px' }} />
+
+                    <Col alignItems={'flex-start'} height={'100%'} justifyContent={'space-around'}>
+                        <Typography fontWeight={500} fontSize={14}>
+                            {username}
                         </Typography>
-                    </Box>
 
-                    <Row gap={2} height={75}>
-                        <Image src={avatarURL} alt="avatar" width={75} height={75} style={{ borderRadius: '6px' }} />
-
-                        <Col alignItems={'flex-start'} height={'100%'} justifyContent={'space-around'}>
-                            <Typography fontWeight={500} fontSize={20}>
-                                {username}
-                            </Typography>
-
-                            <StarsGroup rating={starsRate} />
-                        </Col>
-                    </Row>
+                        <StarsGroup rating={starsRate} />
+                    </Col>
                 </Row>
 
-                <Row gap={6}>
-                    <RateCircle percent={ratePercent} />
-
-                    <StatisticItem
-                        title={t('main.verified.statistic_profit')}
-                        icon={<VerifiedProfitIcon />}
-                        bgcolor={'#3BB974'}
-                        value={reports}
-                    />
-
-                    <StatisticItem
-                        title={t('main.verified.statistic_comments')}
-                        icon={<StatisticCommentsIcon />}
-                        bgcolor={'#6a7474'}
-                        value={reviews}
-                    />
-                </Row>
+                <Button sx={{ py: 1.25, px: 2, bgcolor: '#3BB974', borderRadius: '8px' }}>
+                    <Typography fontSize={16} fontWeight={700} color="white">
+                        Обзор
+                    </Typography>
+                </Button>
             </Row>
 
-            <Col pl={'50px'} pb={1.75} gap={2}>
-                <Row gap={4} alignItems={'flex-start'}>
-                    <TraderAbout about={about} />
+            <Row pl={1.5} justifyContent={'space-between'}>
+                <RateCircle percent={ratePercent} />
 
-                    <ReviewButton />
-                </Row>
+                <StatisticMobileItem
+                    title={t('main.scammers.statistic_comments')}
+                    icon={<StatisticCommentsIcon />}
+                    bgcolor={'#6a7474'}
+                    value={reviews}
+                />
 
-                <Row gap={1} justifyContent={'flex-start'}>
-                    <Typography fontWeight={700}>{t('main.verified.project_link')}</Typography>
+                <StatisticMobileItem
+                    title={'Прибыль'}
+                    icon={<VerifiedProfitIcon />}
+                    bgcolor={'#3BB974'}
+                    value={reports}
+                />
+            </Row>
 
-                    <Typography fontWeight={700} color={'#3BB974'}>
-                        {projectLink}
-                    </Typography>
-                </Row>
-            </Col>
+            <Box pl={1.5} pt={2}>
+                <TraderAbout about={about} />
+            </Box>
+
+            <Row gap={1} pl={1.5} my={1.5} justifyContent={'flex-start'}>
+                <Typography fontSize={14} fontWeight={700}>
+                    Ссылка:
+                </Typography>
+
+                <Typography fontSize={14} fontWeight={700} color={'#3BB974'}>
+                    {projectLink}
+                </Typography>
+            </Row>
         </Col>
     );
 };
@@ -107,7 +108,7 @@ const RateCircle = ({ percent }: { percent: number }) => {
     return (
         <Col gap={1}>
             <Typography fontWeight={500} fontSize={14}>
-                {t('main.verified.statistic_rate')}
+                {t('main.scammers.statistic_rate')}
             </Typography>
 
             <Box
@@ -138,7 +139,7 @@ const RateCircle = ({ percent }: { percent: number }) => {
     );
 };
 
-const StatisticItem = ({
+const StatisticMobileItem = ({
     title,
     icon,
     value,
@@ -158,7 +159,7 @@ const StatisticItem = ({
             <Row
                 bgcolor={bgcolor}
                 borderRadius={'9px'}
-                width={130}
+                width={110}
                 height={48}
                 justifyContent={'space-between'}
                 px={2.5}
@@ -183,21 +184,5 @@ const TraderAbout = ({ about }: { about: string }) => {
 
             <Typography fontWeight={300}>{about}</Typography>
         </Box>
-    );
-};
-
-const ReviewButton = () => {
-    const { t } = useTranslation();
-
-    return (
-        <Button sx={{ bgcolor: '#DFEBF7', borderRadius: '8px', p: 2, minWidth: '130px' }}>
-            <Row gap={2}>
-                <Typography fontWeight={500} fontSize={16} color={'#449FE8'}>
-                    {t('main.verified.button_review')}
-                </Typography>
-
-                <ReviewIcon />
-            </Row>
-        </Button>
     );
 };

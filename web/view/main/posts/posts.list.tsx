@@ -1,13 +1,15 @@
+import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { PostItem } from './posts.item';
 
 export const PostsList = () => {
     const { t } = useTranslation();
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
-        <Col p={2.5} bgcolor={'#ECF2FF'} borderRadius={'19px'} gap={2.25}>
+        <Col p={isSm ? 1 : 2.5} bgcolor={'#ECF2FF'} borderRadius={'19px'} gap={2.25}>
             {demoPosts.map((p, i) => (
                 <PostItem {...p} key={i} />
             ))}
@@ -20,8 +22,10 @@ export const PostsList = () => {
 };
 
 const FullListButton = ({ text }: { text: string }) => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
-        <Button sx={{ bgcolor: 'white', borderRadius: '9px', minWidth: 250, minHeight: 50 }}>
+        <Button sx={{ bgcolor: 'white', borderRadius: '9px', minWidth: isSm ? '100%' : 250, minHeight: 50 }}>
             <Typography color="#5297FF" fontSize={16} fontWeight={700}>
                 {text}
             </Typography>

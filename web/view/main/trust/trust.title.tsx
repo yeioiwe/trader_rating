@@ -1,17 +1,19 @@
 import TrustIcon from '@/public/icons/trust_icon.svg';
+import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 export const TrustTitle = () => {
     const { t } = useTranslation();
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
         <Col>
             <Row gap={2} justifyContent={'flex-start'}>
                 <TrustIcon />
 
-                <Typography fontSize={24} fontWeight={700}>
+                <Typography fontSize={isSm ? 16 : 24} fontWeight={700}>
                     Почему доверяют нашему рейтингу?
                 </Typography>
             </Row>
