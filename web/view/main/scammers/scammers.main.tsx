@@ -1,15 +1,25 @@
 import { Col } from '@/shared/ui/boxes';
+import { Typography } from '@mui/material';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ScammersList } from './scammers.list';
 import { ScammersTypeSort } from './scammers.sort';
 import { ScammersTitle } from './scammers.title';
 
 export const ScammersMain = () => {
+    const { t } = useTranslation();
     const [sort, setSort] = useState<SortType>(sortParams[0]);
 
     return (
         <Col gap={2.5}>
-            <ScammersTitle />
+            <Col gap={1}>
+                <ScammersTitle />
+
+                <Typography fontSize={16} color="#918C8C">
+                    {t('main.updated_at', { date: '21 Янв, 08:42' })}
+                </Typography>
+            </Col>
+
             <ScammersTypeSort sort={sort} setSort={setSort} />
             <ScammersList />
         </Col>
