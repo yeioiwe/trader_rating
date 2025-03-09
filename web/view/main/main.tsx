@@ -1,6 +1,6 @@
 import { Col } from '@/shared/ui/boxes';
+import { Banner } from './banner/banner';
 import { LawyerCard } from './lawyer/lawyer.card';
-import { MainPageTitle } from './main.title';
 import { NewsMain } from './news/news.main';
 import { PostsMain } from './posts/posts.main';
 import { RequestVerificationCard } from './request_verification/request.card';
@@ -10,8 +10,9 @@ import { VerifiedMain } from './verified/verified.main';
 
 export const MainPage = () => {
     return (
-        <Col gap={4}>
-            <MainPageTitle />
+        <Col gap={4} width={'100%'} flexGrow={1}>
+            <Banner />
+            {/* <MainPageTitle /> */}
             <ScammersMain />
             <VerifiedMain />
             <RequestVerificationCard />
