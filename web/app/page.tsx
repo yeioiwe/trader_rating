@@ -1,7 +1,6 @@
 'use client';
-import { MainPage } from '@/view/main/main';
-import '../shared/config/i18n/i18n';
+import { Main } from '@/view/main/main';
 
-export default function Home() {
-    return <MainPage />;
+export default function MainPage() {
+    return <Main />;
 }
