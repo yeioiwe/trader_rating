@@ -9,6 +9,7 @@ import { HeaderMobile } from '@/view/layout/header/mobile/header.mobile';
 import { SideBarMain } from '@/view/layout/sidebar/sidebar.main';
 import { Container, CssBaseline, ThemeProvider, useMediaQuery } from '@mui/material';
 import React from 'react';
+import '../shared/config/i18n/i18n';
 
 export const AppLayout = ({ children }: { children: React.ReactNode }) => {
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
