@@ -12,7 +12,7 @@ export const VerfiedProjectsList = () => {
         <Col gap={2.5}>
             <VerifiedListTypeSort sort={sort} setSort={setSort} />
 
-            <Col>
+            <Col gap={2}>
                 <VerifiedProjectsTitle />
 
                 <Col p={2.5} bgcolor={'#ECF2FF'} borderRadius={'19px'} gap={2.25}>
