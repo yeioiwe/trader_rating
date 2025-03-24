@@ -30,7 +30,7 @@ export class ScammerEntity {
     @ApiProperty()
     name!: string;
 
-    @Column()
+    @Column('text')
     @ApiProperty()
     avatar_url!: string;
 
