@@ -12,3 +12,28 @@ export interface AuthDto {
 export interface AuthResponse {
     authToken: string;
 }
+
+export type ScummerStarRate = (typeof ScummerStarRate)[keyof typeof ScummerStarRate];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ScummerStarRate = {
+    NUMBER_1: '1',
+    NUMBER_2: '2',
+    NUMBER_3: '3',
+    NUMBER_4: '4',
+    NUMBER_5: '5',
+} as const;
+
+export interface ScammerCreateDto {
+    url: string;
+    name: string;
+    avatar_url: string;
+    starRate: ScummerStarRate;
+    rate: number;
+    subcribers: number;
+    reports: number;
+    reviews: number;
+    shortDescription: string;
+    tgUsername: string;
+    reviewDate: Date;
+}
