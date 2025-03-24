@@ -10,6 +10,7 @@ import { DateField, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -25,6 +26,7 @@ interface TextFields {
 }
 
 export const ScammersAdd = () => {
+    const router = useRouter();
     const { register, getValues } = useForm();
     const [starRate, setStarRate] = useState<ScummerStarRate>(ScummerStarRate.NUMBER_2);
     const [reviewDate, setReviewDate] = useState<Date>(dayjs('2022-04-17').toDate());
@@ -38,6 +40,7 @@ export const ScammersAdd = () => {
 
     const handleCreate = () => {
         if (reviewDate === null) return;
+
         const form = getValues();
         mutate(
             {
@@ -50,7 +53,7 @@ export const ScammersAdd = () => {
             },
             {
                 onSuccess: data => {
-                    console.log(data);
+                    router.push(`/scammers/edit/${data}`);
                 },
                 onError: error => {
                     console.log(error);

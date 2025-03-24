@@ -39,4 +39,12 @@ export class ScammersService {
 
         return newScammer.id;
     }
+
+    async getList() {
+        const scammersList = await this.em.find(ScammerEntity);
+
+        const scammersDemo = scammersList.map(({ id, name, positionTop }) => ({ id, name, positionTop }));
+
+        return { items: scammersDemo };
+    }
 }

@@ -37,3 +37,13 @@ export interface ScammerCreateDto {
     tgUsername: string;
     reviewDate: Date;
 }
+
+export interface ScammerDemoProfileItem {
+    id: number;
+    name: string;
+    positionTop: number;
+}
+
+export interface ScammerDemoProfileItemList {
+    items: ScammerDemoProfileItem[];
+}

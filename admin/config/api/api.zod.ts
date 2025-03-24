@@ -18,3 +18,7 @@ export const ScammerCreateDto = z
         reviewDate: z.string().datetime({ offset: true }),
     })
     .passthrough();
+export const ScammerDemoProfileItem = z
+    .object({ id: z.number(), name: z.string(), positionTop: z.number() })
+    .passthrough();
+export const ScammerDemoProfileItemList = z.object({ items: z.array(ScammerDemoProfileItem) }).passthrough();
