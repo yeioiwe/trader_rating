@@ -1,4 +1,4 @@
-import { ScummerStarRate, ScummerVisible } from 'apps/libs/db/entity/scammer.entity';
+import { ScummerStarRate } from 'apps/libs/db/entity/scammer.entity';
 import { IsDate, IsEnum, IsNumber, IsString } from 'nestjs-swagger-dto';
 
 export class ScammerCreateDto {
@@ -6,16 +6,10 @@ export class ScammerCreateDto {
     url: string;
 
     @IsString()
-    password: string;
-
-    @IsString()
     name!: string;
 
     @IsString()
     avatar_url!: string;
-
-    @IsNumber()
-    positionTop!: number;
 
     @IsEnum({ enum: { ScummerStarRate } })
     starRate!: ScummerStarRate;
@@ -38,18 +32,6 @@ export class ScammerCreateDto {
     @IsString()
     tgUsername!: string;
 
-    @IsEnum({ enum: { ScummerVisible } })
-    visible!: ScummerVisible;
-
-    @IsDate({ format: 'date-time' })
-    createdAt!: Date;
-
     @IsDate({ format: 'date-time' })
     reviewDate!: Date;
-
-    @IsNumber()
-    profileLikes!: number;
-
-    @IsNumber()
-    profileViews!: number;
 }

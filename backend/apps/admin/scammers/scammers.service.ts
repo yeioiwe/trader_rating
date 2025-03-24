@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { ScammerEntity } from 'apps/libs/db/entity/scammer.entity';
+import { ScammerEntity, ScummerVisible } from 'apps/libs/db/entity/scammer.entity';
 import { EntityManager } from 'typeorm';
 import { ScammerCreateDto } from './scammers.dto';
 
@@ -14,7 +14,26 @@ export class ScammersService {
         const existingUsername = await this.em.findOne(ScammerEntity, { where: { tgUsername: dto.tgUsername } });
         if (existingUsername) throw new BadRequestException();
 
-        const scammer = await this.em.create(ScammerEntity, { ...dto });
+        const scammersList = await this.em.find(ScammerEntity);
+        let sortId = 1;
+
+        if (scammersList.length > 0) {
+            sortId = scammersList.reduce((max, scammer) => {
+                return scammer.positionTop > max ? scammer.positionTop : max;
+            }, -Infinity);
+
+            sortId++;
+        }
+
+        // TODO about project
+        const scammer = await this.em.create(ScammerEntity, {
+            ...dto,
+            positionTop: sortId,
+            visible: ScummerVisible.VISIBLE,
+            createdAt: new Date(),
+            profileLikes: 0,
+            profileViews: 0,
+        });
 
         const newScammer = await this.em.save(ScammerEntity, scammer);
 
