@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 export const SideBar = () => {
     return (
-        <Col px={4} py={3} gap={2} bgcolor={'white'} borderRadius={'9px'}>
+        <Col gap={1} borderRadius={'9px'}>
             <SideBarButton text="Главная" url="dashboard" />
             <SideBarButton text="Мошенники" url="scammers" />
             <SideBarButton text="Проверенные" url="dashboard" />
@@ -23,7 +23,7 @@ const SideBarButton = ({ text, url }: { text: string; url: string }) => {
     };
 
     return (
-        <Button onClick={handleClick} sx={{ px: 4, bgcolor: 'rgb(238 238 238)' }}>
+        <Button onClick={handleClick} sx={{ px: 4, bgcolor: 'white' }}>
             <Typography color="#3F3844" fontWeight={700}>
                 {text}
             </Typography>

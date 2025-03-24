@@ -47,4 +47,12 @@ export class ScammersService {
 
         return { items: scammersDemo };
     }
+
+    async getOne(id: number) {
+        const project = await this.em.findOneBy(ScammerEntity, { id });
+
+        if (!project) throw new BadRequestException();
+
+        return project;
+    }
 }

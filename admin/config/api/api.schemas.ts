@@ -47,3 +47,42 @@ export interface ScammerDemoProfileItem {
 export interface ScammerDemoProfileItemList {
     items: ScammerDemoProfileItem[];
 }
+
+export type ScammerProfileItemStarRate = (typeof ScammerProfileItemStarRate)[keyof typeof ScammerProfileItemStarRate];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ScammerProfileItemStarRate = {
+    NUMBER_1: '1',
+    NUMBER_2: '2',
+    NUMBER_3: '3',
+    NUMBER_4: '4',
+    NUMBER_5: '5',
+} as const;
+
+export type ScammerProfileItemVisible = (typeof ScammerProfileItemVisible)[keyof typeof ScammerProfileItemVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ScammerProfileItemVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
+export interface ScammerProfileItem {
+    id: number;
+    url: string;
+    name: string;
+    avatar_url: string;
+    positionTop: number;
+    starRate: ScammerProfileItemStarRate;
+    rate: number;
+    subcribers: number;
+    reports: number;
+    reviews: number;
+    shortDescription: string;
+    tgUsername: string;
+    visible: ScammerProfileItemVisible;
+    createdAt: Date;
+    reviewDate: Date;
+    profileLikes: number;
+    profileViews: number;
+}

@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
+import { JwtGuard } from '../auth/guard/jwt.guard';
 import { ScammerCreateDto } from './scammers.dto';
 import { ScammersService } from './scammers.service';
-import { ScammerDemoProfileItemList } from './scammers.types';
+import { ScammerDemoProfileItemList, ScammerProfileItem } from './scammers.types';
 
+@UseGuards(JwtGuard)
 @Controller('scammers')
 export class ScammersController {
     constructor(private scammersService: ScammersService) {}
@@ -18,5 +20,11 @@ export class ScammersController {
     @ApiOkResponse({ type: ScammerDemoProfileItemList })
     async getList(): Promise<ScammerDemoProfileItemList> {
         return await this.scammersService.getList();
+    }
+
+    @Get('one/:id')
+    @ApiOkResponse({ type: ScammerProfileItem })
+    async getOne(@Param('id') projectId: number): Promise<ScammerProfileItem> {
+        return await this.scammersService.getOne(projectId);
     }
 }
