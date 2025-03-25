@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ScammerEntity } from 'apps/libs/db/entity/scammer.entity';
+import { ScammerEntity, ScummerVisible } from 'apps/libs/db/entity/scammer.entity';
 
 export class ScammerDemoProfileItem {
     @ApiProperty({ type: Number })
@@ -21,3 +21,14 @@ export class ScammerDemoProfileItemList {
 }
 
 export class ScammerProfileItem extends ScammerEntity {}
+
+export class ScammerProfileAbout {
+    @ApiProperty({ enum: ScummerVisible })
+    visible!: ScummerVisible;
+
+    @ApiProperty({ type: Number })
+    profileLikes!: number;
+
+    @ApiProperty({ type: Number })
+    profileViews!: number;
+}

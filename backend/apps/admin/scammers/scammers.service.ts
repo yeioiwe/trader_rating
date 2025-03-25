@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ScammerEntity, ScummerVisible } from 'apps/libs/db/entity/scammer.entity';
 import { EntityManager } from 'typeorm';
-import { ScammerCreateDto } from './scammers.dto';
+import { ScammerCreateDto, ScammerEditAboutDto } from './scammers.dto';
 
 @Injectable()
 export class ScammersService {
@@ -54,5 +54,21 @@ export class ScammersService {
         if (!project) throw new BadRequestException();
 
         return project;
+    }
+
+    async getAbout(id: number) {
+        const project = await this.em.findOneBy(ScammerEntity, { id });
+
+        if (!project) throw new BadRequestException();
+
+        return { visible: project.visible, profileLikes: project.profileLikes, profileViews: project.profileViews };
+    }
+
+    async editAbout(id: number, body: ScammerEditAboutDto) {
+        const project = await this.em.findOneBy(ScammerEntity, { id });
+
+        if (!project) throw new BadRequestException();
+
+        await this.em.update(ScammerEntity, { id }, { ...body });
     }
 }
