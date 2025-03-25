@@ -25,12 +25,12 @@ export class ScammersService {
             sortId++;
         }
 
-        // TODO about project
         const scammer = await this.em.create(ScammerEntity, {
             ...dto,
             positionTop: sortId,
             visible: ScummerVisible.VISIBLE,
             createdAt: new Date(),
+            about: '',
             profileLikes: 0,
             profileViews: 0,
         });

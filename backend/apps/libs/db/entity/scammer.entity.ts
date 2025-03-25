@@ -85,4 +85,8 @@ export class ScammerEntity {
     @Column()
     @ApiProperty()
     profileViews!: number;
+
+    @Column('mediumtext')
+    @ApiProperty()
+    about!: string;
 }
