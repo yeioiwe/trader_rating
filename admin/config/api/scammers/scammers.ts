@@ -23,7 +23,14 @@ import type {
     UseQueryResult,
 } from '@tanstack/react-query';
 
-import type { ScammerCreateDto, ScammerDemoProfileItemList, ScammerProfileItem } from '../api.schemas';
+import type {
+    ScammerCreateDto,
+    ScammerDemoProfileItemList,
+    ScammerEditAboutDto,
+    ScammerProfileAbout,
+    ScammerProfileItem,
+    ScammerUpdatePositionListDto,
+} from '../api.schemas';
 
 import { axiosCall } from '.././api.axios';
 import type { ErrorType } from '.././api.axios';
@@ -400,3 +407,360 @@ export function useScammersGetOne<TData = Awaited<ReturnType<typeof scammersGetO
 
     return query;
 }
+
+export const scammersGetAbout = (id: number, signal?: AbortSignal) => {
+    return axiosCall<ScammerProfileAbout>({ url: `/scammers/about/${id}`, method: 'GET', signal });
+};
+
+export const getScammersGetAboutQueryKey = (id: number) => {
+    return [`/scammers/about/${id}`] as const;
+};
+
+export const getScammersGetAboutInfiniteQueryOptions = <
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetAbout>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: { query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetAbout>>, TError, TData>> },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getScammersGetAboutQueryKey(id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof scammersGetAbout>>> = ({ signal }) =>
+        scammersGetAbout(id, signal);
+
+    return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof scammersGetAbout>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ScammersGetAboutInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof scammersGetAbout>>>;
+export type ScammersGetAboutInfiniteQueryError = ErrorType<unknown>;
+
+export function useScammersGetAboutInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetAbout>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options: {
+        query: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetAbout>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetAbout>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetAbout>>
+                >,
+                'initialData'
+            >;
+    },
+): DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetAboutInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetAbout>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetAbout>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetAbout>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetAbout>>
+                >,
+                'initialData'
+            >;
+    },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetAboutInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetAbout>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: { query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetAbout>>, TError, TData>> },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function useScammersGetAboutInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetAbout>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: { query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetAbout>>, TError, TData>> },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getScammersGetAboutInfiniteQueryOptions(id, options);
+
+    const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const getScammersGetAboutQueryOptions = <
+    TData = Awaited<ReturnType<typeof scammersGetAbout>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetAbout>>, TError, TData>> },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getScammersGetAboutQueryKey(id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof scammersGetAbout>>> = ({ signal }) =>
+        scammersGetAbout(id, signal);
+
+    return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof scammersGetAbout>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ScammersGetAboutQueryResult = NonNullable<Awaited<ReturnType<typeof scammersGetAbout>>>;
+export type ScammersGetAboutQueryError = ErrorType<unknown>;
+
+export function useScammersGetAbout<TData = Awaited<ReturnType<typeof scammersGetAbout>>, TError = ErrorType<unknown>>(
+    id: number,
+    options: {
+        query: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetAbout>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetAbout>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetAbout>>
+                >,
+                'initialData'
+            >;
+    },
+): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetAbout<TData = Awaited<ReturnType<typeof scammersGetAbout>>, TError = ErrorType<unknown>>(
+    id: number,
+    options?: {
+        query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetAbout>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetAbout>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetAbout>>
+                >,
+                'initialData'
+            >;
+    },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetAbout<TData = Awaited<ReturnType<typeof scammersGetAbout>>, TError = ErrorType<unknown>>(
+    id: number,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetAbout>>, TError, TData>> },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function useScammersGetAbout<TData = Awaited<ReturnType<typeof scammersGetAbout>>, TError = ErrorType<unknown>>(
+    id: number,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetAbout>>, TError, TData>> },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getScammersGetAboutQueryOptions(id, options);
+
+    const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const scammersEditAbout = (id: number, scammerEditAboutDto: ScammerEditAboutDto, signal?: AbortSignal) => {
+    return axiosCall<void>({
+        url: `/scammers/about/${id}`,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        data: scammerEditAboutDto,
+        signal,
+    });
+};
+
+export const getScammersEditAboutMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof scammersEditAbout>>,
+        TError,
+        { id: number; data: ScammerEditAboutDto },
+        TContext
+    >;
+}): UseMutationOptions<
+    Awaited<ReturnType<typeof scammersEditAbout>>,
+    TError,
+    { id: number; data: ScammerEditAboutDto },
+    TContext
+> => {
+    const mutationKey = ['scammersEditAbout'];
+    const { mutation: mutationOptions } = options
+        ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey } };
+
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof scammersEditAbout>>,
+        { id: number; data: ScammerEditAboutDto }
+    > = props => {
+        const { id, data } = props ?? {};
+
+        return scammersEditAbout(id, data);
+    };
+
+    return { mutationFn, ...mutationOptions };
+};
+
+export type ScammersEditAboutMutationResult = NonNullable<Awaited<ReturnType<typeof scammersEditAbout>>>;
+export type ScammersEditAboutMutationBody = ScammerEditAboutDto;
+export type ScammersEditAboutMutationError = ErrorType<unknown>;
+
+export const useScammersEditAbout = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof scammersEditAbout>>,
+        TError,
+        { id: number; data: ScammerEditAboutDto },
+        TContext
+    >;
+}): UseMutationResult<
+    Awaited<ReturnType<typeof scammersEditAbout>>,
+    TError,
+    { id: number; data: ScammerEditAboutDto },
+    TContext
+> => {
+    const mutationOptions = getScammersEditAboutMutationOptions(options);
+
+    return useMutation(mutationOptions);
+};
+export const scammersEditProfile = (id: number, scammerCreateDto: ScammerCreateDto, signal?: AbortSignal) => {
+    return axiosCall<void>({
+        url: `/scammers/profile/${id}`,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        data: scammerCreateDto,
+        signal,
+    });
+};
+
+export const getScammersEditProfileMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof scammersEditProfile>>,
+        TError,
+        { id: number; data: ScammerCreateDto },
+        TContext
+    >;
+}): UseMutationOptions<
+    Awaited<ReturnType<typeof scammersEditProfile>>,
+    TError,
+    { id: number; data: ScammerCreateDto },
+    TContext
+> => {
+    const mutationKey = ['scammersEditProfile'];
+    const { mutation: mutationOptions } = options
+        ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey } };
+
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof scammersEditProfile>>,
+        { id: number; data: ScammerCreateDto }
+    > = props => {
+        const { id, data } = props ?? {};
+
+        return scammersEditProfile(id, data);
+    };
+
+    return { mutationFn, ...mutationOptions };
+};
+
+export type ScammersEditProfileMutationResult = NonNullable<Awaited<ReturnType<typeof scammersEditProfile>>>;
+export type ScammersEditProfileMutationBody = ScammerCreateDto;
+export type ScammersEditProfileMutationError = ErrorType<unknown>;
+
+export const useScammersEditProfile = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof scammersEditProfile>>,
+        TError,
+        { id: number; data: ScammerCreateDto },
+        TContext
+    >;
+}): UseMutationResult<
+    Awaited<ReturnType<typeof scammersEditProfile>>,
+    TError,
+    { id: number; data: ScammerCreateDto },
+    TContext
+> => {
+    const mutationOptions = getScammersEditProfileMutationOptions(options);
+
+    return useMutation(mutationOptions);
+};
+export const scammersUpdatePosition = (
+    scammerUpdatePositionListDto: ScammerUpdatePositionListDto,
+    signal?: AbortSignal,
+) => {
+    return axiosCall<void>({
+        url: `/scammers/position`,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        data: scammerUpdatePositionListDto,
+        signal,
+    });
+};
+
+export const getScammersUpdatePositionMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof scammersUpdatePosition>>,
+        TError,
+        { data: ScammerUpdatePositionListDto },
+        TContext
+    >;
+}): UseMutationOptions<
+    Awaited<ReturnType<typeof scammersUpdatePosition>>,
+    TError,
+    { data: ScammerUpdatePositionListDto },
+    TContext
+> => {
+    const mutationKey = ['scammersUpdatePosition'];
+    const { mutation: mutationOptions } = options
+        ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey } };
+
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof scammersUpdatePosition>>,
+        { data: ScammerUpdatePositionListDto }
+    > = props => {
+        const { data } = props ?? {};
+
+        return scammersUpdatePosition(data);
+    };
+
+    return { mutationFn, ...mutationOptions };
+};
+
+export type ScammersUpdatePositionMutationResult = NonNullable<Awaited<ReturnType<typeof scammersUpdatePosition>>>;
+export type ScammersUpdatePositionMutationBody = ScammerUpdatePositionListDto;
+export type ScammersUpdatePositionMutationError = ErrorType<unknown>;
+
+export const useScammersUpdatePosition = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof scammersUpdatePosition>>,
+        TError,
+        { data: ScammerUpdatePositionListDto },
+        TContext
+    >;
+}): UseMutationResult<
+    Awaited<ReturnType<typeof scammersUpdatePosition>>,
+    TError,
+    { data: ScammerUpdatePositionListDto },
+    TContext
+> => {
+    const mutationOptions = getScammersUpdatePositionMutationOptions(options);
+
+    return useMutation(mutationOptions);
+};

@@ -1,5 +1,5 @@
 'use client';
-import { ScummerStarRate } from '@/config/api/api.schemas';
+import { ScammerProfileItemCategory, ScummerStarRate } from '@/config/api/api.schemas';
 import { useScammersCreate } from '@/config/api/scammers/scammers';
 import { Col, Row } from '@/shared/ui/boxes';
 import { UploadAvatar } from '@/shared/ui/upload.avatar';
@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-interface TextFields {
+export interface TextFields {
     url: string;
     name: string;
     tgUsername: string;
@@ -29,6 +29,7 @@ export const ScammersAdd = () => {
     const router = useRouter();
     const { register, getValues } = useForm();
     const [starRate, setStarRate] = useState<ScummerStarRate>(ScummerStarRate.NUMBER_2);
+    const [category, setCategory] = useState<ScammerProfileItemCategory>(ScammerProfileItemCategory.TRADER);
     const [reviewDate, setReviewDate] = useState<Date>(dayjs('2022-04-17').toDate());
     const [img, setImg] = useState<any>();
 
@@ -36,6 +37,10 @@ export const ScammersAdd = () => {
 
     const handleChange = (event: any) => {
         setStarRate(event.target.value);
+    };
+
+    const handleChangeCategory = (event: any) => {
+        setCategory(event.target.value);
     };
 
     const handleCreate = () => {
@@ -49,6 +54,7 @@ export const ScammersAdd = () => {
                     avatar_url: img,
                     starRate: starRate,
                     reviewDate: reviewDate,
+                    category: category,
                 },
             },
             {
@@ -172,6 +178,25 @@ export const ScammersAdd = () => {
                             </Row>
 
                             <UploadAvatar img={img} setImg={setImg} />
+                        </Col>
+
+                        <Col gap={2}>
+                            <Row gap={4} justifyContent={'flex-start'}>
+                                <Typography>Категория проекта :</Typography>
+
+                                <Tooltip title="Категория используется для быстрой сортировки в списке проектов">
+                                    <InfoIcon />
+                                </Tooltip>
+                            </Row>
+
+                            <Select value={category} onChange={handleChangeCategory}>
+                                <MenuItem value={ScammerProfileItemCategory.INVESTMENTS}>Инвестиции</MenuItem>
+                                <MenuItem value={ScammerProfileItemCategory.TRADER}>Трейдеры</MenuItem>
+                                <MenuItem value={ScammerProfileItemCategory.CAPPER}>Категории</MenuItem>
+                                <MenuItem value={ScammerProfileItemCategory.GAME}>Крипто игры</MenuItem>
+                                <MenuItem value={ScammerProfileItemCategory.CASINO}>Казино</MenuItem>
+                                <MenuItem value={ScammerProfileItemCategory.EXCHANGES}>Крипто биржи</MenuItem>
+                            </Select>
                         </Col>
 
                         <Col gap={2}>

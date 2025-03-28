@@ -1,6 +1,6 @@
 'use client';
-import { ScummerStarRate } from '@/config/api/api.schemas';
-import { useScammersGetOne } from '@/config/api/scammers/scammers';
+import { ScammerProfileItemCategory, ScummerStarRate } from '@/config/api/api.schemas';
+import { useScammersEditProfile, useScammersGetOne } from '@/config/api/scammers/scammers';
 import { Col, Row } from '@/shared/ui/boxes';
 import { UploadAvatar } from '@/shared/ui/upload.avatar';
 import InfoIcon from '@mui/icons-material/Info';
@@ -12,17 +12,39 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { TextFields } from '../add/scammers.add';
+import { ScammersEditAbout } from './scammer.edit.about';
 
 export const ScammersEdit = ({ id }: { id: number }) => {
     const { data: projectProfile } = useScammersGetOne(id);
-
     const { register, getValues, setValue } = useForm();
     const [starRate, setStarRate] = useState<ScummerStarRate>(ScummerStarRate.NUMBER_2);
+    const [category, setCategory] = useState<ScammerProfileItemCategory>(ScammerProfileItemCategory.TRADER);
     const [reviewDate, setReviewDate] = useState<Date>(dayjs('2022-04-17').toDate());
     const [img, setImg] = useState<any>();
 
+    const { mutate } = useScammersEditProfile();
+
     const handleChange = (event: any) => {
         setStarRate(event.target.value);
+    };
+
+    const handleChangeCategory = (event: any) => {
+        setCategory(event.target.value);
+    };
+
+    const handleEdit = () => {
+        const form = getValues();
+        mutate({
+            id,
+            data: {
+                ...(form as TextFields),
+                category: category,
+                reviewDate: reviewDate,
+                starRate: starRate,
+                avatar_url: img,
+            },
+        });
     };
 
     useEffect(() => {
@@ -36,6 +58,10 @@ export const ScammersEdit = ({ id }: { id: number }) => {
             setValue('reviews', projectProfile.reviews);
             setValue('shortDescription', projectProfile.shortDescription);
             setValue('reviews', projectProfile.reviews);
+            setStarRate(projectProfile.starRate);
+            setImg(projectProfile.avatar_url);
+            setReviewDate(projectProfile.reviewDate);
+            setCategory(projectProfile.category);
         }
     }, [projectProfile]);
 
@@ -45,7 +71,7 @@ export const ScammersEdit = ({ id }: { id: number }) => {
                 <PersonAddIcon />
 
                 <Typography fontSize={21} fontWeight={700}>
-                    Добавление проекта мошеннка
+                    Редактирование проекта мошеннка
                 </Typography>
             </Row>
 
@@ -153,6 +179,25 @@ export const ScammersEdit = ({ id }: { id: number }) => {
 
                         <Col gap={2}>
                             <Row gap={4} justifyContent={'flex-start'}>
+                                <Typography>Категория проекта :</Typography>
+
+                                <Tooltip title="Категория используется для быстрой сортировки в списке проектов">
+                                    <InfoIcon />
+                                </Tooltip>
+                            </Row>
+
+                            <Select value={category} onChange={handleChangeCategory}>
+                                <MenuItem value={ScammerProfileItemCategory.INVESTMENTS}>Инвестиции</MenuItem>
+                                <MenuItem value={ScammerProfileItemCategory.TRADER}>Трейдеры</MenuItem>
+                                <MenuItem value={ScammerProfileItemCategory.CAPPER}>Категории</MenuItem>
+                                <MenuItem value={ScammerProfileItemCategory.GAME}>Крипто игры</MenuItem>
+                                <MenuItem value={ScammerProfileItemCategory.CASINO}>Казино</MenuItem>
+                                <MenuItem value={ScammerProfileItemCategory.EXCHANGES}>Крипто биржи</MenuItem>
+                            </Select>
+                        </Col>
+
+                        <Col gap={2}>
+                            <Row gap={4} justifyContent={'flex-start'}>
                                 <Typography>К-во подписчиков :</Typography>
 
                                 <Tooltip title="Цифра, к-во подписчиков телеграмм канала, которая будет отображаться в блоке статистики профиля">
@@ -201,12 +246,14 @@ export const ScammersEdit = ({ id }: { id: number }) => {
                     </Col>
 
                     <Row justifyContent={'flex-end'}>
-                        <Button variant="contained" color="primary">
+                        <Button onClick={() => handleEdit()} variant="contained" color="primary">
                             ОБНОВИТЬ
                         </Button>
                     </Row>
                 </Col>
             </form>
+
+            <ScammersEditAbout id={id} />
         </Col>
     );
 };

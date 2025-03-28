@@ -9,6 +9,15 @@ export enum ScummerStarRate {
     STAR_5 = '5',
 }
 
+export enum ScummerCategory {
+    INVESTMENTS = 'INVESTMENTS',
+    TRADER = 'TRADER',
+    CAPPER = 'CAPPER',
+    GAME = 'GAME',
+    CASINO = 'CASINO',
+    EXCHANGES = 'EXCHANGES',
+}
+
 export enum ScummerVisible {
     VISIBLE = 'VISIBLE',
     HIDDEN = 'HIDDEN',
@@ -69,6 +78,10 @@ export class ScammerEntity {
     @ApiProperty({ enum: ScummerVisible, default: ScummerVisible.VISIBLE })
     @Column({ type: 'enum', enum: ScummerVisible, default: ScummerVisible.VISIBLE })
     visible!: ScummerVisible;
+
+    @ApiProperty({ enum: ScummerCategory })
+    @Column({ type: 'enum', enum: ScummerCategory })
+    category!: ScummerCategory;
 
     @Column('datetime')
     @ApiProperty({ type: Date })

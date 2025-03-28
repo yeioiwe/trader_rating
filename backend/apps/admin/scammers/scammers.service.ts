@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ScammerEntity, ScummerVisible } from 'apps/libs/db/entity/scammer.entity';
 import { EntityManager } from 'typeorm';
-import { ScammerCreateDto, ScammerEditAboutDto } from './scammers.dto';
+import { ScammerCreateDto, ScammerEditAboutDto, ScammerUpdatePositionListDto } from './scammers.dto';
 
 @Injectable()
 export class ScammersService {
@@ -41,9 +41,16 @@ export class ScammersService {
     }
 
     async getList() {
-        const scammersList = await this.em.find(ScammerEntity);
+        const scammersList = await this.em.find(ScammerEntity, { order: { positionTop: 'ASC' } });
 
-        const scammersDemo = scammersList.map(({ id, name, positionTop }) => ({ id, name, positionTop }));
+        const scammersDemo = scammersList.map(({ id, name, positionTop, tgUsername, category, visible }) => ({
+            id,
+            name,
+            positionTop,
+            tgUsername,
+            category,
+            visible,
+        }));
 
         return { items: scammersDemo };
     }
@@ -61,7 +68,12 @@ export class ScammersService {
 
         if (!project) throw new BadRequestException();
 
-        return { visible: project.visible, profileLikes: project.profileLikes, profileViews: project.profileViews };
+        return {
+            visible: project.visible,
+            profileLikes: project.profileLikes,
+            profileViews: project.profileViews,
+            about: project.about,
+        };
     }
 
     async editAbout(id: number, body: ScammerEditAboutDto) {
@@ -70,5 +82,27 @@ export class ScammersService {
         if (!project) throw new BadRequestException();
 
         await this.em.update(ScammerEntity, { id }, { ...body });
+    }
+
+    async editProfile(id: number, body: ScammerCreateDto) {
+        const project = await this.em.findOneBy(ScammerEntity, { id });
+
+        if (!project) throw new BadRequestException();
+
+        await this.em.update(ScammerEntity, { id }, { ...body });
+    }
+
+    async updatePosition(dto: ScammerUpdatePositionListDto) {
+        const scammersList = await this.em.find(ScammerEntity);
+
+        scammersList.forEach(async scammer => {
+            const newItem = dto.items.find(item => item.id === scammer.id);
+
+            if (newItem && newItem.positionTop !== scammer.positionTop) {
+                await this.em.update(ScammerEntity, { id: scammer.id }, { positionTop: newItem.positionTop });
+            }
+        });
+
+        return;
     }
 }

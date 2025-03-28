@@ -24,11 +24,24 @@ export const ScummerStarRate = {
     NUMBER_5: '5',
 } as const;
 
+export type ScummerCategory = (typeof ScummerCategory)[keyof typeof ScummerCategory];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ScummerCategory = {
+    INVESTMENTS: 'INVESTMENTS',
+    TRADER: 'TRADER',
+    CAPPER: 'CAPPER',
+    GAME: 'GAME',
+    CASINO: 'CASINO',
+    EXCHANGES: 'EXCHANGES',
+} as const;
+
 export interface ScammerCreateDto {
     url: string;
     name: string;
     avatar_url: string;
     starRate: ScummerStarRate;
+    category: ScummerCategory;
     rate: number;
     subcribers: number;
     reports: number;
@@ -38,10 +51,35 @@ export interface ScammerCreateDto {
     reviewDate: Date;
 }
 
+export type ScammerDemoProfileItemCategory =
+    (typeof ScammerDemoProfileItemCategory)[keyof typeof ScammerDemoProfileItemCategory];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ScammerDemoProfileItemCategory = {
+    INVESTMENTS: 'INVESTMENTS',
+    TRADER: 'TRADER',
+    CAPPER: 'CAPPER',
+    GAME: 'GAME',
+    CASINO: 'CASINO',
+    EXCHANGES: 'EXCHANGES',
+} as const;
+
+export type ScammerDemoProfileItemVisible =
+    (typeof ScammerDemoProfileItemVisible)[keyof typeof ScammerDemoProfileItemVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ScammerDemoProfileItemVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
 export interface ScammerDemoProfileItem {
     id: number;
     name: string;
     positionTop: number;
+    tgUsername: string;
+    category: ScammerDemoProfileItemCategory;
+    visible: ScammerDemoProfileItemVisible;
 }
 
 export interface ScammerDemoProfileItemList {
@@ -67,6 +105,18 @@ export const ScammerProfileItemVisible = {
     HIDDEN: 'HIDDEN',
 } as const;
 
+export type ScammerProfileItemCategory = (typeof ScammerProfileItemCategory)[keyof typeof ScammerProfileItemCategory];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ScammerProfileItemCategory = {
+    INVESTMENTS: 'INVESTMENTS',
+    TRADER: 'TRADER',
+    CAPPER: 'CAPPER',
+    GAME: 'GAME',
+    CASINO: 'CASINO',
+    EXCHANGES: 'EXCHANGES',
+} as const;
+
 export interface ScammerProfileItem {
     id: number;
     url: string;
@@ -81,8 +131,49 @@ export interface ScammerProfileItem {
     shortDescription: string;
     tgUsername: string;
     visible: ScammerProfileItemVisible;
+    category: ScammerProfileItemCategory;
     createdAt: Date;
     reviewDate: Date;
     profileLikes: number;
     profileViews: number;
+    about: string;
+}
+
+export type ScammerProfileAboutVisible = (typeof ScammerProfileAboutVisible)[keyof typeof ScammerProfileAboutVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ScammerProfileAboutVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
+export interface ScammerProfileAbout {
+    visible: ScammerProfileAboutVisible;
+    profileLikes: number;
+    profileViews: number;
+    about: string;
+}
+
+export type ScummerVisible = (typeof ScummerVisible)[keyof typeof ScummerVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ScummerVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
+export interface ScammerEditAboutDto {
+    visible: ScummerVisible;
+    profileLikes: number;
+    profileViews: number;
+    about: string;
+}
+
+export interface ScammerUpdatePositionItemDto {
+    id: number;
+    positionTop: number;
+}
+
+export interface ScammerUpdatePositionListDto {
+    items: ScammerUpdatePositionItemDto[];
 }

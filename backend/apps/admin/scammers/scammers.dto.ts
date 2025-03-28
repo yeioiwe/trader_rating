@@ -1,4 +1,5 @@
-import { ScummerStarRate, ScummerVisible } from 'apps/libs/db/entity/scammer.entity';
+import { ApiProperty } from '@nestjs/swagger';
+import { ScummerCategory, ScummerStarRate, ScummerVisible } from 'apps/libs/db/entity/scammer.entity';
 import { IsDate, IsEnum, IsNumber, IsString } from 'nestjs-swagger-dto';
 
 export class ScammerCreateDto {
@@ -13,6 +14,9 @@ export class ScammerCreateDto {
 
     @IsEnum({ enum: { ScummerStarRate } })
     starRate!: ScummerStarRate;
+
+    @IsEnum({ enum: { ScummerCategory } })
+    category!: ScummerCategory;
 
     @IsNumber()
     rate!: number;
@@ -45,4 +49,22 @@ export class ScammerEditAboutDto {
 
     @IsNumber()
     profileViews!: number;
+
+    @IsString()
+    about!: string;
+}
+
+export class ScammerUpdatePositionItemDto {
+    @IsNumber()
+    id!: number;
+
+    @IsNumber()
+    positionTop!: number;
+}
+
+export class ScammerUpdatePositionListDto {
+    @ApiProperty({
+        type: [ScammerUpdatePositionItemDto],
+    })
+    items!: ScammerUpdatePositionItemDto[];
 }

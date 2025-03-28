@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { JwtGuard } from '../auth/guard/jwt.guard';
-import { ScammerCreateDto, ScammerEditAboutDto } from './scammers.dto';
+import { ScammerCreateDto, ScammerEditAboutDto, ScammerUpdatePositionListDto } from './scammers.dto';
 import { ScammersService } from './scammers.service';
 import { ScammerDemoProfileItemList, ScammerProfileAbout, ScammerProfileItem } from './scammers.types';
 
@@ -38,5 +38,17 @@ export class ScammersController {
     @ApiOkResponse()
     async editAbout(@Param('id') projectId: number, @Body() body: ScammerEditAboutDto): Promise<void> {
         return await this.scammersService.editAbout(projectId, body);
+    }
+
+    @Post('profile/:id')
+    @ApiOkResponse()
+    async editProfile(@Param('id') projectId: number, @Body() body: ScammerCreateDto): Promise<void> {
+        await this.scammersService.editProfile(projectId, body);
+    }
+
+    @Post('position')
+    @ApiOkResponse()
+    async updatePosition(@Body() body: ScammerUpdatePositionListDto): Promise<void> {
+        return this.scammersService.updatePosition(body);
     }
 }

@@ -26,12 +26,16 @@
         "react-dom": "^19.0.0",
         "react-dropzone": "^14.3.8",
         "react-hook-form": "^7.54.2",
+        "react-quill-new": "^3.4.6",
+        "react-sortablejs": "^6.1.4",
+        "sortablejs": "^1.15.6",
         "zod": "^3.24.2"
     },
     "devDependencies": {
         "@types/node": "^20",
         "@types/react": "^19",
         "@types/react-dom": "^19",
+        "@types/sortablejs": "^1.15.8",
         "orval": "^7.7.0",
         "typescript": "^5"
     }
