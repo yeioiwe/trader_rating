@@ -3,7 +3,6 @@ import AboutIcon from '@/public/icons/scammer_about.svg';
 import StatisticCommentsIcon from '@/public/icons/statistic_commnets.svg';
 import StatisticWarningIcon from '@/public/icons/statistic_warning.svg';
 import { Col, Row } from '@/shared/ui/boxes';
-import { StarsGroup } from '@/shared/ui/stars.group';
 import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
 import { ReactNode } from 'react';
@@ -58,7 +57,8 @@ export const ScammerItem = ({
                                 {username}
                             </Typography>
 
-                            <StarsGroup rating={starsRate} />
+                            {/* TODO */}
+                            {/* <StarsGroup rating={starsRate} /> */}
                         </Col>
                     </Row>
                 </Row>

@@ -3,7 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev",
+        "codegen": "orval && openapi-zod-client http://127.0.0.1:8080/api/v1-json -t ./shared/config/api/api.hbs -o ./shared/config/api/api.zod.ts",
+        "dev": "npm run codegen && tsc && PORT=3005 next dev",
         "build": "next build",
         "start": "PORT=3005 next start",
         "lint": "next lint"
@@ -13,8 +14,12 @@
         "@emotion/styled": "^11.14.0",
         "@mui/material": "^6.4.6",
         "@svgr/webpack": "^8.1.0",
+        "@tanstack/react-query": "^5.71.0",
+        "axios": "^1.8.4",
         "i18next": "^24.2.2",
         "next": "15.1.7",
+        "openapi-zod-client": "^1.18.3",
+        "orval": "^7.7.0",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-i18next": "^15.4.1",

@@ -42,6 +42,40 @@ const theme = createTheme({
                 },
             },
         },
+        MuiCssBaseline: {
+            styleOverrides: {
+                body: {
+                    '&::-webkit-scrollbar': {
+                        width: '8px',
+                        height: '8px',
+                    },
+                    '&::-webkit-scrollbar-thumb': {
+                        backgroundColor: 'grey',
+                        borderRadius: '10px',
+                    },
+                    '&::-webkit-scrollbar-track': {
+                        backgroundColor: 'white',
+                    },
+                    '&::-webkit-scrollbar-button': {
+                        display: 'none',
+                    },
+
+                    '& *': {
+                        '&::-webkit-scrollbar': {
+                            width: '8px',
+                            height: '8px',
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            backgroundColor: 'grey ',
+                            borderRadius: '10px',
+                        },
+                        '&::-webkit-scrollbar-track': {
+                            backgroundColor: 'white',
+                        },
+                    },
+                },
+            },
+        },
     },
 });
 

@@ -1,6 +1,5 @@
 import VerifiedIcon from '@/public/icons/layout_verified.svg';
 import { Col, Row } from '@/shared/ui/boxes';
-import { StarsGroup } from '@/shared/ui/stars.group';
 import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
@@ -115,7 +114,7 @@ const VerifiedCard = ({
                         {name}
                     </Typography>
 
-                    <StarsGroup rating={rating} />
+                    {/* <StarsGroup rating={rating} /> */}
                 </Col>
             </Row>
 

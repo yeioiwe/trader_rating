@@ -2,7 +2,6 @@ import VerifiedIcon from '@/public/icons/about_verified.svg';
 import StatisticCommentsIcon from '@/public/icons/statistic_commnets.svg';
 import VerifiedProfitIcon from '@/public/icons/verified_profit.svg';
 import { Col, Row } from '@/shared/ui/boxes';
-import { StarsGroup } from '@/shared/ui/stars.group';
 import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
 import { ReactNode } from 'react';
@@ -56,7 +55,8 @@ export const VerifiedMobileItem = ({
                             {username}
                         </Typography>
 
-                        <StarsGroup rating={starsRate} />
+                        {/* TODO */}
+                        {/* <StarsGroup rating={starsRate} /> */}
                     </Col>
                 </Row>
 

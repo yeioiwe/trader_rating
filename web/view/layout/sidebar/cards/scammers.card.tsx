@@ -1,13 +1,28 @@
+'use client';
 import WarningIcon from '@/public/icons/layout_warning.svg';
+import { ScammerDemoProfileItem, ScammerDemoProfileItemStarRate } from '@/shared/config/api/api.schemas';
+import { useScammersGetList } from '@/shared/config/api/scammers/scammers';
 import { Col, Row } from '@/shared/ui/boxes';
 import { StarsGroup } from '@/shared/ui/stars.group';
 import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SidebarCard } from './card';
 
 export const ScammersCard = () => {
+    const { data } = useScammersGetList();
     const { t } = useTranslation();
+    const [scammers, setScammers] = useState<ScammerDemoProfileItem[] | undefined>();
+
+    useEffect(() => {
+        if (data?.items !== undefined) {
+            const top5Scammers = data.items.slice(0, 5);
+            setScammers(top5Scammers);
+        }
+    }, [data?.items]);
+
+    if (scammers === undefined) return null;
 
     return (
         <SidebarCard bgcolor={'#ECF5FF'} icon={<WarningIcon />}>
@@ -23,41 +38,16 @@ export const ScammersCard = () => {
                 </Col>
 
                 <Col gap={1}>
-                    <ScammerCard
-                        name="TopTrader"
-                        position={1}
-                        rating={1}
-                        avatarUrl={'/avatar.jpg'}
-                        profileUrl={'google.com'}
-                    />
-                    <ScammerCard
-                        name="TopTrader"
-                        position={2}
-                        rating={1}
-                        avatarUrl={'/avatar.jpg'}
-                        profileUrl={'google.com'}
-                    />
-                    <ScammerCard
-                        name="TopTrader"
-                        position={3}
-                        rating={2}
-                        avatarUrl={'/avatar.jpg'}
-                        profileUrl={'google.com'}
-                    />
-                    <ScammerCard
-                        name="TopTrader"
-                        position={4}
-                        rating={2}
-                        avatarUrl={'/avatar.jpg'}
-                        profileUrl={'google.com'}
-                    />
-                    <ScammerCard
-                        name="TopTrader"
-                        position={5}
-                        rating={3}
-                        avatarUrl={'/avatar.jpg'}
-                        profileUrl={'google.com'}
-                    />
+                    {scammers.map((p, i) => (
+                        <ScammerCard
+                            key={i}
+                            avatar_url={p.avatar_url}
+                            name={p.name}
+                            positionTop={p.positionTop}
+                            profileUrl={p.url}
+                            starRate={p.starRate}
+                        />
+                    ))}
                 </Col>
 
                 <AllListButton />
@@ -68,15 +58,15 @@ export const ScammersCard = () => {
 
 const ScammerCard = ({
     name,
-    rating,
-    avatarUrl,
-    position,
+    starRate,
+    avatar_url,
+    positionTop,
     profileUrl,
 }: {
     name: string;
-    rating: number;
-    avatarUrl: string;
-    position: number;
+    starRate: ScammerDemoProfileItemStarRate;
+    avatar_url: string;
+    positionTop: number;
     profileUrl: string;
 }) => {
     const { t } = useTranslation();
@@ -103,19 +93,25 @@ const ScammerCard = ({
                 borderRadius={'50%'}
             >
                 <Typography fontWeight={700} fontSize={14}>
-                    {position}
+                    {positionTop}
                 </Typography>
             </Box>
 
             <Row gap={2}>
-                <Image style={{ borderRadius: '6px' }} src={avatarUrl} alt="avater" width={40} height={40} />
+                <Image
+                    style={{ borderRadius: '6px', backgroundPosition: 'center', objectFit: 'cover' }}
+                    src={avatar_url}
+                    alt="avater"
+                    width={40}
+                    height={40}
+                />
 
                 <Col>
                     <Typography fontSize={14} fontWeight={700}>
                         {name}
                     </Typography>
 
-                    <StarsGroup rating={rating} />
+                    <StarsGroup rating={starRate} />
                 </Col>
             </Row>
 

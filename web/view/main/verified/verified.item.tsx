@@ -3,7 +3,6 @@ import ReviewIcon from '@/public/icons/arrow_icon.svg';
 import StatisticCommentsIcon from '@/public/icons/statistic_commnets.svg';
 import VerifiedProfitIcon from '@/public/icons/verified_profit.svg';
 import { Col, Row } from '@/shared/ui/boxes';
-import { StarsGroup } from '@/shared/ui/stars.group';
 import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
 import { ReactNode } from 'react';
@@ -58,7 +57,8 @@ export const VerifiedItem = ({
                                 {username}
                             </Typography>
 
-                            <StarsGroup rating={starsRate} />
+                            {/* TODO */}
+                            {/* <StarsGroup rating={starsRate} /> */}
                         </Col>
                     </Row>
                 </Row>

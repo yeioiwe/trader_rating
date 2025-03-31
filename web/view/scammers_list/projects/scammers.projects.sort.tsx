@@ -1,23 +1,45 @@
+import { ScammerDemoProfileItemCategory } from '@/shared/config/api/api.schemas';
 import theme from '@/shared/config/theme/theme';
 import { Row } from '@/shared/ui/boxes';
 import { Box, Button, Typography, useMediaQuery } from '@mui/material';
 import { Dispatch, SetStateAction } from 'react';
-import { ScammersSortType, sortParams } from './scammers.projects.list';
+
+const CategoryNames: Record<ScammerDemoProfileItemCategory, string> = {
+    INVESTMENTS: 'Инвестиции',
+    TRADER: 'Трейдеры',
+    CAPPER: 'Капперы',
+    GAME: 'Крипто Игры',
+    CASINO: 'Казино',
+    EXCHANGES: 'Крипто биржи',
+};
+
+const sortParams = Object.entries(ScammerDemoProfileItemCategory).map(([key, value]) => ({
+    id: value,
+    name: CategoryNames[value],
+}));
 
 export const ScammersListTypeSort = ({
     sort,
     setSort,
 }: {
-    sort: ScammersSortType;
-    setSort: Dispatch<SetStateAction<ScammersSortType>>;
+    sort: ScammerDemoProfileItemCategory | undefined;
+    setSort: Dispatch<SetStateAction<ScammerDemoProfileItemCategory | undefined>>;
 }) => {
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
         <Box width={'100%'} sx={{ overflowX: 'auto' }}>
             <Row gap={isSm ? 1 : 2} width={'100%'} justifyContent={'flex-start'}>
-                {sortParams.map((s, i) => (
-                    <TypeSortButton active={sort.id === s.id} sort={s} key={i} setSort={setSort} />
+                <TypeSortButton active={sort === undefined} setSort={setSort} sort={undefined} displayName="Все" />
+
+                {sortParams.map(s => (
+                    <TypeSortButton
+                        active={sort === s.id}
+                        sort={s.id}
+                        key={s.id}
+                        setSort={setSort}
+                        displayName={s.name}
+                    />
                 ))}
             </Row>
         </Box>
@@ -28,10 +50,12 @@ const TypeSortButton = ({
     active,
     sort,
     setSort,
+    displayName,
 }: {
     active: boolean;
-    sort: ScammersSortType;
-    setSort: Dispatch<SetStateAction<ScammersSortType>>;
+    sort: ScammerDemoProfileItemCategory | undefined;
+    setSort: Dispatch<SetStateAction<ScammerDemoProfileItemCategory | undefined>>;
+    displayName: string;
 }) => {
     return (
         <Button
@@ -39,7 +63,7 @@ const TypeSortButton = ({
             sx={{ px: 3, py: 2, bgcolor: active ? '#449FE8' : '#ECF2FF', borderRadius: '9px', flex: '0 0 auto' }}
         >
             <Typography fontSize={16} fontWeight={700} color={active ? '#FFFFFF' : '#000000'}>
-                {sort.name}
+                {displayName}
             </Typography>
         </Button>
     );

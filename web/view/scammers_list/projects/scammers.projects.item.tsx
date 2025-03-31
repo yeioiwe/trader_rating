@@ -2,6 +2,7 @@ import ReviewIcon from '@/public/icons/arrow_icon.svg';
 import AboutIcon from '@/public/icons/scammer_about.svg';
 import StatisticCommentsIcon from '@/public/icons/statistic_commnets.svg';
 import StatisticWarningIcon from '@/public/icons/statistic_warning.svg';
+import { ScammerDemoProfileItem } from '@/shared/config/api/api.schemas';
 import { Col, Row } from '@/shared/ui/boxes';
 import { StarsGroup } from '@/shared/ui/stars.group';
 import { Box, Button, Typography } from '@mui/material';
@@ -9,27 +10,7 @@ import Image from 'next/image';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export const ScammerProjectItem = ({
-    position,
-    avatarURL,
-    username,
-    starsRate,
-    ratePercent,
-    reports,
-    reviews,
-    about,
-    projectLink,
-}: {
-    position: number;
-    avatarURL: string;
-    username: string;
-    starsRate: number;
-    ratePercent: number;
-    reports: number;
-    reviews: number;
-    about: string;
-    projectLink: string;
-}) => {
+export const ScammerProjectItem = ({ project }: { project: ScammerDemoProfileItem }) => {
     const { t } = useTranslation();
 
     return (
@@ -46,45 +27,51 @@ export const ScammerProjectItem = ({
                         alignItems={'center'}
                     >
                         <Typography fontWeight={700} fontSize={16} color="white">
-                            {position}
+                            {project.positionTop}
                         </Typography>
                     </Box>
 
                     <Row gap={2} height={75}>
-                        <Image src={avatarURL} alt="avatar" width={75} height={75} style={{ borderRadius: '6px' }} />
+                        <Image
+                            src={project.avatar_url}
+                            alt="avatar"
+                            width={75}
+                            height={75}
+                            style={{ borderRadius: '6px', backgroundPosition: 'center', objectFit: 'cover' }}
+                        />
 
                         <Col alignItems={'flex-start'} height={'100%'} justifyContent={'space-around'}>
                             <Typography fontWeight={500} fontSize={20}>
-                                {username}
+                                {project.name}
                             </Typography>
 
-                            <StarsGroup rating={starsRate} />
+                            <StarsGroup rating={project.starRate} />
                         </Col>
                     </Row>
                 </Row>
 
                 <Row gap={6}>
-                    <RateCircle percent={ratePercent} />
+                    <RateCircle percent={project.rate} />
 
                     <StatisticItem
                         title={t('main.scammers.statistic_reports')}
                         icon={<StatisticWarningIcon />}
                         bgcolor={'#C53D3D'}
-                        value={reports}
+                        value={project.reports}
                     />
 
                     <StatisticItem
                         title={t('main.scammers.statistic_comments')}
                         icon={<StatisticCommentsIcon />}
                         bgcolor={'#6a7474'}
-                        value={reviews}
+                        value={project.reviews}
                     />
                 </Row>
             </Row>
 
             <Col pl={'50px'} pb={1.75} gap={2}>
                 <Row gap={4} alignItems={'flex-start'}>
-                    <TraderAbout about={about} />
+                    <TraderAbout about={project.shortDescription} />
 
                     <ReviewButton />
                 </Row>
@@ -93,7 +80,7 @@ export const ScammerProjectItem = ({
                     <Typography fontWeight={700}>{t('main.scammers.project_link')}</Typography>
 
                     <Typography fontWeight={700} color={'#C53D3D'}>
-                        {projectLink}
+                        t.me/{project.tgUsername}
                     </Typography>
                 </Row>
             </Col>
@@ -176,7 +163,7 @@ const StatisticItem = ({
 
 const TraderAbout = ({ about }: { about: string }) => {
     return (
-        <Box position={'relative'} borderRadius={'9px'} border={'3px solid #C53D3D'} p={1.5}>
+        <Box width={'100%'} position={'relative'} borderRadius={'9px'} border={'3px solid #C53D3D'} p={1.5}>
             <Box position={'absolute'} top={'-10px'} left={'-10px'}>
                 <AboutIcon />
             </Box>

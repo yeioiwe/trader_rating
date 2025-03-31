@@ -6,7 +6,6 @@ import { NewsCard } from './cards/news.card';
 import { PostsCard } from './cards/posts.card';
 import { ScammersCard } from './cards/scammers.card';
 import { SearchCard } from './cards/search.card';
-import { VerifiedsCard } from './cards/verified.card';
 import { YoutubeCard } from './cards/youtube.card';
 
 export const SideBarMain = () => {
@@ -18,7 +17,7 @@ export const SideBarMain = () => {
             <CheckCard />
             <YoutubeCard />
             <ScammersCard />
-            <VerifiedsCard />
+            {/* <VerifiedsCard /> */}
             <PostsCard />
             <NewsCard />
         </Col>
