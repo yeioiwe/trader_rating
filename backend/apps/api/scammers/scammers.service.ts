@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { ScammerEntity, ScummerVisible } from 'apps/libs/db/entity/scammer.entity';
 import { EntityManager } from 'typeorm';
 
@@ -13,5 +13,16 @@ export class ScammersService {
         });
 
         return { items: projects };
+    }
+
+    async getOne(profileId: string) {
+        const scammerProfile = await this.em.findOneBy(ScammerEntity, {
+            url: profileId,
+            visible: ScummerVisible.VISIBLE,
+        });
+
+        if (!scammerProfile) throw new BadRequestException();
+
+        return scammerProfile;
     }
 }
