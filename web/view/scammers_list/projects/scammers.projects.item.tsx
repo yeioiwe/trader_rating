@@ -7,6 +7,7 @@ import { Col, Row } from '@/shared/ui/boxes';
 import { StarsGroup } from '@/shared/ui/stars.group';
 import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -73,7 +74,7 @@ export const ScammerProjectItem = ({ project }: { project: ScammerDemoProfileIte
                 <Row gap={4} alignItems={'flex-start'}>
                     <TraderAbout about={project.shortDescription} />
 
-                    <ReviewButton />
+                    <ReviewButton url={project.url} />
                 </Row>
 
                 <Row gap={1} justifyContent={'flex-start'}>
@@ -173,11 +174,15 @@ const TraderAbout = ({ about }: { about: string }) => {
     );
 };
 
-const ReviewButton = () => {
+const ReviewButton = ({ url }: { url: string }) => {
     const { t } = useTranslation();
+    const router = useRouter();
 
     return (
-        <Button sx={{ bgcolor: '#DFEBF7', borderRadius: '8px', p: 2, minWidth: '130px' }}>
+        <Button
+            onClick={() => router.push(`/scammers/${url}`)}
+            sx={{ bgcolor: '#DFEBF7', borderRadius: '8px', p: 2, minWidth: '130px' }}
+        >
             <Row gap={2}>
                 <Typography fontWeight={500} fontSize={16} color={'#449FE8'}>
                     {t('main.scammers.button_review')}

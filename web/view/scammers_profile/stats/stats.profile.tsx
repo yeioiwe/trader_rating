@@ -2,14 +2,17 @@ import DescriptionIcon from '@/public/icons/profile_description_icon.svg';
 import LinkIcon from '@/public/icons/profile_link_icon.svg';
 import TimeIcon from '@/public/icons/profile_time_icon.svg';
 import CancelIcon from '@/public/icons/scammer_profile_cancel.svg';
+import { ScammerProfileItem } from '@/shared/config/api/api.schemas';
 import { Col, Row } from '@/shared/ui/boxes';
 import { Box, Button, Typography } from '@mui/material';
+import dayjs from 'dayjs';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
-export const ScammerStatsProfile = () => {
+export const ScammerStatsProfile = ({ profile }: { profile: ScammerProfileItem }) => {
     return (
         <Col px={1.5} py={2} bgcolor={'#C53D3D'} borderRadius={'14px'} minWidth={'308px'} gap={1}>
-            <ProfileAvatar url="" />
+            <ProfileAvatar url={profile.avatar_url} name={profile.name} />
             <AttentionButton />
 
             <Col alignItems={'flex-start'}>
@@ -28,7 +31,7 @@ export const ScammerStatsProfile = () => {
                     </Row>
 
                     <Typography color="white" fontSize={'16px'}>
-                        22.04.2022
+                        {dayjs(profile.reviewDate).format('DD.MM.YYYY')}
                     </Typography>
                 </Row>
 
@@ -41,21 +44,21 @@ export const ScammerStatsProfile = () => {
                     </Row>
 
                     <Typography color="white" fontSize={'16px'}>
-                        t.me/@2xbet
+                        t.me/@{profile.tgUsername}
                     </Typography>
                 </Row>
             </Col>
 
-            <ChannelButton />
+            <ChannelButton tgUsername={profile.tgUsername} />
         </Col>
     );
 };
 
-const ProfileAvatar = ({ url }: { url: string }) => {
+const ProfileAvatar = ({ url, name }: { url: string; name: string }) => {
     return (
         <Col gap={1} width={'100%'} position={'relative'} alignItems={'center'}>
             <Image
-                src={'/ava.webp'}
+                src={url}
                 alt={'avatar'}
                 width={175}
                 height={175}
@@ -68,7 +71,7 @@ const ProfileAvatar = ({ url }: { url: string }) => {
             />
 
             <Typography fontSize={'24px'} fontWeight={700} color="white">
-                QuantumLef
+                {name}
             </Typography>
 
             <Box position={'absolute'} right={65} bottom={45}>
@@ -108,9 +111,11 @@ const DescriptionItem = ({ text }: { text: string }) => {
     );
 };
 
-const ChannelButton = () => {
+const ChannelButton = ({ tgUsername }: { tgUsername: string }) => {
+    const router = useRouter();
     return (
         <Button
+            onClick={() => router.push(`https://t.me/${tgUsername}`)}
             sx={{
                 bgcolor: '#FFFFFF',
                 minHeight: '43px',

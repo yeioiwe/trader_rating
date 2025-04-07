@@ -3,6 +3,9 @@ import { useScammersGetOne } from '@/shared/config/api/scammers/scammers';
 import { Col } from '@/shared/ui/boxes';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { ScammerProfileComments } from './comments/scammer.comments.main';
+import { ScammerProfileList } from './scammer_list/scammer.list.main';
+import { ScammersProfileOverview } from './scammers.profile.overview';
 import { ScammerStatsMain } from './stats/stats.main';
 
 export const ScammerProfile = ({ id }: { id: string }) => {
@@ -17,8 +20,14 @@ export const ScammerProfile = ({ id }: { id: string }) => {
     if (profile === undefined) return null;
 
     return (
-        <Col>
-            <ScammerStatsMain />
+        <Col width={'100%'} gap={4}>
+            <ScammerStatsMain profile={profile} />
+
+            <ScammersProfileOverview id={id} />
+
+            <ScammerProfileComments />
+
+            <ScammerProfileList />
         </Col>
     );
 };
