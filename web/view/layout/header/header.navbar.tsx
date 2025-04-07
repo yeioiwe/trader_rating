@@ -1,21 +1,35 @@
 import { Row } from '@/shared/ui/boxes';
 import { Box, Typography } from '@mui/material';
+import { useRouter } from 'next/navigation';
 
-const NavbarDemo = ['Главная', 'Проверенные', 'Мошенники', 'Новости', 'Статьи'];
+const NavbarLinks = [
+    { name: 'Главная', url: '/' },
+    { name: 'Проверенные', url: '/verified' },
+    { name: 'Мошенники', url: '/scammers' },
+    { name: 'Новости', url: '/' },
+    { name: 'Статьи', url: '/' },
+];
 
 export const HederNavbar = () => {
     return (
         <Row justifyContent={'space-between'} my={2}>
-            {NavbarDemo.map((b, i) => (
-                <NavbarButton key={i} name={b} />
+            {NavbarLinks.map((b, i) => (
+                <NavbarButton key={i} name={b.name} url={b.url} />
             ))}
         </Row>
     );
 };
 
-const NavbarButton = ({ name }: { name: string }) => {
+const NavbarButton = ({ name, url }: { name: string; url: string }) => {
+    const router = useRouter();
     return (
-        <Box borderRadius={'13px'} px={3} py={1} sx={{ '&:hover': { bgcolor: '#ECF2FF' }, cursor: 'pointer' }}>
+        <Box
+            onClick={() => router.push(url)}
+            borderRadius={'13px'}
+            px={3}
+            py={1}
+            sx={{ '&:hover': { bgcolor: '#ECF2FF' }, cursor: 'pointer' }}
+        >
             <Typography fontSize={20} fontWeight={700}>
                 {name}
             </Typography>
