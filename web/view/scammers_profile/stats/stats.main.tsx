@@ -15,7 +15,7 @@ export const ScammerStatsMain = ({ profile }: { profile: ScammerProfileItem }) =
             <ScammerStatsProfile profile={profile} />
 
             <Col width={'100%'} gap={2}>
-                <Row justifyContent={'space-between'}>
+                <Row justifyContent={'space-between'} gap={2}>
                     <StatsTop position={profile.positionTop} />
                     <ScammerStatsRate statsRate={profile.rate} />
                 </Row>

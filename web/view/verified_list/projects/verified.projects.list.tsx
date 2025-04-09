@@ -1,7 +1,7 @@
 import { Col, Row } from '@/shared/ui/boxes';
 import { Button, Typography } from '@mui/material';
 import { useState } from 'react';
-import { VerifiedProjectItem } from './verified.projects.item';
+import { VerifiedHiddenProject } from './verified.hidden.item';
 import { VerifiedListTypeSort } from './verified.projects.sort';
 import { VerifiedProjectsTitle } from './verified.projects.title';
 
@@ -16,9 +16,16 @@ export const VerfiedProjectsList = () => {
                 <VerifiedProjectsTitle />
 
                 <Col p={2.5} bgcolor={'#ECF2FF'} borderRadius={'19px'} gap={2.25}>
-                    {demoScammerUsers.map((s, i) => (
-                        <VerifiedProjectItem {...s} key={i} />
-                    ))}
+                    {/* {demoScammerUsers.map((s, i) => (
+                        <VerifiedProjectItem 
+                        {...s} key={i} />
+                    ))} */}
+
+                    <VerifiedHiddenProject />
+                    <VerifiedHiddenProject />
+                    <VerifiedHiddenProject />
+                    <VerifiedHiddenProject />
+                    <VerifiedHiddenProject />
 
                     <Row justifyContent={'center'}>
                         <Button sx={{ bgcolor: 'white', borderRadius: '9px', minWidth: 250, minHeight: 50 }}>

@@ -1,9 +1,8 @@
 import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
+import { VerifiedHiddenProject } from '@/view/verified_list/projects/verified.hidden.item';
 import { Button, Typography, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { VerifiedMobileItem } from './mobile/verified.mobile.item';
-import { VerifiedItem } from './verified.item';
 
 export const VerifiedList = () => {
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
@@ -11,9 +10,15 @@ export const VerifiedList = () => {
 
     return (
         <Col p={isSm ? 1.5 : 2.5} bgcolor={'#ECF2FF'} borderRadius={'19px'} gap={2.25}>
-            {demoScammerUsers.map((s, i) =>
+            <VerifiedHiddenProject />
+            <VerifiedHiddenProject />
+            <VerifiedHiddenProject />
+            <VerifiedHiddenProject />
+            <VerifiedHiddenProject />
+
+            {/* {demoScammerUsers.map((s, i) =>
                 isSm ? <VerifiedMobileItem {...s} key={i} /> : <VerifiedItem {...s} key={i} />,
-            )}
+            )} */}
 
             <Row justifyContent={'space-between'}>
                 <FullListButton text={t('main.button_full_list')} />
