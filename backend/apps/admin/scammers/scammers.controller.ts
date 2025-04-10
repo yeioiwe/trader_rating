@@ -1,9 +1,19 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { JwtGuard } from '../auth/guard/jwt.guard';
-import { ScammerCreateDto, ScammerEditAboutDto, ScammerUpdatePositionListDto } from './scammers.dto';
+import {
+    ScammerCreateComment,
+    ScammerCreateDto,
+    ScammerEditAboutDto,
+    ScammerUpdatePositionListDto,
+} from './scammers.dto';
 import { ScammersService } from './scammers.service';
-import { ScammerDemoProfileItemList, ScammerProfileAbout, ScammerProfileItem } from './scammers.types';
+import {
+    ScammerCommentList,
+    ScammerDemoProfileItemList,
+    ScammerProfileAbout,
+    ScammerProfileItem,
+} from './scammers.types';
 
 @UseGuards(JwtGuard)
 @Controller('scammers')
@@ -50,5 +60,23 @@ export class ScammersController {
     @ApiOkResponse()
     async updatePosition(@Body() body: ScammerUpdatePositionListDto): Promise<void> {
         return this.scammersService.updatePosition(body);
+    }
+
+    @Post('comment/create/:id')
+    @ApiOkResponse()
+    async commentCreate(@Param('id') projectId: number, @Body() body: ScammerCreateComment): Promise<void> {
+        return this.scammersService.createComment(projectId, body);
+    }
+
+    @Post('comment/delete/:id')
+    @ApiOkResponse()
+    async deleteCreate(@Param('id') commentId: number): Promise<void> {
+        return this.scammersService.deleteComment(commentId);
+    }
+
+    @Get('comment/:id')
+    @ApiOkResponse({ type: ScammerCommentList })
+    async getCommentList(@Param('id') projectId: number): Promise<ScammerCommentList> {
+        return await this.scammersService.getCommentList(projectId);
     }
 }

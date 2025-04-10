@@ -1,7 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { ScammerCommentEntity } from 'apps/libs/db/entity/scammer.comment.entity';
 import { ScammerEntity, ScummerVisible } from 'apps/libs/db/entity/scammer.entity';
 import { EntityManager } from 'typeorm';
-import { ScammerCreateDto, ScammerEditAboutDto, ScammerUpdatePositionListDto } from './scammers.dto';
+import {
+    ScammerCreateComment,
+    ScammerCreateDto,
+    ScammerEditAboutDto,
+    ScammerUpdatePositionListDto,
+} from './scammers.dto';
 
 @Injectable()
 export class ScammersService {
@@ -104,5 +110,21 @@ export class ScammersService {
         });
 
         return;
+    }
+
+    async createComment(projectId: number, dto: ScammerCreateComment) {
+        const comment = await this.em.create(ScammerCommentEntity, { ...dto, projectId });
+
+        await this.em.save(ScammerCommentEntity, comment);
+    }
+
+    async deleteComment(id: number) {
+        await this.em.delete(ScammerCommentEntity, { id });
+    }
+
+    async getCommentList(projectId: number) {
+        const comments = await this.em.find(ScammerCommentEntity, { where: { projectId }, order: { date: 'DESC' } });
+
+        return { items: comments };
     }
 }

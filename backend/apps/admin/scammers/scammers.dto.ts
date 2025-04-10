@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { CommentStarRate } from 'apps/libs/db/entity/scammer.comment.entity';
 import { ScummerCategory, ScummerStarRate, ScummerVisible } from 'apps/libs/db/entity/scammer.entity';
 import { IsDate, IsEnum, IsNumber, IsString } from 'nestjs-swagger-dto';
 
@@ -67,4 +68,18 @@ export class ScammerUpdatePositionListDto {
         type: [ScammerUpdatePositionItemDto],
     })
     items!: ScammerUpdatePositionItemDto[];
+}
+
+export class ScammerCreateComment {
+    @IsString()
+    name!: string;
+
+    @IsString()
+    comment!: string;
+
+    @IsDate({ format: 'date-time' })
+    date!: Date;
+
+    @IsEnum({ enum: { CommentStarRate } })
+    starRate!: CommentStarRate;
 }
