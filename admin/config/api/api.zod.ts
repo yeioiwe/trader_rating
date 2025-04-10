@@ -88,3 +88,36 @@ export const ScammerCommentItem = z
     })
     .passthrough();
 export const ScammerCommentList = z.object({ items: z.array(ScammerCommentItem) }).passthrough();
+export const PostCreatePreviewDto = z
+    .object({
+        url: z.string(),
+        title: z.string(),
+        likes: z.number(),
+        views: z.number(),
+        readTime: z.number(),
+        date: z.string().datetime({ offset: true }),
+    })
+    .passthrough();
+export const PostEditContentDto = z.object({ post: z.string() }).passthrough();
+export const PostPreviewItem = z
+    .object({
+        id: z.number(),
+        title: z.string(),
+        likes: z.number(),
+        views: z.number(),
+        date: z.string().datetime({ offset: true }),
+    })
+    .passthrough();
+export const PostPreviewList = z.object({ items: z.array(PostPreviewItem) }).passthrough();
+export const PostItem = z
+    .object({
+        id: z.number(),
+        url: z.string(),
+        title: z.string(),
+        post: z.string(),
+        likes: z.number(),
+        views: z.number(),
+        readTime: z.number(),
+        date: z.string().datetime({ offset: true }),
+    })
+    .passthrough();

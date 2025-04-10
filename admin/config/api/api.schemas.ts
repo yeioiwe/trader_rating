@@ -219,3 +219,39 @@ export interface ScammerCommentItem {
 export interface ScammerCommentList {
     items: ScammerCommentItem[];
 }
+
+export interface PostCreatePreviewDto {
+    url: string;
+    title: string;
+    likes: number;
+    views: number;
+    readTime: number;
+    date: Date;
+}
+
+export interface PostEditContentDto {
+    post: string;
+}
+
+export interface PostPreviewItem {
+    id: number;
+    title: string;
+    likes: number;
+    views: number;
+    date: Date;
+}
+
+export interface PostPreviewList {
+    items: PostPreviewItem[];
+}
+
+export interface PostItem {
+    id: number;
+    url: string;
+    title: string;
+    post: string;
+    likes: number;
+    views: number;
+    readTime: number;
+    date: Date;
+}
