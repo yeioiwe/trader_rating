@@ -8,7 +8,7 @@ export const ScammerStatsRate = ({ statsRate }: { statsRate: number }) => {
             justifyContent={'flex-start'}
             bgcolor={'#FFECEC'}
             border={'4px solid #C53D3D'}
-            width={'100%'}
+            minWidth={'218px'}
             py={1.5}
             borderRadius={'14px'}
             position={'relative'}

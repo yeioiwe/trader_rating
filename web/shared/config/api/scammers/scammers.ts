@@ -20,7 +20,7 @@ import type {
     UseQueryResult,
 } from '@tanstack/react-query';
 
-import type { ScammerDemoProfileItemList, ScammerProfileItem } from '../api.schemas';
+import type { ScammerCommentList, ScammerDemoProfileItemList, ScammerProfileItem } from '../api.schemas';
 
 import { axiosCall } from '.././api.axios';
 import type { ErrorType } from '.././api.axios';
@@ -335,6 +335,188 @@ export function useScammersGetOne<TData = Awaited<ReturnType<typeof scammersGetO
     options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetOne>>, TError, TData>> },
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
     const queryOptions = getScammersGetOneQueryOptions(id, options);
+
+    const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const scammersGetCommentList = (id: number, signal?: AbortSignal) => {
+    return axiosCall<ScammerCommentList>({ url: `/scammers/comment/${id}`, method: 'GET', signal });
+};
+
+export const getScammersGetCommentListQueryKey = (id: number) => {
+    return [`/scammers/comment/${id}`] as const;
+};
+
+export const getScammersGetCommentListInfiniteQueryOptions = <
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetCommentList>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>>;
+    },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getScammersGetCommentListQueryKey(id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof scammersGetCommentList>>> = ({ signal }) =>
+        scammersGetCommentList(id, signal);
+
+    return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof scammersGetCommentList>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ScammersGetCommentListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof scammersGetCommentList>>>;
+export type ScammersGetCommentListInfiniteQueryError = ErrorType<unknown>;
+
+export function useScammersGetCommentListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetCommentList>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options: {
+        query: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetCommentList>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetCommentList>>
+                >,
+                'initialData'
+            >;
+    },
+): DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetCommentListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetCommentList>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetCommentList>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetCommentList>>
+                >,
+                'initialData'
+            >;
+    },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetCommentListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetCommentList>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>>;
+    },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function useScammersGetCommentListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetCommentList>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>>;
+    },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getScammersGetCommentListInfiniteQueryOptions(id, options);
+
+    const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const getScammersGetCommentListQueryOptions = <
+    TData = Awaited<ReturnType<typeof scammersGetCommentList>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>> },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getScammersGetCommentListQueryKey(id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof scammersGetCommentList>>> = ({ signal }) =>
+        scammersGetCommentList(id, signal);
+
+    return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof scammersGetCommentList>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ScammersGetCommentListQueryResult = NonNullable<Awaited<ReturnType<typeof scammersGetCommentList>>>;
+export type ScammersGetCommentListQueryError = ErrorType<unknown>;
+
+export function useScammersGetCommentList<
+    TData = Awaited<ReturnType<typeof scammersGetCommentList>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options: {
+        query: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetCommentList>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetCommentList>>
+                >,
+                'initialData'
+            >;
+    },
+): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetCommentList<
+    TData = Awaited<ReturnType<typeof scammersGetCommentList>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: {
+        query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetCommentList>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetCommentList>>
+                >,
+                'initialData'
+            >;
+    },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetCommentList<
+    TData = Awaited<ReturnType<typeof scammersGetCommentList>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>> },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function useScammersGetCommentList<
+    TData = Awaited<ReturnType<typeof scammersGetCommentList>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>> },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getScammersGetCommentListQueryOptions(id, options);
 
     const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
         queryKey: DataTag<QueryKey, TData, TError>;

@@ -110,3 +110,27 @@ export interface ScammerProfileItem {
     profileViews: number;
     about: string;
 }
+
+export type ScammerCommentItemStarRate = (typeof ScammerCommentItemStarRate)[keyof typeof ScammerCommentItemStarRate];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ScammerCommentItemStarRate = {
+    NUMBER_1: '1',
+    NUMBER_2: '2',
+    NUMBER_3: '3',
+    NUMBER_4: '4',
+    NUMBER_5: '5',
+} as const;
+
+export interface ScammerCommentItem {
+    id: number;
+    name: string;
+    comment: string;
+    projectId: number;
+    date: Date;
+    starRate: ScammerCommentItemStarRate;
+}
+
+export interface ScammerCommentList {
+    items: ScammerCommentItem[];
+}

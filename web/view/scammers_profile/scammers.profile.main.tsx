@@ -25,7 +25,7 @@ export const ScammerProfile = ({ id }: { id: string }) => {
 
             <ScammersProfileOverview id={id} />
 
-            <ScammerProfileComments />
+            <ScammerProfileComments id={profile.id} />
 
             <ScammerProfileList />
         </Col>

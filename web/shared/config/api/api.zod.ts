@@ -41,3 +41,14 @@ export const ScammerProfileItem = z
         about: z.string(),
     })
     .passthrough();
+export const ScammerCommentItem = z
+    .object({
+        id: z.number(),
+        name: z.string(),
+        comment: z.string(),
+        projectId: z.number(),
+        date: z.string().datetime({ offset: true }),
+        starRate: z.enum(['1', '2', '3', '4', '5']),
+    })
+    .passthrough();
+export const ScammerCommentList = z.object({ items: z.array(ScammerCommentItem) }).passthrough();
