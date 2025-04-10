@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { ScammerCommentEntity } from 'apps/libs/db/entity/scammer.comment.entity';
 import { ScammerEntity, ScummerVisible } from 'apps/libs/db/entity/scammer.entity';
 import { EntityManager } from 'typeorm';
 
@@ -24,5 +25,11 @@ export class ScammersService {
         if (!scammerProfile) throw new BadRequestException();
 
         return scammerProfile;
+    }
+
+    async getCommentList(projectId: number) {
+        const comments = await this.em.find(ScammerCommentEntity, { where: { projectId }, order: { date: 'DESC' } });
+
+        return { items: comments };
     }
 }
