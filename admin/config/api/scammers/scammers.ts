@@ -24,6 +24,8 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+    ScammerCommentList,
+    ScammerCreateComment,
     ScammerCreateDto,
     ScammerDemoProfileItemList,
     ScammerEditAboutDto,
@@ -764,3 +766,281 @@ export const useScammersUpdatePosition = <TError = ErrorType<unknown>, TContext 
 
     return useMutation(mutationOptions);
 };
+export const scammersCommentCreate = (id: number, scammerCreateComment: ScammerCreateComment, signal?: AbortSignal) => {
+    return axiosCall<void>({
+        url: `/scammers/comment/create/${id}`,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        data: scammerCreateComment,
+        signal,
+    });
+};
+
+export const getScammersCommentCreateMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof scammersCommentCreate>>,
+        TError,
+        { id: number; data: ScammerCreateComment },
+        TContext
+    >;
+}): UseMutationOptions<
+    Awaited<ReturnType<typeof scammersCommentCreate>>,
+    TError,
+    { id: number; data: ScammerCreateComment },
+    TContext
+> => {
+    const mutationKey = ['scammersCommentCreate'];
+    const { mutation: mutationOptions } = options
+        ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey } };
+
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof scammersCommentCreate>>,
+        { id: number; data: ScammerCreateComment }
+    > = props => {
+        const { id, data } = props ?? {};
+
+        return scammersCommentCreate(id, data);
+    };
+
+    return { mutationFn, ...mutationOptions };
+};
+
+export type ScammersCommentCreateMutationResult = NonNullable<Awaited<ReturnType<typeof scammersCommentCreate>>>;
+export type ScammersCommentCreateMutationBody = ScammerCreateComment;
+export type ScammersCommentCreateMutationError = ErrorType<unknown>;
+
+export const useScammersCommentCreate = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof scammersCommentCreate>>,
+        TError,
+        { id: number; data: ScammerCreateComment },
+        TContext
+    >;
+}): UseMutationResult<
+    Awaited<ReturnType<typeof scammersCommentCreate>>,
+    TError,
+    { id: number; data: ScammerCreateComment },
+    TContext
+> => {
+    const mutationOptions = getScammersCommentCreateMutationOptions(options);
+
+    return useMutation(mutationOptions);
+};
+export const scammersDeleteCreate = (id: number, signal?: AbortSignal) => {
+    return axiosCall<void>({ url: `/scammers/comment/delete/${id}`, method: 'POST', signal });
+};
+
+export const getScammersDeleteCreateMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<Awaited<ReturnType<typeof scammersDeleteCreate>>, TError, { id: number }, TContext>;
+}): UseMutationOptions<Awaited<ReturnType<typeof scammersDeleteCreate>>, TError, { id: number }, TContext> => {
+    const mutationKey = ['scammersDeleteCreate'];
+    const { mutation: mutationOptions } = options
+        ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey } };
+
+    const mutationFn: MutationFunction<Awaited<ReturnType<typeof scammersDeleteCreate>>, { id: number }> = props => {
+        const { id } = props ?? {};
+
+        return scammersDeleteCreate(id);
+    };
+
+    return { mutationFn, ...mutationOptions };
+};
+
+export type ScammersDeleteCreateMutationResult = NonNullable<Awaited<ReturnType<typeof scammersDeleteCreate>>>;
+
+export type ScammersDeleteCreateMutationError = ErrorType<unknown>;
+
+export const useScammersDeleteCreate = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<Awaited<ReturnType<typeof scammersDeleteCreate>>, TError, { id: number }, TContext>;
+}): UseMutationResult<Awaited<ReturnType<typeof scammersDeleteCreate>>, TError, { id: number }, TContext> => {
+    const mutationOptions = getScammersDeleteCreateMutationOptions(options);
+
+    return useMutation(mutationOptions);
+};
+export const scammersGetCommentList = (id: number, signal?: AbortSignal) => {
+    return axiosCall<ScammerCommentList>({ url: `/scammers/comment/${id}`, method: 'GET', signal });
+};
+
+export const getScammersGetCommentListQueryKey = (id: number) => {
+    return [`/scammers/comment/${id}`] as const;
+};
+
+export const getScammersGetCommentListInfiniteQueryOptions = <
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetCommentList>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>>;
+    },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getScammersGetCommentListQueryKey(id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof scammersGetCommentList>>> = ({ signal }) =>
+        scammersGetCommentList(id, signal);
+
+    return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof scammersGetCommentList>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ScammersGetCommentListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof scammersGetCommentList>>>;
+export type ScammersGetCommentListInfiniteQueryError = ErrorType<unknown>;
+
+export function useScammersGetCommentListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetCommentList>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options: {
+        query: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetCommentList>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetCommentList>>
+                >,
+                'initialData'
+            >;
+    },
+): DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetCommentListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetCommentList>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetCommentList>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetCommentList>>
+                >,
+                'initialData'
+            >;
+    },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetCommentListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetCommentList>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>>;
+    },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function useScammersGetCommentListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetCommentList>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>>;
+    },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getScammersGetCommentListInfiniteQueryOptions(id, options);
+
+    const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const getScammersGetCommentListQueryOptions = <
+    TData = Awaited<ReturnType<typeof scammersGetCommentList>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>> },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getScammersGetCommentListQueryKey(id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof scammersGetCommentList>>> = ({ signal }) =>
+        scammersGetCommentList(id, signal);
+
+    return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof scammersGetCommentList>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ScammersGetCommentListQueryResult = NonNullable<Awaited<ReturnType<typeof scammersGetCommentList>>>;
+export type ScammersGetCommentListQueryError = ErrorType<unknown>;
+
+export function useScammersGetCommentList<
+    TData = Awaited<ReturnType<typeof scammersGetCommentList>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options: {
+        query: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetCommentList>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetCommentList>>
+                >,
+                'initialData'
+            >;
+    },
+): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetCommentList<
+    TData = Awaited<ReturnType<typeof scammersGetCommentList>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: {
+        query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetCommentList>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetCommentList>>
+                >,
+                'initialData'
+            >;
+    },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetCommentList<
+    TData = Awaited<ReturnType<typeof scammersGetCommentList>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>> },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function useScammersGetCommentList<
+    TData = Awaited<ReturnType<typeof scammersGetCommentList>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetCommentList>>, TError, TData>> },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getScammersGetCommentListQueryOptions(id, options);
+
+    const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}

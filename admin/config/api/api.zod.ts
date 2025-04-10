@@ -68,3 +68,23 @@ export const ScammerEditAboutDto = z
     .passthrough();
 export const ScammerUpdatePositionItemDto = z.object({ id: z.number(), positionTop: z.number() }).passthrough();
 export const ScammerUpdatePositionListDto = z.object({ items: z.array(ScammerUpdatePositionItemDto) }).passthrough();
+export const CommentStarRate = z.enum(['1', '2', '3', '4', '5']);
+export const ScammerCreateComment = z
+    .object({
+        name: z.string(),
+        comment: z.string(),
+        date: z.string().datetime({ offset: true }),
+        starRate: CommentStarRate,
+    })
+    .passthrough();
+export const ScammerCommentItem = z
+    .object({
+        id: z.number(),
+        name: z.string(),
+        comment: z.string(),
+        projectId: z.number(),
+        date: z.string().datetime({ offset: true }),
+        starRate: z.enum(['1', '2', '3', '4', '5']),
+    })
+    .passthrough();
+export const ScammerCommentList = z.object({ items: z.array(ScammerCommentItem) }).passthrough();

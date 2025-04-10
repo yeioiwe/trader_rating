@@ -4,7 +4,7 @@ import { useScammersEditProfile, useScammersGetOne } from '@/config/api/scammers
 import { Col, Row } from '@/shared/ui/boxes';
 import { UploadAvatar } from '@/shared/ui/upload.avatar';
 import InfoIcon from '@mui/icons-material/Info';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+
 import { Button, MenuItem, OutlinedInput, Select, Tooltip, Typography } from '@mui/material';
 import { DateField, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -12,7 +12,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { TextFields } from '../add/scammers.add';
+import { TextFields } from '../../add/scammers.add';
 import { ScammersEditAbout } from './scammer.edit.about';
 
 export const ScammersEdit = ({ id }: { id: number }) => {
@@ -67,14 +67,6 @@ export const ScammersEdit = ({ id }: { id: number }) => {
 
     return (
         <Col gap={4} width={'100%'}>
-            <Row gap={2} justifyContent={'flex-start'}>
-                <PersonAddIcon />
-
-                <Typography fontSize={21} fontWeight={700}>
-                    Редактирование проекта мошеннка
-                </Typography>
-            </Row>
-
             <form>
                 <Col gap={2}>
                     <Col gap={2}>

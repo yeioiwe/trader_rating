@@ -1,6 +1,6 @@
-import { ScammersEdit } from '@/view/scammers/edit/scammers.edit';
+import { ScammerEditMain } from '@/view/scammers/edit/scammers.edit.main';
 
 export default async function ScammersEditPage({ params }: { params: Promise<{ id: number }> }) {
     const id = (await params).id;
-    return <ScammersEdit id={id} />;
+    return <ScammerEditMain id={id} />;
 }
