@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { DbModule } from 'apps/libs/db/db.module';
+import { PostModule } from './post/post.module';
 import { ScammersModule } from './scammers/scammers.module';
 
 @Module({
@@ -10,6 +11,7 @@ import { ScammersModule } from './scammers/scammers.module';
         }),
         DbModule,
         ScammersModule,
+        PostModule,
     ],
     controllers: [],
     providers: [],
