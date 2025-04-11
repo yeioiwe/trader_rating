@@ -134,3 +134,28 @@ export interface ScammerCommentItem {
 export interface ScammerCommentList {
     items: ScammerCommentItem[];
 }
+
+export interface PostPreviewItem {
+    id: number;
+    url: string;
+    title: string;
+    likes: number;
+    views: number;
+    readTime: number;
+    date: Date;
+}
+
+export interface PostPreviewList {
+    items: PostPreviewItem[];
+}
+
+export interface PostItem {
+    id: number;
+    url: string;
+    title: string;
+    post: string;
+    likes: number;
+    views: number;
+    readTime: number;
+    date: Date;
+}

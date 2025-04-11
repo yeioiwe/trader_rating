@@ -7,7 +7,7 @@ const NavbarLinks = [
     { name: 'Проверенные', url: '/verified' },
     { name: 'Мошенники', url: '/scammers' },
     { name: 'Новости', url: '/' },
-    { name: 'Статьи', url: '/' },
+    { name: 'Статьи', url: '/posts' },
 ];
 
 export const HederNavbar = () => {
