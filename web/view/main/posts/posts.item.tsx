@@ -1,36 +1,27 @@
+'use client';
 import ArrowIcon from '@/public/icons/arrow_icon.svg';
-import PostCommentsIcon from '@/public/icons/post_comments.svg';
 import PostLikeIcon from '@/public/icons/post_like.svg';
 import PostReadtimeIcon from '@/public/icons/post_time.svg';
 import PostWatchIcon from '@/public/icons/post_watch.svg';
+import { PostPreviewItem } from '@/shared/config/api/api.schemas';
 import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
-import { Typography, useMediaQuery } from '@mui/material';
 
-export const PostItem = ({
-    title,
-    date,
-    readTime,
-    watch,
-    comments,
-    likes,
-}: {
-    title: string;
-    date: string;
-    readTime: number;
-    watch: number;
-    comments: number;
-    likes: number;
-}) => {
+import { Typography, useMediaQuery } from '@mui/material';
+import dayjs from 'dayjs';
+import { useRouter } from 'next/navigation';
+
+export const PostItem = ({ post }: { post: PostPreviewItem }) => {
+    const router = useRouter();
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
         <Col
-            px={2}
-            py={1.5}
+            px={2.5}
+            py={2}
             gap={isSm ? 2 : 0}
             borderRadius={'9px'}
-            minHeight={'95px'}
+            minHeight={'120px'}
             justifyContent={'space-between'}
             sx={{
                 cursor: 'pointer',
@@ -39,10 +30,11 @@ export const PostItem = ({
                     bgcolor: '#f0f8ff',
                 },
             }}
+            onClick={() => router.push(`/posts/${post.url}`)}
         >
             <Row justifyContent={'space-between'}>
-                <Typography fontSize={16} fontWeight={700} sx={{ maxWidth: isSm ? '90%' : '100%' }}>
-                    {title}
+                <Typography fontSize={21} fontWeight={700} sx={{ maxWidth: isSm ? '90%' : '100%' }}>
+                    {post.title}
                 </Typography>
 
                 <ArrowIcon />
@@ -50,34 +42,22 @@ export const PostItem = ({
 
             <Row justifyContent={'space-between'}>
                 <Row gap={5}>
-                    <Typography fontWeight={300} color={'#918C8C'} fontSize={14}>
-                        {date}
+                    <Typography fontWeight={300} color={'#918C8C'} fontSize={18}>
+                        {dayjs(post.date).format('DD.MM.YYYY')}
                     </Typography>
 
-                    <Row gap={1} fontWeight={300} color={'#918C8C'} fontSize={14}>
+                    <Row gap={1} fontWeight={300} color={'#918C8C'} fontSize={18}>
                         <PostReadtimeIcon />
 
-                        <Typography>{readTime} мин.</Typography>
+                        <Typography>{post.readTime} мин.</Typography>
                     </Row>
                 </Row>
 
                 <Row gap={3}>
-                    <Row gap={1} fontWeight={300} color={'#918C8C'} fontSize={14}>
+                    <Row gap={1} fontWeight={300} color={'#918C8C'} fontSize={18}>
                         <PostWatchIcon />
 
-                        <Typography>{watch}</Typography>
-                    </Row>
-
-                    <Row
-                        gap={1}
-                        fontWeight={300}
-                        color={'#918C8C'}
-                        fontSize={14}
-                        sx={{ display: isSm ? 'none' : 'flex' }}
-                    >
-                        <PostCommentsIcon />
-
-                        <Typography>{comments}</Typography>
+                        <Typography>{post.views}</Typography>
                     </Row>
 
                     <Row
@@ -89,7 +69,7 @@ export const PostItem = ({
                     >
                         <PostLikeIcon />
 
-                        <Typography>{likes}</Typography>
+                        <Typography>{post.likes}</Typography>
                     </Row>
                 </Row>
             </Row>
