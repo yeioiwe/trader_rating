@@ -1,0 +1,84 @@
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { HeaderBannerEntity, HeaderBannerType } from 'apps/libs/db/entity/header.banner.entity';
+import { ImagesBannerEntity } from 'apps/libs/db/entity/images.banner.entity';
+import { LawyerBannerEntity } from 'apps/libs/db/entity/lawyer.banner.entity';
+import { YoutubeLayoutEntity } from 'apps/libs/db/entity/youtube.layout.entity';
+import { EntityManager } from 'typeorm';
+import { CreateImagesBannerDto, EditLawyerBannerDto, EditYoutubeLayoutDto, HeaderBannerEditDto } from './pages.dto';
+
+@Injectable()
+export class PagesService {
+    constructor(private em: EntityManager) {}
+
+    async onModuleInit() {
+        const headerBanner = await this.em.find(HeaderBannerEntity);
+        if (headerBanner.length === 0) {
+            const banner = await this.em.create(HeaderBannerEntity, { bannerType: HeaderBannerType.YOUTUBE, url: '' });
+            await this.em.save(HeaderBannerEntity, banner);
+        }
+
+        const lawyerBanner = await this.em.find(LawyerBannerEntity);
+        if (lawyerBanner.length === 0) {
+            const lawyer = await this.em.create(LawyerBannerEntity, { detailsUrl: '', tgUrl: '' });
+            await this.em.save(LawyerBannerEntity, lawyer);
+        }
+
+        const youtubeLayout = await this.em.find(YoutubeLayoutEntity);
+        if (youtubeLayout.length === 0) {
+            const youtube = await this.em.create(YoutubeLayoutEntity, { tgUrl: '', youtubeUrl: '' });
+            await this.em.save(YoutubeLayoutEntity, youtube);
+        }
+    }
+
+    async editHeaderBanner(dto: HeaderBannerEditDto) {
+        const banner = await this.em.findOneBy(HeaderBannerEntity, { id: 1 });
+        if (!banner) throw new BadRequestException();
+
+        await this.em.update(HeaderBannerEntity, { id: banner.id }, { ...dto });
+    }
+
+    async getHeaderBanner() {
+        const banner = await this.em.findOneBy(HeaderBannerEntity, { id: 1 });
+        if (!banner) throw new BadRequestException();
+
+        return banner;
+    }
+
+    async createImagesBanner(dto: CreateImagesBannerDto) {
+        const bannerImage = await this.em.create(ImagesBannerEntity, { ...dto });
+
+        await this.em.save(ImagesBannerEntity, bannerImage);
+    }
+
+    async getImagesBanner() {
+        const images = await this.em.find(ImagesBannerEntity);
+
+        return { items: images };
+    }
+
+    async deleteImagesBanner(id: number) {
+        await this.em.delete(ImagesBannerEntity, { id });
+    }
+
+    async editLawyerBanner(dto: EditLawyerBannerDto) {
+        await this.em.update(LawyerBannerEntity, { id: 1 }, { ...dto });
+    }
+
+    async getLawyerBanner() {
+        const banner = await this.em.findOneBy(LawyerBannerEntity, { id: 1 });
+        if (!banner) throw new BadRequestException();
+
+        return banner;
+    }
+
+    async editYoutubeLayout(dto: EditYoutubeLayoutDto) {
+        await this.em.update(YoutubeLayoutEntity, { id: 1 }, { ...dto });
+    }
+
+    async getYoutubeLayout() {
+        const youtube = await this.em.findOneBy(YoutubeLayoutEntity, { id: 1 });
+        if (!youtube) throw new BadRequestException();
+
+        return youtube;
+    }
+}
