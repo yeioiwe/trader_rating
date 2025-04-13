@@ -255,3 +255,69 @@ export interface PostItem {
     readTime: number;
     date: Date;
 }
+
+export type HeaderBannerType = (typeof HeaderBannerType)[keyof typeof HeaderBannerType];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const HeaderBannerType = {
+    YOUTUBE: 'YOUTUBE',
+    LAWYER: 'LAWYER',
+} as const;
+
+export interface HeaderBannerEditDto {
+    url: string;
+    bannerType: HeaderBannerType;
+}
+
+export type HeaderBannerItemBannerType = (typeof HeaderBannerItemBannerType)[keyof typeof HeaderBannerItemBannerType];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const HeaderBannerItemBannerType = {
+    YOUTUBE: 'YOUTUBE',
+    LAWYER: 'LAWYER',
+} as const;
+
+export interface HeaderBannerItem {
+    id: number;
+    url: string;
+    bannerType: HeaderBannerItemBannerType;
+}
+
+export interface CreateImagesBannerDto {
+    url: string;
+    name: string;
+    image: string;
+}
+
+export interface ImagesBannerItem {
+    id: number;
+    name: string;
+    url: string;
+    image: string;
+}
+
+export interface ImagesBannerList {
+    items: ImagesBannerItem[];
+}
+
+export interface EditLawyerBannerDto {
+    tgUrl: string;
+    detailsUrl: string;
+}
+
+export interface LawyerBannerItem {
+    id: number;
+    tgUrl: string;
+    detailsUrl: string;
+}
+
+export interface EditYoutubeLayoutDto {
+    tgUrl: string;
+    youtubeUrl: string;
+}
+
+export interface YoutubeLayoutItem {
+    id: number;
+    tgUrl: string;
+    youtubeUrl: string;
+}
