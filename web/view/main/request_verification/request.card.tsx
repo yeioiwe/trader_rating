@@ -1,9 +1,11 @@
+'use client';
 import CheckIcon from '@/public/icons/layout_check.svg';
 import RequestButtonIcon from '@/public/icons/request_button_arrow.svg';
 import BackgroundIcon from '@/public/icons/request_card_background.svg';
 import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
 import { Box, Button, Typography, useMediaQuery } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 
 export const RequestVerificationCard = () => {
@@ -36,11 +38,15 @@ export const RequestVerificationCard = () => {
 };
 
 const RequestButton = () => {
+    const router = useRouter();
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     const { t } = useTranslation();
 
     return (
-        <Button sx={{ bgcolor: '#3BB974', borderRadius: '9px', minWidth: isSm ? '100%' : 270, minHeight: 50 }}>
+        <Button
+            onClick={() => router.push('/review')}
+            sx={{ bgcolor: '#3BB974', borderRadius: '9px', minWidth: isSm ? '100%' : 270, minHeight: 50 }}
+        >
             <Row gap={2}>
                 <Typography fontSize={20} fontWeight={700} color="white">
                     {t('main.requestVerification.button_send_request')}

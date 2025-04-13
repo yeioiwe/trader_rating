@@ -1,10 +1,14 @@
 import YoutubeLogo from '@/public/icons/youtube.svg';
 import { Col, Row } from '@/shared/ui/boxes';
 import { Typography } from '@mui/material';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 
-export const HederYoutubeBanner = () => {
+export const HederYoutubeBanner = ({ url }: { url: string }) => {
+    const router = useRouter();
     const { t } = useTranslation();
+
     return (
         <Row
             width={537}
@@ -17,6 +21,7 @@ export const HederYoutubeBanner = () => {
             sx={{
                 cursor: 'pointer',
             }}
+            onClick={() => router.push(url)}
         >
             <YoutubeLogo />
             <Col color={'#ffff'} sx={{ textAlign: 'end' }}>
@@ -32,8 +37,10 @@ export const HederYoutubeBanner = () => {
     );
 };
 
-export const LawyerBanner = () => {
+export const LawyerBanner = ({ url }: { url: string }) => {
     const { t } = useTranslation();
+    const router = useRouter();
+
     return (
         <Row
             width={537}
@@ -46,8 +53,10 @@ export const LawyerBanner = () => {
             sx={{
                 cursor: 'pointer',
             }}
+            onClick={() => router.push(url)}
         >
-            <YoutubeLogo />
+            <Image src={'/lawyer.png'} width={70} height={70} alt="lawyer" style={{ borderRadius: '50%' }} />
+
             <Col color={'#ffff'} sx={{ textAlign: 'end' }}>
                 <Typography fontSize={20} fontWeight={700}>
                     {t('header.lawyerBanner.title_1')}

@@ -1,14 +1,17 @@
+'use client';
 import AboutButtonIcon from '@/public/icons/lawyer_about.svg';
 import LawyerCommentsIcon from '@/public/icons/lawyer_commnets.svg';
 import LawyerReportsIcon from '@/public/icons/lawyer_reports.svg';
 import TelegramButtonIcon from '@/public/icons/lawyer_telegram.svg';
 import LawyerVerifiedIcon from '@/public/icons/lawyer_verified.svg';
+import { LawyerBannerItem } from '@/shared/config/api/api.schemas';
 import { Col, Row } from '@/shared/ui/boxes';
 import { Button, Typography } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export const LaweyrAbout = () => {
+export const LaweyrAbout = ({ lawyer }: { lawyer: LawyerBannerItem }) => {
     const { t } = useTranslation();
 
     return (
@@ -41,9 +44,17 @@ export const LaweyrAbout = () => {
                 </Row>
 
                 <Row gap={2} justifyContent={'flex-start'}>
-                    <LawyerSocialButtons icon={<TelegramButtonIcon />} text={t('main.lawyer.about.button_tg')} />
+                    <LawyerSocialButtons
+                        url={lawyer.tgUrl}
+                        icon={<TelegramButtonIcon />}
+                        text={t('main.lawyer.about.button_tg')}
+                    />
 
-                    <LawyerSocialButtons icon={<AboutButtonIcon />} text={t('main.lawyer.about.button_about')} />
+                    <LawyerSocialButtons
+                        url={lawyer.detailsUrl}
+                        icon={<AboutButtonIcon />}
+                        text={t('main.lawyer.about.button_about')}
+                    />
                 </Row>
             </Col>
         </Col>
@@ -68,9 +79,14 @@ const LawyerStatisticItem = ({ text, value, icon }: { text: string; value: strin
     );
 };
 
-const LawyerSocialButtons = ({ text, icon }: { text: string; icon: ReactNode }) => {
+const LawyerSocialButtons = ({ text, icon, url }: { text: string; icon: ReactNode; url: string }) => {
+    const router = useRouter();
+
     return (
-        <Button sx={{ minWidth: '230px', height: '50px', bgcolor: '#69B2E4', borderRadius: '9px' }}>
+        <Button
+            onClick={() => router.push(url)}
+            sx={{ minWidth: '230px', height: '50px', bgcolor: '#69B2E4', borderRadius: '9px' }}
+        >
             <Row gap={2} justifyContent={'flex-start'} width={'100%'} px={0.7}>
                 {icon}
 

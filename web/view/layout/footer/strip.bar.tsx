@@ -1,15 +1,20 @@
+'use client';
 import BenefitsIcon from '@/public/icons/benefits_icon.svg';
 import TelegramStripIcon from '@/public/icons/telegram_strip.svg';
 import YoutubeStripIcon from '@/public/icons/youtube_strip.svg';
 import StripLogo from '@/public/logo_strip.svg';
+import { usePagesGetYoutubeLayout } from '@/shared/config/api/pages/pages';
 import theme from '@/shared/config/theme/theme';
 import { Row } from '@/shared/ui/boxes';
 import { Button, Container, Typography, useMediaQuery } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import { ReactNode } from 'react';
 
 export const StripBar = () => {
+    const { data: links } = usePagesGetYoutubeLayout();
     const isLg = useMediaQuery(theme.breakpoints.down('lg'));
 
+    if (links === undefined) return null;
     return (
         <Container maxWidth="sm" sx={{ display: isLg ? 'none' : null }}>
             <Row
@@ -32,17 +37,37 @@ export const StripBar = () => {
                 </Row>
 
                 <Row gap={2}>
-                    <StripBarButton bgcolor="#C53D3D" text="YouTube" icon={<YoutubeStripIcon />} />
-                    <StripBarButton bgcolor="#449FE8" text="Telegram" icon={<TelegramStripIcon />} />
+                    <StripBarButton
+                        url={links.youtubeUrl}
+                        bgcolor="#C53D3D"
+                        text="YouTube"
+                        icon={<YoutubeStripIcon />}
+                    />
+                    <StripBarButton url={links.tgUrl} bgcolor="#449FE8" text="Telegram" icon={<TelegramStripIcon />} />
                 </Row>
             </Row>
         </Container>
     );
 };
 
-const StripBarButton = ({ icon, bgcolor, text }: { icon: ReactNode; bgcolor: string; text: string }) => {
+const StripBarButton = ({
+    icon,
+    bgcolor,
+    text,
+    url,
+}: {
+    icon: ReactNode;
+    bgcolor: string;
+    text: string;
+    url: string;
+}) => {
+    const router = useRouter();
+
     return (
-        <Button sx={{ bgcolor: bgcolor, borderRadius: '9px', width: '145px', height: '45px' }}>
+        <Button
+            onClick={() => router.push(url)}
+            sx={{ bgcolor: bgcolor, borderRadius: '9px', width: '145px', height: '45px' }}
+        >
             <Row gap={1}>
                 {icon}
 

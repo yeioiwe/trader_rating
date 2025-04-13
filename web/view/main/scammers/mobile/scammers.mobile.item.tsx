@@ -1,33 +1,18 @@
+'use client';
 import AboutIcon from '@/public/icons/scammer_about.svg';
 import StatisticCommentsIcon from '@/public/icons/statistic_commnets.svg';
 import StatisticWarningIcon from '@/public/icons/statistic_warning.svg';
+import { ScammerDemoProfileItem } from '@/shared/config/api/api.schemas';
 import { Col, Row } from '@/shared/ui/boxes';
+import { StarsGroup } from '@/shared/ui/stars.group';
 import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export const ScammerMobileItem = ({
-    position,
-    avatarURL,
-    username,
-    starsRate,
-    ratePercent,
-    reports,
-    reviews,
-    about,
-    projectLink,
-}: {
-    position: number;
-    avatarURL: string;
-    username: string;
-    starsRate: number;
-    ratePercent: number;
-    reports: number;
-    reviews: number;
-    about: string;
-    projectLink: string;
-}) => {
+export const ScammerMobileItem = ({ project }: { project: ScammerDemoProfileItem }) => {
+    const router = useRouter();
     const { t } = useTranslation();
 
     return (
@@ -43,24 +28,32 @@ export const ScammerMobileItem = ({
                     alignItems={'center'}
                 >
                     <Typography fontWeight={700} fontSize={14} color="white">
-                        {position}
+                        {project.positionTop}
                     </Typography>
                 </Box>
 
                 <Row gap={1}>
-                    <Image src={avatarURL} alt="avatar" width={45} height={45} style={{ borderRadius: '6px' }} />
+                    <Image
+                        src={project.avatar_url}
+                        alt="avatar"
+                        width={45}
+                        height={45}
+                        style={{ borderRadius: '6px' }}
+                    />
 
                     <Col alignItems={'flex-start'} height={'100%'} justifyContent={'space-around'}>
                         <Typography fontWeight={500} fontSize={14}>
-                            {username}
+                            {project.name}
                         </Typography>
 
-                        {/* TODO */}
-                        {/* <StarsGroup rating={starsRate} /> */}
+                        <StarsGroup rating={project.starRate} />
                     </Col>
                 </Row>
 
-                <Button sx={{ py: 1.25, px: 2, bgcolor: '#C53D3D', borderRadius: '8px' }}>
+                <Button
+                    onClick={() => router.push(`/scammers/${project.url}`)}
+                    sx={{ py: 1.25, px: 2, bgcolor: '#C53D3D', borderRadius: '8px' }}
+                >
                     <Typography fontSize={16} fontWeight={700} color="white">
                         Обзор
                     </Typography>
@@ -68,25 +61,25 @@ export const ScammerMobileItem = ({
             </Row>
 
             <Row pl={1.5} justifyContent={'space-between'}>
-                <RateCircle percent={ratePercent} />
+                <RateCircle percent={project.rate} />
 
                 <StatisticMobileItem
                     title={t('main.scammers.statistic_comments')}
                     icon={<StatisticCommentsIcon />}
                     bgcolor={'#6a7474'}
-                    value={reviews}
+                    value={project.reviews}
                 />
 
                 <StatisticMobileItem
                     title={t('main.scammers.statistic_reports')}
                     icon={<StatisticWarningIcon />}
                     bgcolor={'#C53D3D'}
-                    value={reports}
+                    value={project.reports}
                 />
             </Row>
 
             <Box pl={1.5} pt={2}>
-                <TraderAbout about={about} />
+                <TraderAbout about={project.shortDescription} />
             </Box>
 
             <Row gap={1} pl={1.5} my={1.5} justifyContent={'flex-start'}>
@@ -95,7 +88,7 @@ export const ScammerMobileItem = ({
                 </Typography>
 
                 <Typography fontSize={14} fontWeight={700} color={'#C53D3D'}>
-                    {projectLink}
+                    t.me/@{project.tgUsername}
                 </Typography>
             </Row>
         </Col>

@@ -1,34 +1,18 @@
+'use client';
 import ReviewIcon from '@/public/icons/arrow_icon.svg';
 import AboutIcon from '@/public/icons/scammer_about.svg';
 import StatisticCommentsIcon from '@/public/icons/statistic_commnets.svg';
 import StatisticWarningIcon from '@/public/icons/statistic_warning.svg';
+import { ScammerDemoProfileItem } from '@/shared/config/api/api.schemas';
 import { Col, Row } from '@/shared/ui/boxes';
+import { StarsGroup } from '@/shared/ui/stars.group';
 import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export const ScammerItem = ({
-    position,
-    avatarURL,
-    username,
-    starsRate,
-    ratePercent,
-    reports,
-    reviews,
-    about,
-    projectLink,
-}: {
-    position: number;
-    avatarURL: string;
-    username: string;
-    starsRate: number;
-    ratePercent: number;
-    reports: number;
-    reviews: number;
-    about: string;
-    projectLink: string;
-}) => {
+export const ScammerItem = ({ project }: { project: ScammerDemoProfileItem }) => {
     const { t } = useTranslation();
 
     return (
@@ -45,55 +29,60 @@ export const ScammerItem = ({
                         alignItems={'center'}
                     >
                         <Typography fontWeight={700} fontSize={16} color="white">
-                            {position}
+                            {project.positionTop}
                         </Typography>
                     </Box>
 
                     <Row gap={2} height={75}>
-                        <Image src={avatarURL} alt="avatar" width={75} height={75} style={{ borderRadius: '6px' }} />
+                        <Image
+                            src={project.avatar_url}
+                            alt="avatar"
+                            width={75}
+                            height={75}
+                            style={{ borderRadius: '6px' }}
+                        />
 
                         <Col alignItems={'flex-start'} height={'100%'} justifyContent={'space-around'}>
                             <Typography fontWeight={500} fontSize={20}>
-                                {username}
+                                {project.name}
                             </Typography>
 
-                            {/* TODO */}
-                            {/* <StarsGroup rating={starsRate} /> */}
+                            <StarsGroup rating={project.starRate} />
                         </Col>
                     </Row>
                 </Row>
 
                 <Row gap={6}>
-                    <RateCircle percent={ratePercent} />
+                    <RateCircle percent={project.rate} />
 
                     <StatisticItem
                         title={t('main.scammers.statistic_reports')}
                         icon={<StatisticWarningIcon />}
                         bgcolor={'#C53D3D'}
-                        value={reports}
+                        value={project.reports}
                     />
 
                     <StatisticItem
                         title={t('main.scammers.statistic_comments')}
                         icon={<StatisticCommentsIcon />}
                         bgcolor={'#6a7474'}
-                        value={reviews}
+                        value={project.reviews}
                     />
                 </Row>
             </Row>
 
             <Col pl={'50px'} pb={1.75} gap={2}>
                 <Row gap={4} alignItems={'flex-start'}>
-                    <TraderAbout about={about} />
+                    <TraderAbout about={project.shortDescription} />
 
-                    <ReviewButton />
+                    <ReviewButton url={project.url} />
                 </Row>
 
                 <Row gap={1} justifyContent={'flex-start'}>
                     <Typography fontWeight={700}>{t('main.scammers.project_link')}</Typography>
 
                     <Typography fontWeight={700} color={'#C53D3D'}>
-                        {projectLink}
+                        t.me/@{project.tgUsername}
                     </Typography>
                 </Row>
             </Col>
@@ -186,11 +175,15 @@ const TraderAbout = ({ about }: { about: string }) => {
     );
 };
 
-const ReviewButton = () => {
+const ReviewButton = ({ url }: { url: string }) => {
+    const router = useRouter();
     const { t } = useTranslation();
 
     return (
-        <Button sx={{ bgcolor: '#DFEBF7', borderRadius: '8px', p: 2, minWidth: '130px' }}>
+        <Button
+            onClick={() => router.push(`/scammers/${url}`)}
+            sx={{ bgcolor: '#DFEBF7', borderRadius: '8px', p: 2, minWidth: '130px' }}
+        >
             <Row gap={2}>
                 <Typography fontWeight={500} fontSize={16} color={'#449FE8'}>
                     {t('main.scammers.button_review')}

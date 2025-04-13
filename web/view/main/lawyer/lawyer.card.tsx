@@ -1,3 +1,4 @@
+import { usePagesGetLawyerBanner } from '@/shared/config/api/pages/pages';
 import theme from '@/shared/config/theme/theme';
 import { Box, useMediaQuery } from '@mui/material';
 import { LaweyrAbout } from './lawyer.about';
@@ -5,8 +6,10 @@ import { LawyerAvatar } from './lawyer.avatar';
 import { LaweyrMobileAbout } from './mobile/lawyer.mobile.about';
 
 export const LawyerCard = () => {
+    const { data: lawyer } = usePagesGetLawyerBanner();
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
+    if (lawyer === undefined) return null;
     return (
         <Box
             flexDirection={isSm ? 'column' : 'row'}
@@ -22,7 +25,7 @@ export const LawyerCard = () => {
         >
             <LawyerAvatar />
 
-            {isSm ? <LaweyrMobileAbout /> : <LaweyrAbout />}
+            {isSm ? <LaweyrMobileAbout lawyer={lawyer} /> : <LaweyrAbout lawyer={lawyer} />}
         </Box>
     );
 };

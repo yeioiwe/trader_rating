@@ -76,3 +76,12 @@ export const PostItem = z
         date: z.string().datetime({ offset: true }),
     })
     .passthrough();
+export const HeaderBannerItem = z
+    .object({ id: z.number(), url: z.string().default(''), bannerType: z.enum(['YOUTUBE', 'LAWYER']) })
+    .passthrough();
+export const ImagesBannerItem = z
+    .object({ id: z.number(), name: z.string(), url: z.string(), image: z.string() })
+    .passthrough();
+export const ImagesBannerList = z.object({ items: z.array(ImagesBannerItem) }).passthrough();
+export const LawyerBannerItem = z.object({ id: z.number(), tgUrl: z.string(), detailsUrl: z.string() }).passthrough();
+export const YoutubeLayoutItem = z.object({ id: z.number(), tgUrl: z.string(), youtubeUrl: z.string() }).passthrough();

@@ -6,6 +6,7 @@ import { Col, Row } from '@/shared/ui/boxes';
 import { StarsGroup } from '@/shared/ui/stars.group';
 import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SidebarCard } from './card';
@@ -70,6 +71,7 @@ const ScammerCard = ({
     profileUrl: string;
 }) => {
     const { t } = useTranslation();
+    const router = useRouter();
 
     return (
         <Row
@@ -115,7 +117,10 @@ const ScammerCard = ({
                 </Col>
             </Row>
 
-            <Button sx={{ py: 1.25, px: 2, bgcolor: '#C53D3D', borderRadius: '8px' }}>
+            <Button
+                onClick={() => router.push(`/scammers/${profileUrl}`)}
+                sx={{ py: 1.25, px: 2, bgcolor: '#C53D3D', borderRadius: '8px' }}
+            >
                 <Typography fontSize={16} fontWeight={700} color="white">
                     {t('sidebar.scammers.button_card')}
                 </Typography>
@@ -125,10 +130,11 @@ const ScammerCard = ({
 };
 
 export const AllListButton = () => {
+    const router = useRouter();
     const { t } = useTranslation();
 
     return (
-        <Button sx={{ bgcolor: '#FFFFFF', py: 1.75, borderRadius: '13px' }}>
+        <Button onClick={() => router.push('/scammers')} sx={{ bgcolor: '#FFFFFF', py: 1.75, borderRadius: '13px' }}>
             <Typography color="#5297FF" fontSize={16} fontWeight={700}>
                 {t('sidebar.scammers.button')}
             </Typography>

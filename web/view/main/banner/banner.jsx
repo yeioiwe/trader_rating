@@ -1,3 +1,6 @@
+'use client'
+import { usePagesGetImagesBanner } from '@/shared/config/api/pages/pages';
+import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -7,12 +10,18 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import './styles.css';
 
 export function Banner() {
+  const {data: images} = usePagesGetImagesBanner() 
+  const router = useRouter()
+
   const progressCircle = useRef(null);
   const progressContent = useRef(null);
   const onAutoplayTimeLeft = (s, time, progress) => {
     progressCircle.current.style.setProperty('--progress', 1 - progress);
     progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
   };
+
+  if(images === undefined) return null
+  if(images.items.length === 0) return null
   return (
     <>
       <Swiper
@@ -30,16 +39,10 @@ export function Banner() {
         onAutoplayTimeLeft={onAutoplayTimeLeft}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <img src="https://images.prismic.io/localcoin-staging-2/ZuGPHxoQrfVKl-BT_what-is-tether.jpeg?auto=format,compress" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://images.prismic.io/localcoin-staging-2/ZuGPHxoQrfVKl-BT_what-is-tether.jpeg?auto=format,compress" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://images.prismic.io/localcoin-staging-2/ZuGPHxoQrfVKl-BT_what-is-tether.jpeg?auto=format,compress" />
-        </SwiperSlide>
-       
+        {images.items.map((s, i) => <SwiperSlide key={i} onClick={() => router.push(s.url)}>
+        <img src={s.image} />
+        </SwiperSlide>)}
+
         <div className="autoplay-progress" slot="container-end">
           <svg viewBox="0 0 48 48" ref={progressCircle}>
             <circle cx="24" cy="24" r="20"></circle>
@@ -50,3 +53,4 @@ export function Banner() {
     </>
   );
 }
+
