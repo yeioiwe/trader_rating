@@ -4,7 +4,7 @@ import { Typography, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 
-export const LawyerAvatar = () => {
+export const LawyerAvatar = ({ avatar, name }: { avatar: string; name: string }) => {
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     const { t } = useTranslation();
 
@@ -18,13 +18,13 @@ export const LawyerAvatar = () => {
             <Image
                 width={210}
                 height={210}
-                src={'/lawyer.png'}
+                src={avatar}
                 style={{ borderRadius: '50%', border: '8px solid #69B2E4' }}
                 alt="lawyer"
             />
 
             <Typography fontSize={24} color="white" fontWeight={700}>
-                {t('main.lawyer.avatar.name')}
+                {name}
             </Typography>
 
             <Typography fontWeight={300} fontSize={20} color="white">

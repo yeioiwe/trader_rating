@@ -23,7 +23,7 @@ export const LawyerCard = () => {
             borderRadius={'19px'}
             sx={{ background: 'linear-gradient(240deg, #4F7289 -17.16%, #42A5F5 90.48%)' }}
         >
-            <LawyerAvatar />
+            <LawyerAvatar avatar={lawyer.avatar} name={lawyer.name} />
 
             {isSm ? <LaweyrMobileAbout lawyer={lawyer} /> : <LaweyrAbout lawyer={lawyer} />}
         </Box>

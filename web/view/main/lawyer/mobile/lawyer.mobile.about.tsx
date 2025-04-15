@@ -20,12 +20,12 @@ export const LaweyrMobileAbout = ({ lawyer }: { lawyer: LawyerBannerItem }) => {
                 <LawyerVerifiedIcon />
 
                 <Typography fontSize={20} color="white" fontWeight={700}>
-                    {t('main.lawyer.about.title')}
+                    {lawyer.title}
                 </Typography>
             </Row>
 
             <Typography fontSize={16} color="white">
-                {t('main.lawyer.about.description')}
+                {lawyer.description}
             </Typography>
 
             <Col gap={2}>
@@ -33,13 +33,13 @@ export const LaweyrMobileAbout = ({ lawyer }: { lawyer: LawyerBannerItem }) => {
                     <LawyerStatisticItem
                         icon={<LawyerCommentsIcon />}
                         text={t('main.lawyer.about.statistics_rewiew')}
-                        value="2 983"
+                        value={`${lawyer.reviews}`}
                     />
 
                     <LawyerStatisticItem
                         icon={<LawyerReportsIcon />}
                         text={t('main.lawyer.about.statistics_reports')}
-                        value="15 903"
+                        value={`${lawyer.reports}`}
                     />
                 </Col>
 
