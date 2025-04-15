@@ -1,5 +1,5 @@
 import { HeaderBannerType } from 'apps/libs/db/entity/header.banner.entity';
-import { IsEnum, IsString } from 'nestjs-swagger-dto';
+import { IsEnum, IsNumber, IsString } from 'nestjs-swagger-dto';
 
 export class HeaderBannerEditDto {
     @IsString()
@@ -22,6 +22,24 @@ export class CreateImagesBannerDto {
 
 export class EditLawyerBannerDto {
     @IsString()
+    name!: string;
+
+    @IsString()
+    title!: string;
+
+    @IsString()
+    avatar!: string;
+
+    @IsString()
+    description!: string;
+
+    @IsNumber()
+    reviews!: number;
+
+    @IsNumber()
+    reports!: number;
+
+    @IsString()
     tgUrl!: string;
 
     @IsString()
@@ -29,6 +47,14 @@ export class EditLawyerBannerDto {
 }
 
 export class EditYoutubeLayoutDto {
+    @IsString()
+    tgUrl!: string;
+
+    @IsString()
+    youtubeUrl!: string;
+}
+
+export class EditFooterStripDto {
     @IsString()
     tgUrl!: string;
 

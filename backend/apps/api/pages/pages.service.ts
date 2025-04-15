@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { FooterStripEntity } from 'apps/libs/db/entity/footer.strip.entity';
 import { HeaderBannerEntity } from 'apps/libs/db/entity/header.banner.entity';
 import { ImagesBannerEntity } from 'apps/libs/db/entity/images.banner.entity';
 import { LawyerBannerEntity } from 'apps/libs/db/entity/lawyer.banner.entity';
@@ -34,5 +35,12 @@ export class PagesService {
         if (!youtube) throw new BadRequestException();
 
         return youtube;
+    }
+
+    async getFooterStrip() {
+        const footer = await this.em.findOneBy(FooterStripEntity, { id: 1 });
+        if (!footer) throw new BadRequestException();
+
+        return footer;
     }
 }

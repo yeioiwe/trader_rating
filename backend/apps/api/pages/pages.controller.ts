@@ -1,7 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { PagesService } from './pages.service';
-import { HeaderBannerItem, ImagesBannerList, LawyerBannerItem, YoutubeLayoutItem } from './pages.types';
+import {
+    FooterStripItem,
+    HeaderBannerItem,
+    ImagesBannerList,
+    LawyerBannerItem,
+    YoutubeLayoutItem,
+} from './pages.types';
 
 @Controller('pages')
 export class PagesController {
@@ -29,5 +35,11 @@ export class PagesController {
     @ApiOkResponse({ type: YoutubeLayoutItem })
     async getYoutubeLayout(): Promise<YoutubeLayoutItem> {
         return await this.pagesService.getYoutubeLayout();
+    }
+
+    @Get('footer_strip')
+    @ApiOkResponse({ type: FooterStripItem })
+    async getFooterStrip(): Promise<FooterStripItem> {
+        return await this.pagesService.getFooterStrip();
     }
 }

@@ -1,10 +1,17 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { FooterStripEntity } from 'apps/libs/db/entity/footer.strip.entity';
 import { HeaderBannerEntity, HeaderBannerType } from 'apps/libs/db/entity/header.banner.entity';
 import { ImagesBannerEntity } from 'apps/libs/db/entity/images.banner.entity';
 import { LawyerBannerEntity } from 'apps/libs/db/entity/lawyer.banner.entity';
 import { YoutubeLayoutEntity } from 'apps/libs/db/entity/youtube.layout.entity';
 import { EntityManager } from 'typeorm';
-import { CreateImagesBannerDto, EditLawyerBannerDto, EditYoutubeLayoutDto, HeaderBannerEditDto } from './pages.dto';
+import {
+    CreateImagesBannerDto,
+    EditFooterStripDto,
+    EditLawyerBannerDto,
+    EditYoutubeLayoutDto,
+    HeaderBannerEditDto,
+} from './pages.dto';
 
 @Injectable()
 export class PagesService {
@@ -19,7 +26,17 @@ export class PagesService {
 
         const lawyerBanner = await this.em.find(LawyerBannerEntity);
         if (lawyerBanner.length === 0) {
-            const lawyer = await this.em.create(LawyerBannerEntity, { detailsUrl: '', tgUrl: '' });
+            const lawyer = await this.em.create(LawyerBannerEntity, {
+                detailsUrl: '',
+                tgUrl: '',
+                name: 'Иванов Иван',
+                title: 'Квалифицированый специалист',
+                description:
+                    'Юрист с опытом в области финансовых и криптовалютных споров. Помогает клиентам вернуть средства, пострадавшим от недобросовестных трейдеров и мошенников. Обладает глубокими знаниями законодательства и практическим опытом решения проблем в криптовалютной сфере.',
+                avatar: '',
+                reports: 15903,
+                reviews: 2983,
+            });
             await this.em.save(LawyerBannerEntity, lawyer);
         }
 
@@ -27,6 +44,12 @@ export class PagesService {
         if (youtubeLayout.length === 0) {
             const youtube = await this.em.create(YoutubeLayoutEntity, { tgUrl: '', youtubeUrl: '' });
             await this.em.save(YoutubeLayoutEntity, youtube);
+        }
+
+        const footerStrip = await this.em.find(FooterStripEntity);
+        if (footerStrip.length === 0) {
+            const footer = await this.em.create(FooterStripEntity, { tgUrl: '', youtubeUrl: '' });
+            await this.em.save(FooterStripEntity, footer);
         }
     }
 
@@ -80,5 +103,16 @@ export class PagesService {
         if (!youtube) throw new BadRequestException();
 
         return youtube;
+    }
+
+    async getFooterStrip() {
+        const footer = await this.em.findOneBy(FooterStripEntity, { id: 1 });
+        if (!footer) throw new BadRequestException();
+
+        return footer;
+    }
+
+    async editFooterStrip(dto: EditFooterStripDto) {
+        await this.em.update(FooterStripEntity, { id: 1 }, { ...dto });
     }
 }

@@ -1,9 +1,21 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { JwtGuard } from '../auth/guard/jwt.guard';
-import { CreateImagesBannerDto, EditLawyerBannerDto, EditYoutubeLayoutDto, HeaderBannerEditDto } from './pages.dto';
+import {
+    CreateImagesBannerDto,
+    EditFooterStripDto,
+    EditLawyerBannerDto,
+    EditYoutubeLayoutDto,
+    HeaderBannerEditDto,
+} from './pages.dto';
 import { PagesService } from './pages.service';
-import { HeaderBannerItem, ImagesBannerList, LawyerBannerItem, YoutubeLayoutItem } from './pages.types';
+import {
+    FooterStripItem,
+    HeaderBannerItem,
+    ImagesBannerList,
+    LawyerBannerItem,
+    YoutubeLayoutItem,
+} from './pages.types';
 
 @UseGuards(JwtGuard)
 @Controller('pages')
@@ -62,5 +74,17 @@ export class PagesController {
     @ApiOkResponse({ type: YoutubeLayoutItem })
     async getYoutubeLayout(): Promise<YoutubeLayoutItem> {
         return await this.pagesService.getYoutubeLayout();
+    }
+
+    @Post('footer_strip')
+    @ApiOkResponse()
+    async editFooterStrip(@Body() dto: EditFooterStripDto): Promise<void> {
+        return await this.pagesService.editFooterStrip(dto);
+    }
+
+    @Get('footer_strip')
+    @ApiOkResponse({ type: FooterStripItem })
+    async getFooterStrip(): Promise<FooterStripItem> {
+        return await this.pagesService.getFooterStrip();
     }
 }
