@@ -301,12 +301,24 @@ export interface ImagesBannerList {
 }
 
 export interface EditLawyerBannerDto {
+    name: string;
+    title: string;
+    avatar: string;
+    description: string;
+    reviews: number;
+    reports: number;
     tgUrl: string;
     detailsUrl: string;
 }
 
 export interface LawyerBannerItem {
     id: number;
+    name: string;
+    title: string;
+    avatar: string;
+    description: string;
+    reviews: number;
+    reports: number;
     tgUrl: string;
     detailsUrl: string;
 }
@@ -320,4 +332,15 @@ export interface YoutubeLayoutItem {
     id: number;
     tgUrl: string;
     youtubeUrl: string;
+}
+
+export interface EditFooterStripDto {
+    tgUrl: string;
+    youtubeUrl: string;
+}
+
+export interface FooterStripItem {
+    id: number;
+    youtubeUrl: string;
+    tgUrl: string;
 }

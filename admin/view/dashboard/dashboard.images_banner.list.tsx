@@ -18,7 +18,9 @@ export const DashboardImagesBannerList = () => {
     return (
         <Col gap={2}>
             <Row gap={4} justifyContent={'flex-start'}>
-                <Typography>Список активных картинок баннера :</Typography>
+                <Typography fontSize={21} fontWeight={700}>
+                    Список активных картинок баннера :
+                </Typography>
             </Row>
 
             <Col gap={2}>

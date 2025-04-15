@@ -1,21 +1,21 @@
 'use client';
-import { usePagesEditYoutubeLayout, usePagesGetYoutubeLayout } from '@/config/api/pages/pages';
+import { usePagesEditFooterStrip, usePagesGetFooterStrip } from '@/config/api/pages/pages';
 import { Col, Row } from '@/shared/ui/boxes';
 import { Button, OutlinedInput, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
-export const DashboardYoutubeLayout = () => {
-    const { data: youtube } = usePagesGetYoutubeLayout();
-    const { mutate } = usePagesEditYoutubeLayout();
+export const DashboardFooterStrip = () => {
+    const { data: footer } = usePagesGetFooterStrip();
+    const { mutate } = usePagesEditFooterStrip();
     const { register, getValues, setValue } = useForm();
 
     useEffect(() => {
-        if (youtube !== undefined) {
-            setValue('tgUrl', youtube.tgUrl);
-            setValue('youtubeUrl', youtube.youtubeUrl);
+        if (footer !== undefined) {
+            setValue('tgUrl', footer.tgUrl);
+            setValue('youtubeUrl', footer.youtubeUrl);
         }
-    }, [youtube]);
+    }, [footer]);
 
     const hendleEdit = () => {
         mutate({
@@ -26,28 +26,28 @@ export const DashboardYoutubeLayout = () => {
         });
     };
 
-    if (youtube === undefined) return null;
+    if (footer === undefined) return null;
     return (
         <form>
             <Col gap={2}>
                 <Typography fontSize={21} fontWeight={700}>
-                    Youtube/Юрист Layout :
+                    Footer закрепленная полоса:
                 </Typography>
 
                 <Col gap={2}>
                     <Row gap={4} justifyContent={'flex-start'}>
-                        <Typography>Ссылка на тг канал:</Typography>
+                        <Typography>Ссылка на Youtube:</Typography>
                     </Row>
 
-                    <OutlinedInput fullWidth {...register('tgUrl')} />
+                    <OutlinedInput fullWidth {...register('youtubeUrl')} />
                 </Col>
 
                 <Col gap={2}>
                     <Row gap={4} justifyContent={'flex-start'}>
-                        <Typography>Ссылка на Youtube канал:</Typography>
+                        <Typography>Ссылка на TG::</Typography>
                     </Row>
 
-                    <OutlinedInput fullWidth {...register('youtubeUrl')} />
+                    <OutlinedInput fullWidth {...register('tgUrl')} />
                 </Col>
 
                 <Row justifyContent={'flex-end'}>

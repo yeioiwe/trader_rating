@@ -131,7 +131,32 @@ export const ImagesBannerItem = z
     .object({ id: z.number(), name: z.string(), url: z.string(), image: z.string() })
     .passthrough();
 export const ImagesBannerList = z.object({ items: z.array(ImagesBannerItem) }).passthrough();
-export const EditLawyerBannerDto = z.object({ tgUrl: z.string(), detailsUrl: z.string() }).passthrough();
-export const LawyerBannerItem = z.object({ id: z.number(), tgUrl: z.string(), detailsUrl: z.string() }).passthrough();
+export const EditLawyerBannerDto = z
+    .object({
+        name: z.string(),
+        title: z.string(),
+        avatar: z.string(),
+        description: z.string(),
+        reviews: z.number(),
+        reports: z.number(),
+        tgUrl: z.string(),
+        detailsUrl: z.string(),
+    })
+    .passthrough();
+export const LawyerBannerItem = z
+    .object({
+        id: z.number(),
+        name: z.string(),
+        title: z.string(),
+        avatar: z.string(),
+        description: z.string(),
+        reviews: z.number(),
+        reports: z.number(),
+        tgUrl: z.string(),
+        detailsUrl: z.string(),
+    })
+    .passthrough();
 export const EditYoutubeLayoutDto = z.object({ tgUrl: z.string(), youtubeUrl: z.string() }).passthrough();
 export const YoutubeLayoutItem = z.object({ id: z.number(), tgUrl: z.string(), youtubeUrl: z.string() }).passthrough();
+export const EditFooterStripDto = z.object({ tgUrl: z.string(), youtubeUrl: z.string() }).passthrough();
+export const FooterStripItem = z.object({ id: z.number(), youtubeUrl: z.string(), tgUrl: z.string() }).passthrough();

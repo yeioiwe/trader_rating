@@ -38,7 +38,9 @@ export const DashboardHeaderBanner = () => {
         <form>
             <Col gap={2}>
                 <Row gap={4} justifyContent={'flex-start'}>
-                    <Typography>Баннер YouTube / Юрист :</Typography>
+                    <Typography fontSize={21} fontWeight={700}>
+                        Баннер YouTube / Юрист :
+                    </Typography>
 
                     <Tooltip title="Баннер находящийся в хеадере Youtube или Юрист и ссылки на них">
                         <InfoIcon />

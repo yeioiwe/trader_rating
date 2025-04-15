@@ -25,8 +25,10 @@ import type {
 
 import type {
     CreateImagesBannerDto,
+    EditFooterStripDto,
     EditLawyerBannerDto,
     EditYoutubeLayoutDto,
+    FooterStripItem,
     HeaderBannerEditDto,
     HeaderBannerItem,
     ImagesBannerList,
@@ -955,6 +957,227 @@ export function usePagesGetYoutubeLayout<
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetYoutubeLayout>>, TError, TData>>;
 }): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
     const queryOptions = getPagesGetYoutubeLayoutQueryOptions(options);
+
+    const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const pagesEditFooterStrip = (editFooterStripDto: EditFooterStripDto, signal?: AbortSignal) => {
+    return axiosCall<void>({
+        url: `/pages/footer_strip`,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        data: editFooterStripDto,
+        signal,
+    });
+};
+
+export const getPagesEditFooterStripMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof pagesEditFooterStrip>>,
+        TError,
+        { data: EditFooterStripDto },
+        TContext
+    >;
+}): UseMutationOptions<
+    Awaited<ReturnType<typeof pagesEditFooterStrip>>,
+    TError,
+    { data: EditFooterStripDto },
+    TContext
+> => {
+    const mutationKey = ['pagesEditFooterStrip'];
+    const { mutation: mutationOptions } = options
+        ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey } };
+
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof pagesEditFooterStrip>>,
+        { data: EditFooterStripDto }
+    > = props => {
+        const { data } = props ?? {};
+
+        return pagesEditFooterStrip(data);
+    };
+
+    return { mutationFn, ...mutationOptions };
+};
+
+export type PagesEditFooterStripMutationResult = NonNullable<Awaited<ReturnType<typeof pagesEditFooterStrip>>>;
+export type PagesEditFooterStripMutationBody = EditFooterStripDto;
+export type PagesEditFooterStripMutationError = ErrorType<unknown>;
+
+export const usePagesEditFooterStrip = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof pagesEditFooterStrip>>,
+        TError,
+        { data: EditFooterStripDto },
+        TContext
+    >;
+}): UseMutationResult<
+    Awaited<ReturnType<typeof pagesEditFooterStrip>>,
+    TError,
+    { data: EditFooterStripDto },
+    TContext
+> => {
+    const mutationOptions = getPagesEditFooterStripMutationOptions(options);
+
+    return useMutation(mutationOptions);
+};
+export const pagesGetFooterStrip = (signal?: AbortSignal) => {
+    return axiosCall<FooterStripItem>({ url: `/pages/footer_strip`, method: 'GET', signal });
+};
+
+export const getPagesGetFooterStripQueryKey = () => {
+    return [`/pages/footer_strip`] as const;
+};
+
+export const getPagesGetFooterStripInfiniteQueryOptions = <
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetFooterStrip>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetFooterStrip>>, TError, TData>>;
+}) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPagesGetFooterStripQueryKey();
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof pagesGetFooterStrip>>> = ({ signal }) =>
+        pagesGetFooterStrip(signal);
+
+    return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof pagesGetFooterStrip>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PagesGetFooterStripInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof pagesGetFooterStrip>>>;
+export type PagesGetFooterStripInfiniteQueryError = ErrorType<unknown>;
+
+export function usePagesGetFooterStripInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetFooterStrip>>>,
+    TError = ErrorType<unknown>,
+>(options: {
+    query: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetFooterStrip>>, TError, TData>> &
+        Pick<
+            DefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetFooterStrip>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetFooterStrip>>
+            >,
+            'initialData'
+        >;
+}): DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetFooterStripInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetFooterStrip>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetFooterStrip>>, TError, TData>> &
+        Pick<
+            UndefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetFooterStrip>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetFooterStrip>>
+            >,
+            'initialData'
+        >;
+}): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetFooterStripInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetFooterStrip>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetFooterStrip>>, TError, TData>>;
+}): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePagesGetFooterStripInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetFooterStrip>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetFooterStrip>>, TError, TData>>;
+}): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPagesGetFooterStripInfiniteQueryOptions(options);
+
+    const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const getPagesGetFooterStripQueryOptions = <
+    TData = Awaited<ReturnType<typeof pagesGetFooterStrip>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetFooterStrip>>, TError, TData>>;
+}) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPagesGetFooterStripQueryKey();
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof pagesGetFooterStrip>>> = ({ signal }) =>
+        pagesGetFooterStrip(signal);
+
+    return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof pagesGetFooterStrip>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PagesGetFooterStripQueryResult = NonNullable<Awaited<ReturnType<typeof pagesGetFooterStrip>>>;
+export type PagesGetFooterStripQueryError = ErrorType<unknown>;
+
+export function usePagesGetFooterStrip<
+    TData = Awaited<ReturnType<typeof pagesGetFooterStrip>>,
+    TError = ErrorType<unknown>,
+>(options: {
+    query: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetFooterStrip>>, TError, TData>> &
+        Pick<
+            DefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetFooterStrip>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetFooterStrip>>
+            >,
+            'initialData'
+        >;
+}): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetFooterStrip<
+    TData = Awaited<ReturnType<typeof pagesGetFooterStrip>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetFooterStrip>>, TError, TData>> &
+        Pick<
+            UndefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetFooterStrip>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetFooterStrip>>
+            >,
+            'initialData'
+        >;
+}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetFooterStrip<
+    TData = Awaited<ReturnType<typeof pagesGetFooterStrip>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetFooterStrip>>, TError, TData>>;
+}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePagesGetFooterStrip<
+    TData = Awaited<ReturnType<typeof pagesGetFooterStrip>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetFooterStrip>>, TError, TData>>;
+}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPagesGetFooterStripQueryOptions(options);
 
     const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
         queryKey: DataTag<QueryKey, TData, TError>;

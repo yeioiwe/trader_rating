@@ -29,7 +29,9 @@ export const DashboardImagesBanner = () => {
         <form>
             <Col gap={2}>
                 <Row gap={4} justifyContent={'flex-start'}>
-                    <Typography>Баннер с картинками:</Typography>
+                    <Typography fontSize={21} fontWeight={700}>
+                        Баннер с картинками:
+                    </Typography>
 
                     <Tooltip title="Баннер с картинками. Загружается картинка и ссылка, которая будет открыватся при нажатии на баннер">
                         <InfoIcon />
