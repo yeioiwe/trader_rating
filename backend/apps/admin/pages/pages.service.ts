@@ -3,12 +3,14 @@ import { FooterStripEntity } from 'apps/libs/db/entity/footer.strip.entity';
 import { HeaderBannerEntity, HeaderBannerType } from 'apps/libs/db/entity/header.banner.entity';
 import { ImagesBannerEntity } from 'apps/libs/db/entity/images.banner.entity';
 import { LawyerBannerEntity } from 'apps/libs/db/entity/lawyer.banner.entity';
-import { YoutubeLayoutEntity } from 'apps/libs/db/entity/youtube.layout.entity';
+import { LawyerLayoutEntity, LawyerLayoutVisible } from 'apps/libs/db/entity/lawyer.layout.entity';
+import { YoutubeLayoutEntity, YoutubeLayoutVisible } from 'apps/libs/db/entity/youtube.layout.entity';
 import { EntityManager } from 'typeorm';
 import {
     CreateImagesBannerDto,
     EditFooterStripDto,
     EditLawyerBannerDto,
+    EditLawyerLayoutDto,
     EditYoutubeLayoutDto,
     HeaderBannerEditDto,
 } from './pages.dto';
@@ -42,8 +44,30 @@ export class PagesService {
 
         const youtubeLayout = await this.em.find(YoutubeLayoutEntity);
         if (youtubeLayout.length === 0) {
-            const youtube = await this.em.create(YoutubeLayoutEntity, { tgUrl: '', youtubeUrl: '' });
+            const youtube = await this.em.create(YoutubeLayoutEntity, {
+                tgUrl: '',
+                youtubeUrl: '',
+                name: 'YouTube Мориарти',
+                description:
+                    'Специалист по расследованию крипто-мошенничества, анализирует схемы обмана и помогает пользователям избежать финансовых потерь.',
+                visible: YoutubeLayoutVisible.VISIBLE,
+                videoId: '',
+            });
             await this.em.save(YoutubeLayoutEntity, youtube);
+        }
+
+        const lawyerLayout = await this.em.find(LawyerLayoutEntity);
+        if (lawyerLayout.length === 0) {
+            const lawyer = await this.em.create(LawyerLayoutEntity, {
+                name: 'Сервей Сергеев',
+                description:
+                    'Юрист123 с опытом в области финансовых и криптовалютных споров. Помогает клиентам вернуть средства, пострадавшим от недобросовестных трейдеров и мошенников.',
+                avatar: '',
+                tgUrl: '',
+                youtubeUrl: '',
+                visible: LawyerLayoutVisible.VISIBLE,
+            });
+            await this.em.save(LawyerLayoutEntity, lawyer);
         }
 
         const footerStrip = await this.em.find(FooterStripEntity);
@@ -114,5 +138,16 @@ export class PagesService {
 
     async editFooterStrip(dto: EditFooterStripDto) {
         await this.em.update(FooterStripEntity, { id: 1 }, { ...dto });
+    }
+
+    async editLawyerLayout(dto: EditLawyerLayoutDto) {
+        await this.em.update(LawyerLayoutEntity, { id: 1 }, { ...dto });
+    }
+
+    async getLawyerLayout() {
+        const lawyer = await this.em.findOneBy(LawyerLayoutEntity, { id: 1 });
+        if (!lawyer) throw new BadRequestException();
+
+        return lawyer;
     }
 }

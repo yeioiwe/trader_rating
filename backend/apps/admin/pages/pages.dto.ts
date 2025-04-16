@@ -1,4 +1,6 @@
 import { HeaderBannerType } from 'apps/libs/db/entity/header.banner.entity';
+import { LawyerLayoutVisible } from 'apps/libs/db/entity/lawyer.layout.entity';
+import { YoutubeLayoutVisible } from 'apps/libs/db/entity/youtube.layout.entity';
 import { IsEnum, IsNumber, IsString } from 'nestjs-swagger-dto';
 
 export class HeaderBannerEditDto {
@@ -47,11 +49,43 @@ export class EditLawyerBannerDto {
 }
 
 export class EditYoutubeLayoutDto {
+    @IsEnum({ enum: { YoutubeLayoutVisible } })
+    visible!: YoutubeLayoutVisible;
+
+    @IsString()
+    name!: string;
+
+    @IsString()
+    description!: string;
+
+    @IsString()
+    videoId!: string;
+
     @IsString()
     tgUrl!: string;
 
     @IsString()
     youtubeUrl!: string;
+}
+
+export class EditLawyerLayoutDto {
+    @IsEnum({ enum: { LawyerLayoutVisible } })
+    visible!: LawyerLayoutVisible;
+
+    @IsString()
+    name!: string;
+
+    @IsString()
+    description!: string;
+
+    @IsString()
+    avatar!: string;
+
+    @IsString()
+    tgUrl!: string;
+
+    @IsString()
+    detailsUrl!: string;
 }
 
 export class EditFooterStripDto {

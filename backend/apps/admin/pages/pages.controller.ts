@@ -5,6 +5,7 @@ import {
     CreateImagesBannerDto,
     EditFooterStripDto,
     EditLawyerBannerDto,
+    EditLawyerLayoutDto,
     EditYoutubeLayoutDto,
     HeaderBannerEditDto,
 } from './pages.dto';
@@ -14,6 +15,7 @@ import {
     HeaderBannerItem,
     ImagesBannerList,
     LawyerBannerItem,
+    LawyerLayoutItem,
     YoutubeLayoutItem,
 } from './pages.types';
 
@@ -64,6 +66,19 @@ export class PagesController {
         return await this.pagesService.getLawyerBanner();
     }
 
+    @Post('footer_strip')
+    @ApiOkResponse()
+    async editFooterStrip(@Body() dto: EditFooterStripDto): Promise<void> {
+        return await this.pagesService.editFooterStrip(dto);
+    }
+
+    @Get('footer_strip')
+    @ApiOkResponse({ type: FooterStripItem })
+    async getFooterStrip(): Promise<FooterStripItem> {
+        return await this.pagesService.getFooterStrip();
+    }
+
+    // asd
     @Post('youtube_layout')
     @ApiOkResponse()
     async editYoutubeLayout(@Body() dto: EditYoutubeLayoutDto): Promise<void> {
@@ -76,15 +91,15 @@ export class PagesController {
         return await this.pagesService.getYoutubeLayout();
     }
 
-    @Post('footer_strip')
+    @Post('lawyer_layout')
     @ApiOkResponse()
-    async editFooterStrip(@Body() dto: EditFooterStripDto): Promise<void> {
-        return await this.pagesService.editFooterStrip(dto);
+    async editLawyerLayout(@Body() dto: EditLawyerLayoutDto): Promise<void> {
+        return await this.pagesService.editLawyerLayout(dto);
     }
 
-    @Get('footer_strip')
-    @ApiOkResponse({ type: FooterStripItem })
-    async getFooterStrip(): Promise<FooterStripItem> {
-        return await this.pagesService.getFooterStrip();
+    @Get('lawyer_layout')
+    @ApiOkResponse({ type: LawyerLayoutItem })
+    async getLawyerLayout(): Promise<LawyerLayoutItem> {
+        return await this.pagesService.getLawyerLayout();
     }
 }

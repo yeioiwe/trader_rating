@@ -3,7 +3,8 @@ import { FooterStripEntity } from 'apps/libs/db/entity/footer.strip.entity';
 import { HeaderBannerEntity } from 'apps/libs/db/entity/header.banner.entity';
 import { ImagesBannerEntity } from 'apps/libs/db/entity/images.banner.entity';
 import { LawyerBannerEntity } from 'apps/libs/db/entity/lawyer.banner.entity';
-import { YoutubeLayoutEntity } from 'apps/libs/db/entity/youtube.layout.entity';
+import { LawyerLayoutEntity, LawyerLayoutVisible } from 'apps/libs/db/entity/lawyer.layout.entity';
+import { YoutubeLayoutEntity, YoutubeLayoutVisible } from 'apps/libs/db/entity/youtube.layout.entity';
 import { EntityManager } from 'typeorm';
 
 @Injectable()
@@ -34,7 +35,18 @@ export class PagesService {
         const youtube = await this.em.findOneBy(YoutubeLayoutEntity, { id: 1 });
         if (!youtube) throw new BadRequestException();
 
+        if (youtube.visible === YoutubeLayoutVisible.HIDDEN) throw new BadRequestException();
+
         return youtube;
+    }
+
+    async getLawyerLayout() {
+        const lawyer = await this.em.findOneBy(LawyerLayoutEntity, { id: 1 });
+        if (!lawyer) throw new BadRequestException();
+
+        if (lawyer.visible === LawyerLayoutVisible.HIDDEN) throw new BadRequestException();
+
+        return lawyer;
     }
 
     async getFooterStrip() {

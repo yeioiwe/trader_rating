@@ -6,6 +6,7 @@ import {
     HeaderBannerItem,
     ImagesBannerList,
     LawyerBannerItem,
+    LawyerLayoutItem,
     YoutubeLayoutItem,
 } from './pages.types';
 
@@ -35,6 +36,12 @@ export class PagesController {
     @ApiOkResponse({ type: YoutubeLayoutItem })
     async getYoutubeLayout(): Promise<YoutubeLayoutItem> {
         return await this.pagesService.getYoutubeLayout();
+    }
+
+    @Get('lawyer_layout')
+    @ApiOkResponse({ type: LawyerLayoutItem })
+    async getLawyerLayout(): Promise<LawyerLayoutItem> {
+        return await this.pagesService.getLawyerLayout();
     }
 
     @Get('footer_strip')
