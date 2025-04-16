@@ -1,57 +1,59 @@
 'use client';
-import { YoutubeLayoutItemVisible } from '@/config/api/api.schemas';
-import { usePagesEditYoutubeLayout, usePagesGetYoutubeLayout } from '@/config/api/pages/pages';
+import { LawyerLayoutItemVisible, YoutubeLayoutItemVisible } from '@/config/api/api.schemas';
+import { usePagesEditLawyerLayout, usePagesGetLawyerLayout } from '@/config/api/pages/pages';
 import { Col, Row } from '@/shared/ui/boxes';
+import { UploadAvatar } from '@/shared/ui/upload.avatar';
 import { Button, MenuItem, OutlinedInput, Select, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-export const DashboardYoutubeLayout = () => {
-    const { data: youtube } = usePagesGetYoutubeLayout();
-    const { mutate } = usePagesEditYoutubeLayout();
+export const DashboardLawyerLayout = () => {
+    const { data: lawyer } = usePagesGetLawyerLayout();
+    const { mutate } = usePagesEditLawyerLayout();
     const { register, getValues, setValue } = useForm();
 
-    const [visible, setVisible] = useState<YoutubeLayoutItemVisible>(YoutubeLayoutItemVisible.VISIBLE);
+    const [visible, setVisible] = useState<LawyerLayoutItemVisible>(LawyerLayoutItemVisible.VISIBLE);
+    const [img, setImg] = useState<any>();
 
     const handleChange = (event: any) => {
         setVisible(event.target.value);
     };
 
     useEffect(() => {
-        if (youtube !== undefined) {
-            setVisible(youtube.visible);
-            setValue('name', youtube.name);
-            setValue('description', youtube.description);
-            setValue('videoId', youtube.videoId);
-            setValue('tgUrl', youtube.tgUrl);
-            setValue('youtubeUrl', youtube.youtubeUrl);
+        if (lawyer !== undefined) {
+            setVisible(lawyer.visible);
+            setImg(lawyer.avatar);
+            setValue('name', lawyer.name);
+            setValue('description', lawyer.description);
+            setValue('tgUrl', lawyer.tgUrl);
+            setValue('detailsUrl', lawyer.detailsUrl);
         }
-    }, [youtube]);
+    }, [lawyer]);
 
     const hendleEdit = () => {
         mutate({
             data: {
                 visible: visible,
+                avatar: img,
                 name: getValues('name'),
                 description: getValues('description'),
-                videoId: getValues('videoId'),
+                detailsUrl: getValues('detailsUrl'),
                 tgUrl: getValues('tgUrl'),
-                youtubeUrl: getValues('youtubeUrl'),
             },
         });
     };
 
-    if (youtube === undefined) return null;
+    if (lawyer === undefined) return null;
     return (
         <form>
             <Col gap={2}>
                 <Typography fontSize={21} fontWeight={700}>
-                    Youtube Layout :
+                    Юрист Layout :
                 </Typography>
 
                 <Col gap={2}>
                     <Row gap={4} justifyContent={'flex-start'}>
-                        <Typography>Заголовок:</Typography>
+                        <Typography>Имя юриста:</Typography>
                     </Row>
 
                     <OutlinedInput fullWidth {...register('name')} />
@@ -67,10 +69,10 @@ export const DashboardYoutubeLayout = () => {
 
                 <Col gap={2}>
                     <Row gap={4} justifyContent={'flex-start'}>
-                        <Typography>ID видео:</Typography>
+                        <Typography>Фото юриста на баннере</Typography>
                     </Row>
 
-                    <OutlinedInput fullWidth {...register('videoId')} />
+                    <UploadAvatar img={img} setImg={setImg} />
                 </Col>
 
                 <Col gap={2}>
@@ -83,10 +85,10 @@ export const DashboardYoutubeLayout = () => {
 
                 <Col gap={2}>
                     <Row gap={4} justifyContent={'flex-start'}>
-                        <Typography>Ссылка на Youtube канал:</Typography>
+                        <Typography>Ссылка на "подробнее":</Typography>
                     </Row>
 
-                    <OutlinedInput fullWidth {...register('youtubeUrl')} />
+                    <OutlinedInput fullWidth {...register('detailsUrl')} />
                 </Col>
 
                 <Col gap={2}>

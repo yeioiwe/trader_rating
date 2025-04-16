@@ -323,17 +323,6 @@ export interface LawyerBannerItem {
     detailsUrl: string;
 }
 
-export interface EditYoutubeLayoutDto {
-    tgUrl: string;
-    youtubeUrl: string;
-}
-
-export interface YoutubeLayoutItem {
-    id: number;
-    tgUrl: string;
-    youtubeUrl: string;
-}
-
 export interface EditFooterStripDto {
     tgUrl: string;
     youtubeUrl: string;
@@ -343,4 +332,74 @@ export interface FooterStripItem {
     id: number;
     youtubeUrl: string;
     tgUrl: string;
+}
+
+export type YoutubeLayoutVisible = (typeof YoutubeLayoutVisible)[keyof typeof YoutubeLayoutVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const YoutubeLayoutVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
+export interface EditYoutubeLayoutDto {
+    visible: YoutubeLayoutVisible;
+    name: string;
+    description: string;
+    videoId: string;
+    tgUrl: string;
+    youtubeUrl: string;
+}
+
+export type YoutubeLayoutItemVisible = (typeof YoutubeLayoutItemVisible)[keyof typeof YoutubeLayoutItemVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const YoutubeLayoutItemVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
+export interface YoutubeLayoutItem {
+    id: number;
+    visible: YoutubeLayoutItemVisible;
+    name: string;
+    description: string;
+    videoId: string;
+    tgUrl: string;
+    youtubeUrl: string;
+}
+
+export type LawyerLayoutVisible = (typeof LawyerLayoutVisible)[keyof typeof LawyerLayoutVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const LawyerLayoutVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
+export interface EditLawyerLayoutDto {
+    visible: LawyerLayoutVisible;
+    name: string;
+    description: string;
+    avatar: string;
+    tgUrl: string;
+    detailsUrl: string;
+}
+
+export type LawyerLayoutItemVisible = (typeof LawyerLayoutItemVisible)[keyof typeof LawyerLayoutItemVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const LawyerLayoutItemVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
+export interface LawyerLayoutItem {
+    id: number;
+    visible: LawyerLayoutItemVisible;
+    name: string;
+    description: string;
+    avatar: string;
+    tgUrl: string;
+    detailsUrl: string;
 }

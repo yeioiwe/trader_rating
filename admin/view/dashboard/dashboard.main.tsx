@@ -7,6 +7,7 @@ import { DashboardHeaderBanner } from './dashboard.header_banner';
 import { DashboardImagesBanner } from './dashboard.images_banner';
 import { DashboardImagesBannerList } from './dashboard.images_banner.list';
 import { DashboardLawyerBanner } from './dashboard.lawyer_banner';
+import { DashboardLawyerLayout } from './dashboard.lawyer_layout';
 import { DashboardYoutubeLayout } from './dashboard.youtube_layout';
 
 export const DashboardMain = () => {
@@ -52,7 +53,9 @@ export const DashboardMain = () => {
                 <CustomTabPanel value={value} index={2}>
                     <Col width={'100%'} gap={2}>
                         <DashboardYoutubeLayout />
-
+                        <Divider variant="middle" />
+                        <DashboardLawyerLayout />
+                        <Divider variant="middle" />
                         <DashboardFooterStrip />
                     </Col>
                 </CustomTabPanel>
