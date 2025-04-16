@@ -64,7 +64,7 @@ export class PagesService {
                     'Юрист123 с опытом в области финансовых и криптовалютных споров. Помогает клиентам вернуть средства, пострадавшим от недобросовестных трейдеров и мошенников.',
                 avatar: '',
                 tgUrl: '',
-                youtubeUrl: '',
+                detailsUrl: '',
                 visible: LawyerLayoutVisible.VISIBLE,
             });
             await this.em.save(LawyerLayoutEntity, lawyer);
