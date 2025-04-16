@@ -2,6 +2,7 @@ import theme from '@/shared/config/theme/theme';
 import { Col } from '@/shared/ui/boxes';
 import { useMediaQuery } from '@mui/material';
 import { CheckCard } from './cards/check.card';
+import { LawyerCard } from './cards/lawyer.card';
 import { NewsCard } from './cards/news.card';
 import { PostsCard } from './cards/posts.card';
 import { ScammersCard } from './cards/scammers.card';
@@ -16,6 +17,7 @@ export const SideBarMain = () => {
             <SearchCard />
             <CheckCard />
             <YoutubeCard />
+            <LawyerCard />
             <ScammersCard />
             {/* <VerifiedsCard /> */}
             <PostsCard />

@@ -25,6 +25,7 @@ import type {
     HeaderBannerItem,
     ImagesBannerList,
     LawyerBannerItem,
+    LawyerLayoutItem,
     YoutubeLayoutItem,
 } from '../api.schemas';
 
@@ -653,6 +654,164 @@ export function usePagesGetYoutubeLayout<
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetYoutubeLayout>>, TError, TData>>;
 }): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
     const queryOptions = getPagesGetYoutubeLayoutQueryOptions(options);
+
+    const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const pagesGetLawyerLayout = (signal?: AbortSignal) => {
+    return axiosCall<LawyerLayoutItem>({ url: `/pages/lawyer_layout`, method: 'GET', signal });
+};
+
+export const getPagesGetLawyerLayoutQueryKey = () => {
+    return [`/pages/lawyer_layout`] as const;
+};
+
+export const getPagesGetLawyerLayoutInfiniteQueryOptions = <
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetLawyerLayout>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerLayout>>, TError, TData>>;
+}) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPagesGetLawyerLayoutQueryKey();
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof pagesGetLawyerLayout>>> = ({ signal }) =>
+        pagesGetLawyerLayout(signal);
+
+    return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof pagesGetLawyerLayout>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PagesGetLawyerLayoutInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof pagesGetLawyerLayout>>>;
+export type PagesGetLawyerLayoutInfiniteQueryError = ErrorType<unknown>;
+
+export function usePagesGetLawyerLayoutInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetLawyerLayout>>>,
+    TError = ErrorType<unknown>,
+>(options: {
+    query: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerLayout>>, TError, TData>> &
+        Pick<
+            DefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetLawyerLayout>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetLawyerLayout>>
+            >,
+            'initialData'
+        >;
+}): DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetLawyerLayoutInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetLawyerLayout>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerLayout>>, TError, TData>> &
+        Pick<
+            UndefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetLawyerLayout>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetLawyerLayout>>
+            >,
+            'initialData'
+        >;
+}): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetLawyerLayoutInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetLawyerLayout>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerLayout>>, TError, TData>>;
+}): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePagesGetLawyerLayoutInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetLawyerLayout>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerLayout>>, TError, TData>>;
+}): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPagesGetLawyerLayoutInfiniteQueryOptions(options);
+
+    const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const getPagesGetLawyerLayoutQueryOptions = <
+    TData = Awaited<ReturnType<typeof pagesGetLawyerLayout>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerLayout>>, TError, TData>>;
+}) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPagesGetLawyerLayoutQueryKey();
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof pagesGetLawyerLayout>>> = ({ signal }) =>
+        pagesGetLawyerLayout(signal);
+
+    return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof pagesGetLawyerLayout>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PagesGetLawyerLayoutQueryResult = NonNullable<Awaited<ReturnType<typeof pagesGetLawyerLayout>>>;
+export type PagesGetLawyerLayoutQueryError = ErrorType<unknown>;
+
+export function usePagesGetLawyerLayout<
+    TData = Awaited<ReturnType<typeof pagesGetLawyerLayout>>,
+    TError = ErrorType<unknown>,
+>(options: {
+    query: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerLayout>>, TError, TData>> &
+        Pick<
+            DefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetLawyerLayout>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetLawyerLayout>>
+            >,
+            'initialData'
+        >;
+}): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetLawyerLayout<
+    TData = Awaited<ReturnType<typeof pagesGetLawyerLayout>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerLayout>>, TError, TData>> &
+        Pick<
+            UndefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetLawyerLayout>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetLawyerLayout>>
+            >,
+            'initialData'
+        >;
+}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetLawyerLayout<
+    TData = Awaited<ReturnType<typeof pagesGetLawyerLayout>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerLayout>>, TError, TData>>;
+}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePagesGetLawyerLayout<
+    TData = Awaited<ReturnType<typeof pagesGetLawyerLayout>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerLayout>>, TError, TData>>;
+}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPagesGetLawyerLayoutQueryOptions(options);
 
     const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
         queryKey: DataTag<QueryKey, TData, TError>;

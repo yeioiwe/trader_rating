@@ -96,5 +96,26 @@ export const LawyerBannerItem = z
         detailsUrl: z.string(),
     })
     .passthrough();
-export const YoutubeLayoutItem = z.object({ id: z.number(), tgUrl: z.string(), youtubeUrl: z.string() }).passthrough();
+export const YoutubeLayoutItem = z
+    .object({
+        id: z.number(),
+        visible: z.enum(['VISIBLE', 'HIDDEN']).default('VISIBLE'),
+        name: z.string(),
+        description: z.string(),
+        videoId: z.string(),
+        tgUrl: z.string(),
+        youtubeUrl: z.string(),
+    })
+    .passthrough();
+export const LawyerLayoutItem = z
+    .object({
+        id: z.number(),
+        visible: z.enum(['VISIBLE', 'HIDDEN']).default('VISIBLE'),
+        name: z.string(),
+        description: z.string(),
+        avatar: z.string(),
+        tgUrl: z.string(),
+        detailsUrl: z.string(),
+    })
+    .passthrough();
 export const FooterStripItem = z.object({ id: z.number(), youtubeUrl: z.string(), tgUrl: z.string() }).passthrough();

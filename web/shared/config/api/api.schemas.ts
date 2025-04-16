@@ -197,10 +197,40 @@ export interface LawyerBannerItem {
     detailsUrl: string;
 }
 
+export type YoutubeLayoutItemVisible = (typeof YoutubeLayoutItemVisible)[keyof typeof YoutubeLayoutItemVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const YoutubeLayoutItemVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
 export interface YoutubeLayoutItem {
     id: number;
+    visible: YoutubeLayoutItemVisible;
+    name: string;
+    description: string;
+    videoId: string;
     tgUrl: string;
     youtubeUrl: string;
+}
+
+export type LawyerLayoutItemVisible = (typeof LawyerLayoutItemVisible)[keyof typeof LawyerLayoutItemVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const LawyerLayoutItemVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
+export interface LawyerLayoutItem {
+    id: number;
+    visible: LawyerLayoutItemVisible;
+    name: string;
+    description: string;
+    avatar: string;
+    tgUrl: string;
+    detailsUrl: string;
 }
 
 export interface FooterStripItem {

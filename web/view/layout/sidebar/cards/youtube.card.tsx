@@ -1,7 +1,8 @@
 'use client';
-import LawyerIcon from '@/public/icons/layout_lawyer.svg';
-import YoutubeIcon from '@/public/icons/layout_youtube.svg';
-import TelegramIcon from '@/public/icons/telegram.svg';
+import TelegramIcon from '@/public/icons/youtube_layout_tg.svg';
+import YoutubeIcon from '@/public/icons/youtube_layout_yt.svg';
+
+import YoutubeTopIcon from '@/public/icons/youtube_layout_icon.svg';
 import { usePagesGetYoutubeLayout } from '@/shared/config/api/pages/pages';
 import { Col, Row } from '@/shared/ui/boxes';
 import { Button, Typography } from '@mui/material';
@@ -11,26 +12,49 @@ import { useTranslation } from 'react-i18next';
 import { SidebarCard } from './card';
 
 export const YoutubeCard = () => {
-    const { data: links } = usePagesGetYoutubeLayout();
+    const { data: youtube } = usePagesGetYoutubeLayout();
     const { t } = useTranslation();
 
-    if (links === undefined) return null;
+    if (youtube === undefined) return null;
     return (
-        <SidebarCard bgcolor={'#449FE8'} icon={<LawyerIcon />}>
+        <SidebarCard bgcolor={'#c53d3d'} icon={<YoutubeTopIcon />}>
             <Col gap={1.5}>
                 <Col gap={0.5}>
                     <Typography color="#FFFFFF" fontSize={20} fontWeight={700}>
-                        {t('sidebar.youtube.title')}
+                        {youtube.name}
                     </Typography>
 
                     <Typography color="#FFFFFF" fontSize={16}>
-                        {t('sidebar.youtube.description')}
+                        {youtube.description}
                     </Typography>
                 </Col>
 
-                <CardButton url={links.tgUrl} name={t('sidebar.youtube.tg_button')} icon={<TelegramIcon />} />
+                {youtube.videoId.length > 3 && (
+                    <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+                        <iframe
+                            src={`https://www.youtube.com/embed/${youtube.videoId}`}
+                            title="YouTube Video"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            style={{
+                                borderRadius: '9px',
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100%',
+                            }}
+                        ></iframe>
+                    </div>
+                )}
 
-                <CardButton url={links.youtubeUrl} name={t('sidebar.youtube.yt_button')} icon={<YoutubeIcon />} />
+                {youtube.tgUrl.length > 3 && (
+                    <CardButton url={youtube.tgUrl} name={t('sidebar.youtube.tg_button')} icon={<TelegramIcon />} />
+                )}
+                {youtube.youtubeUrl.length > 3 && (
+                    <CardButton url={youtube.youtubeUrl} name={t('sidebar.youtube.yt_button')} icon={<YoutubeIcon />} />
+                )}
             </Col>
         </SidebarCard>
     );
@@ -42,7 +66,7 @@ const CardButton = ({ name, icon, url }: { name: string; icon: ReactNode; url: s
     return (
         <Button onClick={() => router.push(url)} sx={{ bgcolor: '#FFFFFF', minHeight: '50px', borderRadius: '9px' }}>
             <Row width={'100%'} px={2} justifyContent={'space-between'}>
-                <Typography fontWeight={300} fontSize={20} color="#449FE8">
+                <Typography fontWeight={300} fontSize={20} color="#c53d3d">
                     {name}
                 </Typography>
 
