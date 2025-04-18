@@ -119,3 +119,12 @@ export const LawyerLayoutItem = z
     })
     .passthrough();
 export const FooterStripItem = z.object({ id: z.number(), youtubeUrl: z.string(), tgUrl: z.string() }).passthrough();
+export const ReviewRequestDto = z
+    .object({
+        username: z.string().max(30),
+        userContact: z.string().max(30),
+        comment: z.string().max(500),
+        projectName: z.string().max(30),
+        projectUrl: z.string().max(30),
+    })
+    .passthrough();

@@ -4,18 +4,21 @@
  * Project API
  * OpenAPI spec version: 1.0
  */
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import type {
     DataTag,
     DefinedInitialDataOptions,
     DefinedUseInfiniteQueryResult,
     DefinedUseQueryResult,
     InfiniteData,
+    MutationFunction,
     QueryFunction,
     QueryKey,
     UndefinedInitialDataOptions,
     UseInfiniteQueryOptions,
     UseInfiniteQueryResult,
+    UseMutationOptions,
+    UseMutationResult,
     UseQueryOptions,
     UseQueryResult,
 } from '@tanstack/react-query';
@@ -26,6 +29,7 @@ import type {
     ImagesBannerList,
     LawyerBannerItem,
     LawyerLayoutItem,
+    ReviewRequestDto,
     YoutubeLayoutItem,
 } from '../api.schemas';
 
@@ -979,3 +983,67 @@ export function usePagesGetFooterStrip<
 
     return query;
 }
+
+export const pagesCreateReviewRequest = (reviewRequestDto: ReviewRequestDto, signal?: AbortSignal) => {
+    return axiosCall<void>({
+        url: `/pages/review/create`,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        data: reviewRequestDto,
+        signal,
+    });
+};
+
+export const getPagesCreateReviewRequestMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof pagesCreateReviewRequest>>,
+        TError,
+        { data: ReviewRequestDto },
+        TContext
+    >;
+}): UseMutationOptions<
+    Awaited<ReturnType<typeof pagesCreateReviewRequest>>,
+    TError,
+    { data: ReviewRequestDto },
+    TContext
+> => {
+    const mutationKey = ['pagesCreateReviewRequest'];
+    const { mutation: mutationOptions } = options
+        ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey } };
+
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof pagesCreateReviewRequest>>,
+        { data: ReviewRequestDto }
+    > = props => {
+        const { data } = props ?? {};
+
+        return pagesCreateReviewRequest(data);
+    };
+
+    return { mutationFn, ...mutationOptions };
+};
+
+export type PagesCreateReviewRequestMutationResult = NonNullable<Awaited<ReturnType<typeof pagesCreateReviewRequest>>>;
+export type PagesCreateReviewRequestMutationBody = ReviewRequestDto;
+export type PagesCreateReviewRequestMutationError = ErrorType<unknown>;
+
+export const usePagesCreateReviewRequest = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof pagesCreateReviewRequest>>,
+        TError,
+        { data: ReviewRequestDto },
+        TContext
+    >;
+}): UseMutationResult<
+    Awaited<ReturnType<typeof pagesCreateReviewRequest>>,
+    TError,
+    { data: ReviewRequestDto },
+    TContext
+> => {
+    const mutationOptions = getPagesCreateReviewRequestMutationOptions(options);
+
+    return useMutation(mutationOptions);
+};

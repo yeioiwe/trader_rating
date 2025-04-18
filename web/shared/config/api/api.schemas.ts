@@ -238,3 +238,16 @@ export interface FooterStripItem {
     youtubeUrl: string;
     tgUrl: string;
 }
+
+export interface ReviewRequestDto {
+    /** @maxLength 30 */
+    username: string;
+    /** @maxLength 30 */
+    userContact: string;
+    /** @maxLength 500 */
+    comment: string;
+    /** @maxLength 30 */
+    projectName: string;
+    /** @maxLength 30 */
+    projectUrl: string;
+}

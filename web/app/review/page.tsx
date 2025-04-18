@@ -1,5 +1,5 @@
-import { Typography } from '@mui/material';
+import { ReviewMain } from '@/view/review/review.main';
 
 export default function RewiewPage() {
-    return <Typography>Review Page</Typography>;
+    return <ReviewMain />;
 }

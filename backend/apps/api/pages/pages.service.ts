@@ -4,8 +4,10 @@ import { HeaderBannerEntity } from 'apps/libs/db/entity/header.banner.entity';
 import { ImagesBannerEntity } from 'apps/libs/db/entity/images.banner.entity';
 import { LawyerBannerEntity } from 'apps/libs/db/entity/lawyer.banner.entity';
 import { LawyerLayoutEntity, LawyerLayoutVisible } from 'apps/libs/db/entity/lawyer.layout.entity';
+import { ReviewEntity } from 'apps/libs/db/entity/review.entity';
 import { YoutubeLayoutEntity, YoutubeLayoutVisible } from 'apps/libs/db/entity/youtube.layout.entity';
 import { EntityManager } from 'typeorm';
+import { ReviewRequestDto } from './pages.dto';
 
 @Injectable()
 export class PagesService {
@@ -54,5 +56,11 @@ export class PagesService {
         if (!footer) throw new BadRequestException();
 
         return footer;
+    }
+
+    async createReviewRequest(dto: ReviewRequestDto) {
+        const request = await this.em.create(ReviewEntity, { ...dto, createdAt: new Date() });
+
+        await this.em.save(ReviewEntity, request);
     }
 }
