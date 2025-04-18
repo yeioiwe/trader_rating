@@ -35,6 +35,7 @@ import type {
     ImagesBannerList,
     LawyerBannerItem,
     LawyerLayoutItem,
+    ReviewList,
     YoutubeLayoutItem,
 } from '../api.schemas';
 
@@ -1410,3 +1411,196 @@ export function usePagesGetLawyerLayout<
 
     return query;
 }
+
+export const pagesGetReviewList = (signal?: AbortSignal) => {
+    return axiosCall<ReviewList>({ url: `/pages/review`, method: 'GET', signal });
+};
+
+export const getPagesGetReviewListQueryKey = () => {
+    return [`/pages/review`] as const;
+};
+
+export const getPagesGetReviewListInfiniteQueryOptions = <
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetReviewList>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetReviewList>>, TError, TData>>;
+}) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPagesGetReviewListQueryKey();
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof pagesGetReviewList>>> = ({ signal }) =>
+        pagesGetReviewList(signal);
+
+    return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof pagesGetReviewList>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PagesGetReviewListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof pagesGetReviewList>>>;
+export type PagesGetReviewListInfiniteQueryError = ErrorType<unknown>;
+
+export function usePagesGetReviewListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetReviewList>>>,
+    TError = ErrorType<unknown>,
+>(options: {
+    query: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetReviewList>>, TError, TData>> &
+        Pick<
+            DefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetReviewList>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetReviewList>>
+            >,
+            'initialData'
+        >;
+}): DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetReviewListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetReviewList>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetReviewList>>, TError, TData>> &
+        Pick<
+            UndefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetReviewList>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetReviewList>>
+            >,
+            'initialData'
+        >;
+}): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetReviewListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetReviewList>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetReviewList>>, TError, TData>>;
+}): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePagesGetReviewListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetReviewList>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetReviewList>>, TError, TData>>;
+}): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPagesGetReviewListInfiniteQueryOptions(options);
+
+    const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const getPagesGetReviewListQueryOptions = <
+    TData = Awaited<ReturnType<typeof pagesGetReviewList>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetReviewList>>, TError, TData>>;
+}) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPagesGetReviewListQueryKey();
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof pagesGetReviewList>>> = ({ signal }) =>
+        pagesGetReviewList(signal);
+
+    return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof pagesGetReviewList>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PagesGetReviewListQueryResult = NonNullable<Awaited<ReturnType<typeof pagesGetReviewList>>>;
+export type PagesGetReviewListQueryError = ErrorType<unknown>;
+
+export function usePagesGetReviewList<
+    TData = Awaited<ReturnType<typeof pagesGetReviewList>>,
+    TError = ErrorType<unknown>,
+>(options: {
+    query: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetReviewList>>, TError, TData>> &
+        Pick<
+            DefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetReviewList>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetReviewList>>
+            >,
+            'initialData'
+        >;
+}): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetReviewList<
+    TData = Awaited<ReturnType<typeof pagesGetReviewList>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetReviewList>>, TError, TData>> &
+        Pick<
+            UndefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetReviewList>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetReviewList>>
+            >,
+            'initialData'
+        >;
+}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetReviewList<
+    TData = Awaited<ReturnType<typeof pagesGetReviewList>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetReviewList>>, TError, TData>>;
+}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePagesGetReviewList<
+    TData = Awaited<ReturnType<typeof pagesGetReviewList>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetReviewList>>, TError, TData>>;
+}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPagesGetReviewListQueryOptions(options);
+
+    const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const pagesDeleteReview = (id: number, signal?: AbortSignal) => {
+    return axiosCall<void>({ url: `/pages/review/delete/${id}`, method: 'POST', signal });
+};
+
+export const getPagesDeleteReviewMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<Awaited<ReturnType<typeof pagesDeleteReview>>, TError, { id: number }, TContext>;
+}): UseMutationOptions<Awaited<ReturnType<typeof pagesDeleteReview>>, TError, { id: number }, TContext> => {
+    const mutationKey = ['pagesDeleteReview'];
+    const { mutation: mutationOptions } = options
+        ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey } };
+
+    const mutationFn: MutationFunction<Awaited<ReturnType<typeof pagesDeleteReview>>, { id: number }> = props => {
+        const { id } = props ?? {};
+
+        return pagesDeleteReview(id);
+    };
+
+    return { mutationFn, ...mutationOptions };
+};
+
+export type PagesDeleteReviewMutationResult = NonNullable<Awaited<ReturnType<typeof pagesDeleteReview>>>;
+
+export type PagesDeleteReviewMutationError = ErrorType<unknown>;
+
+export const usePagesDeleteReview = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<Awaited<ReturnType<typeof pagesDeleteReview>>, TError, { id: number }, TContext>;
+}): UseMutationResult<Awaited<ReturnType<typeof pagesDeleteReview>>, TError, { id: number }, TContext> => {
+    const mutationOptions = getPagesDeleteReviewMutationOptions(options);
+
+    return useMutation(mutationOptions);
+};

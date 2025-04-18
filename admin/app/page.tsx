@@ -1,7 +1,13 @@
+'use client';
+import { useRouter } from 'next/navigation';
+
 export default function Home() {
-  return (
-    <div>
-      <p>admin main home page init</p>
-    </div>
-  );
+    const router = useRouter();
+
+    router.push('/dashboard');
+    return (
+        <div>
+            <p>admin main home page init</p>
+        </div>
+    );
 }

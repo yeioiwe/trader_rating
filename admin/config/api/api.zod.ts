@@ -202,3 +202,15 @@ export const LawyerLayoutItem = z
         detailsUrl: z.string(),
     })
     .passthrough();
+export const ReviewItem = z
+    .object({
+        id: z.number(),
+        username: z.string(),
+        userContact: z.string(),
+        comment: z.string(),
+        projectName: z.string(),
+        projectUrl: z.string(),
+        createdAt: z.string().datetime({ offset: true }),
+    })
+    .passthrough();
+export const ReviewList = z.object({ items: z.array(ReviewItem) }).passthrough();

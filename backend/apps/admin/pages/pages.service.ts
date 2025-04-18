@@ -4,6 +4,7 @@ import { HeaderBannerEntity, HeaderBannerType } from 'apps/libs/db/entity/header
 import { ImagesBannerEntity } from 'apps/libs/db/entity/images.banner.entity';
 import { LawyerBannerEntity } from 'apps/libs/db/entity/lawyer.banner.entity';
 import { LawyerLayoutEntity, LawyerLayoutVisible } from 'apps/libs/db/entity/lawyer.layout.entity';
+import { ReviewEntity } from 'apps/libs/db/entity/review.entity';
 import { YoutubeLayoutEntity, YoutubeLayoutVisible } from 'apps/libs/db/entity/youtube.layout.entity';
 import { EntityManager } from 'typeorm';
 import {
@@ -149,5 +150,15 @@ export class PagesService {
         if (!lawyer) throw new BadRequestException();
 
         return lawyer;
+    }
+
+    async getReviewList() {
+        const reviews = await this.em.find(ReviewEntity);
+
+        return { items: reviews };
+    }
+
+    async deleteReview(id: number) {
+        await this.em.delete(ReviewEntity, { id });
     }
 }

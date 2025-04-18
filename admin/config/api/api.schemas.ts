@@ -403,3 +403,17 @@ export interface LawyerLayoutItem {
     tgUrl: string;
     detailsUrl: string;
 }
+
+export interface ReviewItem {
+    id: number;
+    username: string;
+    userContact: string;
+    comment: string;
+    projectName: string;
+    projectUrl: string;
+    createdAt: Date;
+}
+
+export interface ReviewList {
+    items: ReviewItem[];
+}

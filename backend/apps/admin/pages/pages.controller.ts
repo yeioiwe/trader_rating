@@ -16,6 +16,7 @@ import {
     ImagesBannerList,
     LawyerBannerItem,
     LawyerLayoutItem,
+    ReviewList,
     YoutubeLayoutItem,
 } from './pages.types';
 
@@ -101,5 +102,17 @@ export class PagesController {
     @ApiOkResponse({ type: LawyerLayoutItem })
     async getLawyerLayout(): Promise<LawyerLayoutItem> {
         return await this.pagesService.getLawyerLayout();
+    }
+
+    @Get('review')
+    @ApiOkResponse({ type: ReviewList })
+    async getReviewList(): Promise<ReviewList> {
+        return await this.pagesService.getReviewList();
+    }
+
+    @Post('review/delete/:id')
+    @ApiOkResponse()
+    async deleteReview(@Param('id') reviewId: number): Promise<void> {
+        return await this.pagesService.deleteReview(reviewId);
     }
 }
