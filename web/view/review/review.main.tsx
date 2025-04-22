@@ -4,6 +4,7 @@ import { Button, Typography } from '@mui/material';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { LawyerCard } from '../main/lawyer/lawyer.card';
 import { ReviewForm } from './review.form';
 
 export const ReviewMain = () => {
@@ -37,6 +38,8 @@ export const ReviewMain = () => {
             </Typography>
 
             {request ? <RequestSend /> : <ReviewForm setRequest={setRequest} />}
+
+            <LawyerCard />
         </Col>
     );
 };

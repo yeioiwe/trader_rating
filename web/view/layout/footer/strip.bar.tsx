@@ -30,13 +30,6 @@ export const StripBar = () => {
                 <StripLogo />
 
                 <Row gap={2}>
-                    <BenefitItem text="Разоблочение" />
-                    <BenefitItem text="Проверка проектов" />
-                    <BenefitItem text="Консультация" />
-                    <BenefitItem text="Отзывы на проекты" />
-                </Row>
-
-                <Row gap={2}>
                     <StripBarButton
                         url={footer.youtubeUrl}
                         bgcolor="#C53D3D"
@@ -44,6 +37,13 @@ export const StripBar = () => {
                         icon={<YoutubeStripIcon />}
                     />
                     <StripBarButton url={footer.tgUrl} bgcolor="#449FE8" text="Telegram" icon={<TelegramStripIcon />} />
+                </Row>
+
+                <Row gap={2}>
+                    <BenefitItem text="Разоблочение" />
+                    <BenefitItem text="Проверка проектов" />
+                    <BenefitItem text="Консультация" />
+                    <BenefitItem text="Отзывы на проекты" />
                 </Row>
             </Row>
         </Container>

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { AppLayout } from './app.layout';
+import ChatLayout from './chat';
 
 export const metadata: Metadata = {
     title: 'ANTI SCAMMER',
@@ -13,6 +14,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ru">
+            <head>
+                <ChatLayout />
+            </head>
             <body>
                 <AppLayout>{children}</AppLayout>
             </body>

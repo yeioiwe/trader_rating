@@ -23,7 +23,7 @@ export const LawyerAvatar = ({ avatar, name }: { avatar: string; name: string })
                 alt="lawyer"
             />
 
-            <Typography fontSize={24} color="white" fontWeight={700}>
+            <Typography fontSize={24} color="white" fontWeight={700} textAlign={'center'}>
                 {name}
             </Typography>
 

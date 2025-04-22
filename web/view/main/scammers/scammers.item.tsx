@@ -13,6 +13,7 @@ import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export const ScammerItem = ({ project }: { project: ScammerDemoProfileItem }) => {
+    const router = useRouter();
     const { t } = useTranslation();
 
     return (
@@ -78,7 +79,12 @@ export const ScammerItem = ({ project }: { project: ScammerDemoProfileItem }) =>
                     <ReviewButton url={project.url} />
                 </Row>
 
-                <Row gap={1} justifyContent={'flex-start'}>
+                <Row
+                    gap={1}
+                    justifyContent={'flex-start'}
+                    onClick={() => router.push(`https://t.me/${project.tgUsername}`)}
+                    sx={{ cursor: 'pointer' }}
+                >
                     <Typography fontWeight={700}>{t('main.scammers.project_link')}</Typography>
 
                     <Typography fontWeight={700} color={'#C53D3D'}>
@@ -95,7 +101,7 @@ const RateCircle = ({ percent }: { percent: number }) => {
 
     return (
         <Col gap={1}>
-            <Typography fontWeight={500} fontSize={14}>
+            <Typography fontWeight={500} fontSize={14} textAlign={'center'}>
                 {t('main.scammers.statistic_rate')}
             </Typography>
 

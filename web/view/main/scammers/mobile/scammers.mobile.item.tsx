@@ -100,7 +100,7 @@ const RateCircle = ({ percent }: { percent: number }) => {
 
     return (
         <Col gap={1}>
-            <Typography fontWeight={500} fontSize={14}>
+            <Typography fontWeight={500} fontSize={14} textAlign={'center'}>
                 {t('main.scammers.statistic_rate')}
             </Typography>
 
