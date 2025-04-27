@@ -63,6 +63,7 @@ const StripBarButton = ({
 }) => {
     const router = useRouter();
 
+    if (url.length < 3) return null;
     return (
         <Button
             onClick={() => router.push(url)}
