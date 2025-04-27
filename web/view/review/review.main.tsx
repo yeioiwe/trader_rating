@@ -1,6 +1,7 @@
 'use client';
+import { usePagesGetLawyerProfile } from '@/shared/config/api/pages/pages';
 import { Col, Row } from '@/shared/ui/boxes';
-import { Button, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -8,7 +9,10 @@ import { LawyerCard } from '../main/lawyer/lawyer.card';
 import { ReviewForm } from './review.form';
 
 export const ReviewMain = () => {
+    const { data: lawyerProfile } = usePagesGetLawyerProfile();
     const [request, setRequest] = useState(false);
+
+    if (lawyerProfile === undefined) return null;
 
     return (
         <Col gap={4}>
@@ -40,6 +44,21 @@ export const ReviewMain = () => {
             {request ? <RequestSend /> : <ReviewForm setRequest={setRequest} />}
 
             <LawyerCard />
+
+            <Box
+                maxWidth={'100%'}
+                sx={{
+                    img: { width: '100%' },
+                    iframe: { width: '100%', minHeight: '500px' },
+                }}
+            >
+                <div className="ql-editor" style={{ width: '100%', boxSizing: 'border-box', padding: 0 }}>
+                    <div
+                        style={{ width: '100%', boxSizing: 'border-box' }}
+                        dangerouslySetInnerHTML={{ __html: lawyerProfile.profile }}
+                    />
+                </div>
+            </Box>
         </Col>
     );
 };

@@ -128,3 +128,4 @@ export const ReviewRequestDto = z
         projectUrl: z.string().max(30),
     })
     .passthrough();
+export const LawyerProfileItem = z.object({ id: z.number(), profile: z.string() }).passthrough();

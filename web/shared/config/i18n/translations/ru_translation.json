@@ -57,7 +57,7 @@
             "title": "Список мошенников",
             "statistic_reports": "Жалобы",
             "statistic_comments": "Отзывы",
-            "statistic_rate": "Риск",
+            "statistic_rate": "Риск %",
             "project_link": "Ссылка на проект:",
             "button_review": "Обзор"
         },

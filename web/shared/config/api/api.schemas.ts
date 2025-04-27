@@ -251,3 +251,8 @@ export interface ReviewRequestDto {
     /** @maxLength 30 */
     projectUrl: string;
 }
+
+export interface LawyerProfileItem {
+    id: number;
+    profile: string;
+}
