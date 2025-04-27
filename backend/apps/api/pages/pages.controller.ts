@@ -8,6 +8,7 @@ import {
     ImagesBannerList,
     LawyerBannerItem,
     LawyerLayoutItem,
+    LawyerProfileItem,
     YoutubeLayoutItem,
 } from './pages.types';
 
@@ -55,5 +56,11 @@ export class PagesController {
     @ApiOkResponse()
     async createReviewRequest(@Body() dto: ReviewRequestDto): Promise<void> {
         return await this.pagesService.createReviewRequest(dto);
+    }
+
+    @Get('lawyer_profile')
+    @ApiOkResponse({ type: LawyerProfileItem })
+    async getLawyerProfile(): Promise<LawyerProfileItem> {
+        return await this.pagesService.getLawyerProfile();
     }
 }

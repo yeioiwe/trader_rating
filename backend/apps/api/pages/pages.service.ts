@@ -4,6 +4,7 @@ import { HeaderBannerEntity } from 'apps/libs/db/entity/header.banner.entity';
 import { ImagesBannerEntity } from 'apps/libs/db/entity/images.banner.entity';
 import { LawyerBannerEntity } from 'apps/libs/db/entity/lawyer.banner.entity';
 import { LawyerLayoutEntity, LawyerLayoutVisible } from 'apps/libs/db/entity/lawyer.layout.entity';
+import { LawyerProfileEntity } from 'apps/libs/db/entity/lawyer.profile';
 import { ReviewEntity } from 'apps/libs/db/entity/review.entity';
 import { YoutubeLayoutEntity, YoutubeLayoutVisible } from 'apps/libs/db/entity/youtube.layout.entity';
 import { EntityManager } from 'typeorm';
@@ -62,5 +63,13 @@ export class PagesService {
         const request = await this.em.create(ReviewEntity, { ...dto, createdAt: new Date() });
 
         await this.em.save(ReviewEntity, request);
+    }
+
+    async getLawyerProfile() {
+        const profile = await this.em.findOneBy(LawyerProfileEntity, { id: 1 });
+
+        if (!profile) throw new BadRequestException();
+
+        return profile;
     }
 }

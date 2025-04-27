@@ -4,6 +4,7 @@ import { HeaderBannerEntity, HeaderBannerType } from 'apps/libs/db/entity/header
 import { ImagesBannerEntity } from 'apps/libs/db/entity/images.banner.entity';
 import { LawyerBannerEntity } from 'apps/libs/db/entity/lawyer.banner.entity';
 import { LawyerLayoutEntity, LawyerLayoutVisible } from 'apps/libs/db/entity/lawyer.layout.entity';
+import { LawyerProfileEntity } from 'apps/libs/db/entity/lawyer.profile';
 import { ReviewEntity } from 'apps/libs/db/entity/review.entity';
 import { YoutubeLayoutEntity, YoutubeLayoutVisible } from 'apps/libs/db/entity/youtube.layout.entity';
 import { EntityManager } from 'typeorm';
@@ -12,6 +13,7 @@ import {
     EditFooterStripDto,
     EditLawyerBannerDto,
     EditLawyerLayoutDto,
+    EditLawyerProfileDto,
     EditYoutubeLayoutDto,
     HeaderBannerEditDto,
 } from './pages.dto';
@@ -75,6 +77,12 @@ export class PagesService {
         if (footerStrip.length === 0) {
             const footer = await this.em.create(FooterStripEntity, { tgUrl: '', youtubeUrl: '' });
             await this.em.save(FooterStripEntity, footer);
+        }
+
+        const lawyerProfile = await this.em.find(LawyerProfileEntity);
+        if (lawyerProfile.length === 0) {
+            const profile = await this.em.create(LawyerProfileEntity, { profile: '' });
+            await this.em.save(LawyerProfileEntity, profile);
         }
     }
 
@@ -160,5 +168,21 @@ export class PagesService {
 
     async deleteReview(id: number) {
         await this.em.delete(ReviewEntity, { id });
+    }
+
+    async editLawyerProfile(dto: EditLawyerProfileDto) {
+        const profile = await this.em.findOneBy(LawyerProfileEntity, { id: 1 });
+
+        if (!profile) throw new BadRequestException();
+
+        await this.em.update(LawyerProfileEntity, { id: 1 }, { profile: dto.profile });
+    }
+
+    async getLawyerProfile() {
+        const profile = await this.em.findOneBy(LawyerProfileEntity, { id: 1 });
+
+        if (!profile) throw new BadRequestException();
+
+        return profile;
     }
 }

@@ -95,3 +95,8 @@ export class EditFooterStripDto {
     @IsString()
     youtubeUrl!: string;
 }
+
+export class EditLawyerProfileDto {
+    @IsString()
+    profile!: string;
+}

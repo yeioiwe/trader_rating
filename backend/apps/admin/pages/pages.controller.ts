@@ -6,6 +6,7 @@ import {
     EditFooterStripDto,
     EditLawyerBannerDto,
     EditLawyerLayoutDto,
+    EditLawyerProfileDto,
     EditYoutubeLayoutDto,
     HeaderBannerEditDto,
 } from './pages.dto';
@@ -16,6 +17,7 @@ import {
     ImagesBannerList,
     LawyerBannerItem,
     LawyerLayoutItem,
+    LawyerProfileItem,
     ReviewList,
     YoutubeLayoutItem,
 } from './pages.types';
@@ -114,5 +116,17 @@ export class PagesController {
     @ApiOkResponse()
     async deleteReview(@Param('id') reviewId: number): Promise<void> {
         return await this.pagesService.deleteReview(reviewId);
+    }
+
+    @Post('lawyer_profile')
+    @ApiOkResponse()
+    async editLawyerProfile(@Body() dto: EditLawyerProfileDto): Promise<void> {
+        return await this.pagesService.editLawyerProfile(dto);
+    }
+
+    @Get('lawyer_profile')
+    @ApiOkResponse({ type: LawyerProfileItem })
+    async getLawyerProfile(): Promise<LawyerProfileItem> {
+        return await this.pagesService.getLawyerProfile();
     }
 }
