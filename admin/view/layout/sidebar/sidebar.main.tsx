@@ -9,6 +9,7 @@ export const SideBar = () => {
             <SideBarButton text="Главная" url="dashboard" />
             <SideBarButton text="Мошенники" url="scammers" />
             <SideBarButton text="Проверка" url="review" />
+            <SideBarButton text="Юрист" url="lawyer" />
             <SideBarButton text="Посты" url="post" />
         </Col>
     );

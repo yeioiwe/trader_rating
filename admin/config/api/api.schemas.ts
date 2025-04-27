@@ -417,3 +417,12 @@ export interface ReviewItem {
 export interface ReviewList {
     items: ReviewItem[];
 }
+
+export interface EditLawyerProfileDto {
+    profile: string;
+}
+
+export interface LawyerProfileItem {
+    id: number;
+    profile: string;
+}

@@ -214,3 +214,5 @@ export const ReviewItem = z
     })
     .passthrough();
 export const ReviewList = z.object({ items: z.array(ReviewItem) }).passthrough();
+export const EditLawyerProfileDto = z.object({ profile: z.string() }).passthrough();
+export const LawyerProfileItem = z.object({ id: z.number(), profile: z.string() }).passthrough();

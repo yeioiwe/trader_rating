@@ -28,6 +28,7 @@ import type {
     EditFooterStripDto,
     EditLawyerBannerDto,
     EditLawyerLayoutDto,
+    EditLawyerProfileDto,
     EditYoutubeLayoutDto,
     FooterStripItem,
     HeaderBannerEditDto,
@@ -35,6 +36,7 @@ import type {
     ImagesBannerList,
     LawyerBannerItem,
     LawyerLayoutItem,
+    LawyerProfileItem,
     ReviewList,
     YoutubeLayoutItem,
 } from '../api.schemas';
@@ -1604,3 +1606,223 @@ export const usePagesDeleteReview = <TError = ErrorType<unknown>, TContext = unk
 
     return useMutation(mutationOptions);
 };
+export const pagesEditLawyerProfile = (editLawyerProfileDto: EditLawyerProfileDto, signal?: AbortSignal) => {
+    return axiosCall<void>({
+        url: `/pages/lawyer_profile`,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        data: editLawyerProfileDto,
+        signal,
+    });
+};
+
+export const getPagesEditLawyerProfileMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof pagesEditLawyerProfile>>,
+        TError,
+        { data: EditLawyerProfileDto },
+        TContext
+    >;
+}): UseMutationOptions<
+    Awaited<ReturnType<typeof pagesEditLawyerProfile>>,
+    TError,
+    { data: EditLawyerProfileDto },
+    TContext
+> => {
+    const mutationKey = ['pagesEditLawyerProfile'];
+    const { mutation: mutationOptions } = options
+        ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey } };
+
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof pagesEditLawyerProfile>>,
+        { data: EditLawyerProfileDto }
+    > = props => {
+        const { data } = props ?? {};
+
+        return pagesEditLawyerProfile(data);
+    };
+
+    return { mutationFn, ...mutationOptions };
+};
+
+export type PagesEditLawyerProfileMutationResult = NonNullable<Awaited<ReturnType<typeof pagesEditLawyerProfile>>>;
+export type PagesEditLawyerProfileMutationBody = EditLawyerProfileDto;
+export type PagesEditLawyerProfileMutationError = ErrorType<unknown>;
+
+export const usePagesEditLawyerProfile = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof pagesEditLawyerProfile>>,
+        TError,
+        { data: EditLawyerProfileDto },
+        TContext
+    >;
+}): UseMutationResult<
+    Awaited<ReturnType<typeof pagesEditLawyerProfile>>,
+    TError,
+    { data: EditLawyerProfileDto },
+    TContext
+> => {
+    const mutationOptions = getPagesEditLawyerProfileMutationOptions(options);
+
+    return useMutation(mutationOptions);
+};
+export const pagesGetLawyerProfile = (signal?: AbortSignal) => {
+    return axiosCall<LawyerProfileItem>({ url: `/pages/lawyer_profile`, method: 'GET', signal });
+};
+
+export const getPagesGetLawyerProfileQueryKey = () => {
+    return [`/pages/lawyer_profile`] as const;
+};
+
+export const getPagesGetLawyerProfileInfiniteQueryOptions = <
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetLawyerProfile>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerProfile>>, TError, TData>>;
+}) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPagesGetLawyerProfileQueryKey();
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof pagesGetLawyerProfile>>> = ({ signal }) =>
+        pagesGetLawyerProfile(signal);
+
+    return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof pagesGetLawyerProfile>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PagesGetLawyerProfileInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof pagesGetLawyerProfile>>>;
+export type PagesGetLawyerProfileInfiniteQueryError = ErrorType<unknown>;
+
+export function usePagesGetLawyerProfileInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetLawyerProfile>>>,
+    TError = ErrorType<unknown>,
+>(options: {
+    query: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerProfile>>, TError, TData>> &
+        Pick<
+            DefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetLawyerProfile>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetLawyerProfile>>
+            >,
+            'initialData'
+        >;
+}): DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetLawyerProfileInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetLawyerProfile>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerProfile>>, TError, TData>> &
+        Pick<
+            UndefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetLawyerProfile>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetLawyerProfile>>
+            >,
+            'initialData'
+        >;
+}): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetLawyerProfileInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetLawyerProfile>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerProfile>>, TError, TData>>;
+}): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePagesGetLawyerProfileInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetLawyerProfile>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerProfile>>, TError, TData>>;
+}): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPagesGetLawyerProfileInfiniteQueryOptions(options);
+
+    const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const getPagesGetLawyerProfileQueryOptions = <
+    TData = Awaited<ReturnType<typeof pagesGetLawyerProfile>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerProfile>>, TError, TData>>;
+}) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPagesGetLawyerProfileQueryKey();
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof pagesGetLawyerProfile>>> = ({ signal }) =>
+        pagesGetLawyerProfile(signal);
+
+    return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof pagesGetLawyerProfile>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PagesGetLawyerProfileQueryResult = NonNullable<Awaited<ReturnType<typeof pagesGetLawyerProfile>>>;
+export type PagesGetLawyerProfileQueryError = ErrorType<unknown>;
+
+export function usePagesGetLawyerProfile<
+    TData = Awaited<ReturnType<typeof pagesGetLawyerProfile>>,
+    TError = ErrorType<unknown>,
+>(options: {
+    query: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerProfile>>, TError, TData>> &
+        Pick<
+            DefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetLawyerProfile>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetLawyerProfile>>
+            >,
+            'initialData'
+        >;
+}): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetLawyerProfile<
+    TData = Awaited<ReturnType<typeof pagesGetLawyerProfile>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerProfile>>, TError, TData>> &
+        Pick<
+            UndefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetLawyerProfile>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetLawyerProfile>>
+            >,
+            'initialData'
+        >;
+}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetLawyerProfile<
+    TData = Awaited<ReturnType<typeof pagesGetLawyerProfile>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerProfile>>, TError, TData>>;
+}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePagesGetLawyerProfile<
+    TData = Awaited<ReturnType<typeof pagesGetLawyerProfile>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerProfile>>, TError, TData>>;
+}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPagesGetLawyerProfileQueryOptions(options);
+
+    const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
