@@ -129,3 +129,37 @@ export const ReviewRequestDto = z
     })
     .passthrough();
 export const LawyerProfileItem = z.object({ id: z.number(), profile: z.string() }).passthrough();
+export const NewsPreviewItem = z
+    .object({
+        id: z.number(),
+        url: z.string(),
+        avatar: z.string(),
+        title: z.string(),
+        views: z.number(),
+        date: z.string().datetime({ offset: true }),
+    })
+    .passthrough();
+export const NewsPreviewList = z.object({ items: z.array(NewsPreviewItem) }).passthrough();
+export const NewsItem = z
+    .object({
+        id: z.number(),
+        url: z.string(),
+        title: z.string(),
+        avatar: z.string(),
+        news: z.string(),
+        likes: z.number(),
+        views: z.number(),
+        date: z.string().datetime({ offset: true }),
+    })
+    .passthrough();
+export const NewsCommentItem = z
+    .object({
+        id: z.number(),
+        name: z.string(),
+        comment: z.string(),
+        newsId: z.number(),
+        date: z.string().datetime({ offset: true }),
+        starRate: z.enum(['1', '2', '3', '4', '5']),
+    })
+    .passthrough();
+export const NewsCommentList = z.object({ items: z.array(NewsCommentItem) }).passthrough();

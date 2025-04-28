@@ -256,3 +256,51 @@ export interface LawyerProfileItem {
     id: number;
     profile: string;
 }
+
+export interface NewsPreviewItem {
+    id: number;
+    url: string;
+    avatar: string;
+    title: string;
+    views: number;
+    date: Date;
+}
+
+export interface NewsPreviewList {
+    items: NewsPreviewItem[];
+}
+
+export interface NewsItem {
+    id: number;
+    url: string;
+    title: string;
+    avatar: string;
+    news: string;
+    likes: number;
+    views: number;
+    date: Date;
+}
+
+export type NewsCommentItemStarRate = (typeof NewsCommentItemStarRate)[keyof typeof NewsCommentItemStarRate];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const NewsCommentItemStarRate = {
+    NUMBER_1: '1',
+    NUMBER_2: '2',
+    NUMBER_3: '3',
+    NUMBER_4: '4',
+    NUMBER_5: '5',
+} as const;
+
+export interface NewsCommentItem {
+    id: number;
+    name: string;
+    comment: string;
+    newsId: number;
+    date: Date;
+    starRate: NewsCommentItemStarRate;
+}
+
+export interface NewsCommentList {
+    items: NewsCommentItem[];
+}

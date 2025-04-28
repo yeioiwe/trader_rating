@@ -1,10 +1,14 @@
+'use client';
+import { useNewsGetTop } from '@/shared/config/api/news/news';
 import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
 import { Button, Typography, useMediaQuery } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { NewsItem } from './news.item';
 
 export const NewsList = () => {
+    const { data: news } = useNewsGetTop();
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     const { t } = useTranslation();
 
@@ -22,10 +26,9 @@ export const NewsList = () => {
                     },
                 }}
             >
-                <NewsItem />
-                <NewsItem />
-                <NewsItem />
-                <NewsItem />
+                {news?.items.map((n, i) => (
+                    <NewsItem news={n} key={i} />
+                ))}
             </Row>
 
             <Row justifyContent={'flex-start'}>
@@ -36,10 +39,14 @@ export const NewsList = () => {
 };
 
 const FullListButton = ({ text }: { text: string }) => {
+    const router = useRouter();
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
-        <Button sx={{ bgcolor: 'white', borderRadius: '9px', minWidth: isSm ? '100%' : 250, minHeight: 50 }}>
+        <Button
+            onClick={() => router.push('/news')}
+            sx={{ bgcolor: 'white', borderRadius: '9px', minWidth: isSm ? '100%' : 250, minHeight: 50 }}
+        >
             <Typography color="#5297FF" fontSize={16} fontWeight={700}>
                 {text}
             </Typography>

@@ -1,15 +1,21 @@
+'use client';
 import NewsIcon from '@/public/icons/layout_news.svg';
 import LikeIcon from '@/public/icons/news_like.svg';
+import { NewsPreviewItem } from '@/shared/config/api/api.schemas';
+import { useNewsGetTop } from '@/shared/config/api/news/news';
 import { Col, Row } from '@/shared/ui/boxes';
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
+import dayjs from 'dayjs';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { SidebarCard } from './card';
-import { AllListButton } from './scammers.card';
 
 export const NewsCard = () => {
     const { t } = useTranslation();
+    const { data: news } = useNewsGetTop();
 
+    if (news === undefined) return null;
     return (
         <SidebarCard bgcolor={'#ECF2FF'} icon={<NewsIcon />}>
             <Col gap={2}>
@@ -18,33 +24,20 @@ export const NewsCard = () => {
                 </Typography>
 
                 <Col gap={1}>
-                    <NewsItem
-                        title={'Маск создал X-Coin – взлетел на 5000%, потом оказался мемом!'}
-                        like={9120}
-                        date={'15.10.2024'}
-                        photoUrl={'/news.jpg'}
-                    />
-                    <NewsItem
-                        title={'Биткоин на Марсе – колонисты SpaceX платят в BTC.'}
-                        like={9120}
-                        date={'15.10.2024'}
-                        photoUrl={'/news.jpg'}
-                    />
-                    <NewsItem
-                        title={'AI-крипта в шоке – ИИ сам майнит и рушит рынок!'}
-                        like={9120}
-                        date={'15.10.2024'}
-                        photoUrl={'/news.jpg'}
-                    />
+                    {news.items.map((n, i) => (
+                        <NewsItem news={n} key={i} />
+                    ))}
                 </Col>
 
-                <AllListButton />
+                <AllNewsButton />
             </Col>
         </SidebarCard>
     );
 };
 
-const NewsItem = ({ title, like, date, photoUrl }: { title: string; like: number; date: string; photoUrl: string }) => {
+const NewsItem = ({ news }: { news: NewsPreviewItem }) => {
+    const router = useRouter();
+
     return (
         <Row
             p={1}
@@ -59,12 +52,13 @@ const NewsItem = ({ title, like, date, photoUrl }: { title: string; like: number
                     bgcolor: '#f0f8ff',
                 },
             }}
+            onClick={() => router.push(`/news/${news.url}`)}
         >
-            <Image src={'/news.jpg'} alt="news" width={110} height={85} style={{ borderRadius: '8px' }} />
+            <Image src={news.avatar} alt="news" width={110} height={85} style={{ borderRadius: '8px' }} />
 
             <Col height={'100%'} justifyContent={'space-between'} width={'100%'}>
                 <Typography sx={{ lineHeight: 1.2 }} fontSize={14}>
-                    {title}
+                    {news.title}
                 </Typography>
 
                 <Row justifyContent={'space-between'}>
@@ -72,15 +66,28 @@ const NewsItem = ({ title, like, date, photoUrl }: { title: string; like: number
                         <LikeIcon />
 
                         <Typography color={'#918C8C'} fontSize={14}>
-                            {like}
+                            {news.views}
                         </Typography>
                     </Row>
 
                     <Typography color={'#918C8C'} fontSize={14}>
-                        {date}
+                        {dayjs(news.date).format('DD.MM.YYYY')}
                     </Typography>
                 </Row>
             </Col>
         </Row>
+    );
+};
+
+const AllNewsButton = () => {
+    const router = useRouter();
+    const { t } = useTranslation();
+
+    return (
+        <Button onClick={() => router.push('/news')} sx={{ bgcolor: '#FFFFFF', py: 1.75, borderRadius: '13px' }}>
+            <Typography color="#5297FF" fontSize={16} fontWeight={700}>
+                {t('sidebar.scammers.button')}
+            </Typography>
+        </Button>
     );
 };
