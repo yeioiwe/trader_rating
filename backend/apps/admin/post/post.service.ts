@@ -1,7 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { PostCommentEntity } from 'apps/libs/db/entity/post.comment.entity';
 import { PostEntity } from 'apps/libs/db/entity/post.entity';
 import { EntityManager } from 'typeorm';
-import { PostCreatePreviewDto, PostEditContentDto } from './post.dto';
+import { PostCreateComment, PostCreatePreviewDto, PostEditContentDto } from './post.dto';
 
 @Injectable()
 export class PostService {
@@ -40,5 +41,21 @@ export class PostService {
 
     async deletePost(id: number) {
         await this.em.delete(PostEntity, { id });
+    }
+
+    async createComment(postId: number, dto: PostCreateComment) {
+        const comment = await this.em.create(PostCommentEntity, { ...dto, postId });
+
+        await this.em.save(PostCommentEntity, comment);
+    }
+
+    async deleteComment(id: number) {
+        await this.em.delete(PostCommentEntity, { id });
+    }
+
+    async getCommentList(postId: number) {
+        const comments = await this.em.find(PostCommentEntity, { where: { postId }, order: { date: 'DESC' } });
+
+        return { items: comments };
     }
 }

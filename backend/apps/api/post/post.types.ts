@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { PostCommentEntity } from 'apps/libs/db/entity/post.comment.entity';
 import { PostEntity } from 'apps/libs/db/entity/post.entity';
 
 export class PostPreviewItem {
@@ -33,3 +34,13 @@ export class PostPreviewList {
 }
 
 export class PostItem extends PostEntity {}
+
+export class PostCommentItem extends PostCommentEntity {}
+
+export class PostCommentsList {
+    @ApiProperty({
+        type: PostCommentItem,
+        isArray: true,
+    })
+    items!: PostCommentItem[];
+}

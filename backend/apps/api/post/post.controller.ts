@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { PostService } from './post.service';
-import { PostItem, PostPreviewList } from './post.types';
+import { PostCommentsList, PostItem, PostPreviewList } from './post.types';
 
 @Controller('post')
 export class PostController {
@@ -17,5 +17,11 @@ export class PostController {
     @ApiOkResponse({ type: PostItem })
     async getOne(@Param('url') url: string): Promise<PostItem> {
         return await this.postService.getOne(url);
+    }
+
+    @Get('comments/:id')
+    @ApiOkResponse({ type: PostCommentsList })
+    async getComments(@Param('id') postId: number): Promise<PostCommentsList> {
+        return await this.postService.getComments(postId);
     }
 }

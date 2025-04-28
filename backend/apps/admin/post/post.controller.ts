@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { JwtGuard } from '../auth/guard/jwt.guard';
-import { PostCreatePreviewDto, PostEditContentDto } from './post.dto';
+import { PostCreateComment, PostCreatePreviewDto, PostEditContentDto } from './post.dto';
 import { PostService } from './post.service';
-import { PostItem, PostPreviewList } from './post.types';
+import { PostCommentList, PostItem, PostPreviewList } from './post.types';
 
 @UseGuards(JwtGuard)
 @Controller('post')
@@ -44,5 +44,23 @@ export class PostController {
     @ApiOkResponse()
     async delete(@Param('id') postId: number) {
         await this.postService.deletePost(postId);
+    }
+
+    @Post('comment/create/:id')
+    @ApiOkResponse()
+    async commentCreate(@Param('id') postId: number, @Body() dto: PostCreateComment): Promise<void> {
+        return this.postService.createComment(postId, dto);
+    }
+
+    @Post('comment/delete/:id')
+    @ApiOkResponse()
+    async deleteComment(@Param('id') commentId: number): Promise<void> {
+        return this.postService.deleteComment(commentId);
+    }
+
+    @Get('comment/:id')
+    @ApiOkResponse({ type: PostCommentList })
+    async getCommentList(@Param('id') postId: number): Promise<PostCommentList> {
+        return await this.postService.getCommentList(postId);
     }
 }
