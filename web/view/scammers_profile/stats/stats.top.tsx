@@ -1,33 +1,44 @@
 import TopIcon from '@/public/icons/scammer_top_icon.svg';
-import { Col } from '@/shared/ui/boxes';
-import { Box, Typography } from '@mui/material';
+import theme from '@/shared/config/theme/theme';
+import { Col, Row } from '@/shared/ui/boxes';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 
 export const StatsTop = ({ position }: { position: number }) => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
         <Col
             justifyContent={'flex-start'}
             bgcolor={'#FFECEC'}
             border={'4px solid #C53D3D'}
-            minWidth={'218px'}
+            width={'100%'}
             py={1.5}
             borderRadius={'14px'}
             position={'relative'}
             minHeight={'175px'}
             px={1.5}
         >
-            <Typography fontSize={20} color={'#C53D3D'}>
+            <Typography fontSize={isSm ? 14 : 20} color={'#C53D3D'}>
                 Место мошенника:
             </Typography>
 
-            <Box position={'absolute'} top={45} left={45}>
-                <TopIcon />
-            </Box>
+            <Row justifyContent={'center'}>
+                <StatsTopLogo position={position} />
+            </Row>
+        </Col>
+    );
+};
 
-            <Box position={'absolute'} top={66} left={'46%'}>
+const StatsTopLogo = ({ position }: { position: number }) => {
+    return (
+        <Box position={'relative'}>
+            <TopIcon />
+
+            <Box width={'100%'} position={'absolute'} top={21} display={'flex'} justifyContent={'center'}>
                 <Typography color="#C53D3D" fontSize={32} fontWeight={700}>
-                    {position}
+                    23
                 </Typography>
             </Box>
-        </Col>
+        </Box>
     );
 };

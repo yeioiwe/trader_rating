@@ -5,17 +5,19 @@ import AboutPostIcon from '@/public/icons/scammers_about_post.svg';
 import AboutTalkIcon from '@/public/icons/scammers_about_talk.svg';
 
 import ScammersTitleIcon from '@/public/icons/scammers_about_title.svg';
+import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 import { ReactNode } from 'react';
 
 export const ScammersListAbout = () => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     return (
         <Col gap={1.75}>
             <Row gap={2} justifyContent={'flex-start'}>
                 <ScammersTitleIcon />
 
-                <Typography fontWeight={700} fontSize={24}>
+                <Typography fontWeight={700} fontSize={isSm ? 18 : 24}>
                     Как распознать мошенников?
                 </Typography>
             </Row>
@@ -54,7 +56,7 @@ export const ScammersListAbout = () => {
             <Row gap={2} justifyContent={'flex-start'} mt={4}>
                 <AboutPostIcon />
 
-                <Typography fontWeight={700} fontSize={24}>
+                <Typography fontWeight={700} fontSize={isSm ? 18 : 24}>
                     Будьте бдительны и защищайте свои деньги
                 </Typography>
             </Row>

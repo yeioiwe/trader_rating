@@ -1,33 +1,44 @@
 import RateCircle from '@/public/icons/scammer_rate_circle.svg';
-import { Col } from '@/shared/ui/boxes';
-import { Box, Typography } from '@mui/material';
+import theme from '@/shared/config/theme/theme';
+import { Col, Row } from '@/shared/ui/boxes';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 
 export const ScammerStatsRate = ({ statsRate }: { statsRate: number }) => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
         <Col
             justifyContent={'flex-start'}
             bgcolor={'#FFECEC'}
             border={'4px solid #C53D3D'}
-            minWidth={'218px'}
+            width={'100%'}
             py={1.5}
             borderRadius={'14px'}
             position={'relative'}
             minHeight={'175px'}
             px={1.5}
         >
-            <Typography fontSize={20} color={'#C53D3D'}>
-                Оценка:
+            <Typography fontSize={isSm ? 14 : 20} color={'#C53D3D'}>
+                Риск %:
             </Typography>
 
-            <Box position={'absolute'} top={75} left={33}>
-                <RateCircle />
-            </Box>
+            <Row justifyContent={'center'} height={'100%'} pt={'20px'}>
+                <ScammerStatsRateItem rate={statsRate} />
+            </Row>
+        </Col>
+    );
+};
 
-            <Box position={'absolute'} top={118} left={'40%'}>
+const ScammerStatsRateItem = ({ rate }: { rate: number }) => {
+    return (
+        <Box position={'relative'}>
+            <RateCircle />
+
+            <Box width={'100%'} position={'absolute'} top={42} display={'flex'} justifyContent={'center'}>
                 <Typography color="#C53D3D" fontSize={24} fontWeight={700}>
-                    {statsRate}%
+                    {rate}
                 </Typography>
             </Box>
-        </Col>
+        </Box>
     );
 };

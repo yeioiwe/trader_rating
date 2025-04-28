@@ -3,15 +3,25 @@ import LinkIcon from '@/public/icons/profile_link_icon.svg';
 import TimeIcon from '@/public/icons/profile_time_icon.svg';
 import CancelIcon from '@/public/icons/scammer_profile_cancel.svg';
 import { ScammerProfileItem } from '@/shared/config/api/api.schemas';
+import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography, useMediaQuery } from '@mui/material';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 export const ScammerStatsProfile = ({ profile }: { profile: ScammerProfileItem }) => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
-        <Col px={1.5} py={2} bgcolor={'#C53D3D'} borderRadius={'14px'} minWidth={'308px'} gap={1}>
+        <Col
+            px={1.5}
+            py={2}
+            bgcolor={'#C53D3D'}
+            borderRadius={'14px'}
+            minWidth={isSm ? '100%' : '308px'}
+            gap={isSm ? 2 : 1}
+        >
             <ProfileAvatar url={profile.avatar_url} name={profile.name} />
             <AttentionButton />
 
@@ -55,6 +65,7 @@ export const ScammerStatsProfile = ({ profile }: { profile: ScammerProfileItem }
 };
 
 const ProfileAvatar = ({ url, name }: { url: string; name: string }) => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     return (
         <Col gap={1} width={'100%'} position={'relative'} alignItems={'center'}>
             <Image
@@ -74,7 +85,7 @@ const ProfileAvatar = ({ url, name }: { url: string; name: string }) => {
                 {name}
             </Typography>
 
-            <Box position={'absolute'} right={65} bottom={45}>
+            <Box display={isSm ? 'none' : 'block'} position={'absolute'} right={65} bottom={45}>
                 <CancelIcon />
             </Box>
         </Col>

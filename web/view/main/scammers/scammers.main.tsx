@@ -3,7 +3,6 @@ import { Typography } from '@mui/material';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScammersList } from './scammers.list';
-import { ScammersTypeSort } from './scammers.sort';
 import { ScammersTitle } from './scammers.title';
 
 export const ScammersMain = () => {
@@ -20,7 +19,7 @@ export const ScammersMain = () => {
                 </Typography>
             </Col>
 
-            <ScammersTypeSort sort={sort} setSort={setSort} />
+            {/* <ScammersTypeSort sort={sort} setSort={setSort} /> */}
             <ScammersList />
         </Col>
     );

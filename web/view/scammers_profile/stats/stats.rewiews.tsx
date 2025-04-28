@@ -8,7 +8,7 @@ export const ScammerStatsRewiews = ({ reviews }: { reviews: number }) => {
             justifyContent={'flex-start'}
             bgcolor={'#FFECEC'}
             border={'4px solid #C53D3D'}
-            minWidth={'218px'}
+            width={'100%'}
             borderRadius={'14px'}
             position={'relative'}
             minHeight={'100px'}

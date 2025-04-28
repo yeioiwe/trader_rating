@@ -1,11 +1,9 @@
 'use client';
-import { ScammerDemoProfileItem, ScammerDemoProfileItemCategory } from '@/shared/config/api/api.schemas';
 import { useScammersGetList } from '@/shared/config/api/scammers/scammers';
 import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
 import { Button, Typography, useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScammerMobileItem } from './mobile/scammers.mobile.item';
 import { ScammerItem } from './scammers.item';
@@ -15,32 +13,34 @@ export const ScammersList = () => {
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     const { t } = useTranslation();
 
-    const [sort, setSort] = useState<ScammerDemoProfileItemCategory | undefined>();
-    const [projects, setProjects] = useState<ScammerDemoProfileItem[] | undefined>();
+    // const [sort, setSort] = useState<ScammerDemoProfileItemCategory | undefined>();
+    // const [projects, setProjects] = useState<ScammerDemoProfileItem[] | undefined>();
 
-    useEffect(() => {
-        if (sort !== undefined) {
-            const sortedProjects = data?.items.filter(p => p.category === sort);
+    // useEffect(() => {
+    //     if (sort !== undefined) {
+    //         const sortedProjects = data?.items.filter(p => p.category === sort);
 
-            setProjects(sortedProjects);
-        } else {
-            setProjects(data?.items);
-        }
-    }, [sort]);
+    //         setProjects(sortedProjects);
+    //     } else {
+    //         setProjects(data?.items);
+    //     }
+    // }, [sort]);
 
-    useEffect(() => {
-        if (data !== undefined) {
-            setProjects(data.items);
-        }
-    }, [data?.items]);
+    // useEffect(() => {
+    //     if (data !== undefined) {
+    //         setProjects(data.items);
+    //     }
+    // }, [data?.items]);
 
-    if (projects === undefined) return null;
+    if (data === undefined) return null;
 
     return (
         <Col p={isSm ? 1.5 : 2.5} bgcolor={'#ECF2FF'} borderRadius={'19px'} gap={2.25}>
-            {projects.map((s, i) =>
-                isSm ? <ScammerMobileItem project={s} key={i} /> : <ScammerItem project={s} key={i} />,
-            )}
+            {data.items
+                .slice(0, 5)
+                .map((s, i) =>
+                    isSm ? <ScammerMobileItem project={s} key={i} /> : <ScammerItem project={s} key={i} />,
+                )}
 
             <Row justifyContent={'space-between'}>
                 <FullListButton text={t('main.button_full_list')} />
