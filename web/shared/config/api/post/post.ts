@@ -20,7 +20,7 @@ import type {
     UseQueryResult,
 } from '@tanstack/react-query';
 
-import type { PostItem, PostPreviewList } from '../api.schemas';
+import type { PostCommentsList, PostItem, PostPreviewList } from '../api.schemas';
 
 import { axiosCall } from '.././api.axios';
 import type { ErrorType } from '.././api.axios';
@@ -318,6 +318,170 @@ export function usePostGetOne<TData = Awaited<ReturnType<typeof postGetOne>>, TE
     options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof postGetOne>>, TError, TData>> },
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
     const queryOptions = getPostGetOneQueryOptions(url, options);
+
+    const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const postGetComments = (id: number, signal?: AbortSignal) => {
+    return axiosCall<PostCommentsList>({ url: `/post/comments/${id}`, method: 'GET', signal });
+};
+
+export const getPostGetCommentsQueryKey = (id: number) => {
+    return [`/post/comments/${id}`] as const;
+};
+
+export const getPostGetCommentsInfiniteQueryOptions = <
+    TData = InfiniteData<Awaited<ReturnType<typeof postGetComments>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: { query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof postGetComments>>, TError, TData>> },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPostGetCommentsQueryKey(id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof postGetComments>>> = ({ signal }) =>
+        postGetComments(id, signal);
+
+    return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof postGetComments>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PostGetCommentsInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof postGetComments>>>;
+export type PostGetCommentsInfiniteQueryError = ErrorType<unknown>;
+
+export function usePostGetCommentsInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof postGetComments>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options: {
+        query: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof postGetComments>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof postGetComments>>,
+                    TError,
+                    Awaited<ReturnType<typeof postGetComments>>
+                >,
+                'initialData'
+            >;
+    },
+): DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePostGetCommentsInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof postGetComments>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof postGetComments>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof postGetComments>>,
+                    TError,
+                    Awaited<ReturnType<typeof postGetComments>>
+                >,
+                'initialData'
+            >;
+    },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePostGetCommentsInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof postGetComments>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: { query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof postGetComments>>, TError, TData>> },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePostGetCommentsInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof postGetComments>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: { query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof postGetComments>>, TError, TData>> },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPostGetCommentsInfiniteQueryOptions(id, options);
+
+    const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const getPostGetCommentsQueryOptions = <
+    TData = Awaited<ReturnType<typeof postGetComments>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof postGetComments>>, TError, TData>> },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPostGetCommentsQueryKey(id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof postGetComments>>> = ({ signal }) =>
+        postGetComments(id, signal);
+
+    return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof postGetComments>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PostGetCommentsQueryResult = NonNullable<Awaited<ReturnType<typeof postGetComments>>>;
+export type PostGetCommentsQueryError = ErrorType<unknown>;
+
+export function usePostGetComments<TData = Awaited<ReturnType<typeof postGetComments>>, TError = ErrorType<unknown>>(
+    id: number,
+    options: {
+        query: Partial<UseQueryOptions<Awaited<ReturnType<typeof postGetComments>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof postGetComments>>,
+                    TError,
+                    Awaited<ReturnType<typeof postGetComments>>
+                >,
+                'initialData'
+            >;
+    },
+): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePostGetComments<TData = Awaited<ReturnType<typeof postGetComments>>, TError = ErrorType<unknown>>(
+    id: number,
+    options?: {
+        query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof postGetComments>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof postGetComments>>,
+                    TError,
+                    Awaited<ReturnType<typeof postGetComments>>
+                >,
+                'initialData'
+            >;
+    },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePostGetComments<TData = Awaited<ReturnType<typeof postGetComments>>, TError = ErrorType<unknown>>(
+    id: number,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof postGetComments>>, TError, TData>> },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePostGetComments<TData = Awaited<ReturnType<typeof postGetComments>>, TError = ErrorType<unknown>>(
+    id: number,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof postGetComments>>, TError, TData>> },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPostGetCommentsQueryOptions(id, options);
 
     const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
         queryKey: DataTag<QueryKey, TData, TError>;

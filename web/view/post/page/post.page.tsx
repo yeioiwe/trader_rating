@@ -8,6 +8,7 @@ import { Box, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { PostCommentsList } from './comments/post.comments.main';
 
 export const PostOnePage = ({ url }: { url: string }) => {
     const router = useRouter();
@@ -43,7 +44,6 @@ export const PostOnePage = ({ url }: { url: string }) => {
                 sx={{
                     img: { width: '100%' },
                     iframe: { width: '100%', minHeight: '500px' },
-                    //color: 'dark.main',
                 }}
             >
                 <div className="ql-editor" style={{ width: '100%', boxSizing: 'border-box', padding: 0 }}>
@@ -61,6 +61,8 @@ export const PostOnePage = ({ url }: { url: string }) => {
             </Row>
 
             <PostLikes like={post.likes} watch={post.views} />
+
+            <PostCommentsList id={post.id} />
         </Col>
     );
 };

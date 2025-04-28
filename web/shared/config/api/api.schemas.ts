@@ -160,6 +160,30 @@ export interface PostItem {
     date: Date;
 }
 
+export type PostCommentItemStarRate = (typeof PostCommentItemStarRate)[keyof typeof PostCommentItemStarRate];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const PostCommentItemStarRate = {
+    NUMBER_1: '1',
+    NUMBER_2: '2',
+    NUMBER_3: '3',
+    NUMBER_4: '4',
+    NUMBER_5: '5',
+} as const;
+
+export interface PostCommentItem {
+    id: number;
+    name: string;
+    comment: string;
+    postId: number;
+    date: Date;
+    starRate: PostCommentItemStarRate;
+}
+
+export interface PostCommentsList {
+    items: PostCommentItem[];
+}
+
 export type HeaderBannerItemBannerType = (typeof HeaderBannerItemBannerType)[keyof typeof HeaderBannerItemBannerType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
