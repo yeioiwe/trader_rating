@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { DbModule } from 'apps/libs/db/db.module';
+import { NewsModule } from './news/news.module';
 import { PagesModule } from './pages/pages.module';
 import { PostModule } from './post/post.module';
 import { ScammersModule } from './scammers/scammers.module';
@@ -14,6 +15,7 @@ import { ScammersModule } from './scammers/scammers.module';
         ScammersModule,
         PostModule,
         PagesModule,
+        NewsModule,
     ],
     controllers: [],
     providers: [],
