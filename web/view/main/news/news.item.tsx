@@ -5,7 +5,6 @@ import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
 import { Typography, useMediaQuery } from '@mui/material';
 import dayjs from 'dayjs';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 export const NewsItem = ({ news }: { news: NewsPreviewItem }) => {
@@ -17,17 +16,16 @@ export const NewsItem = ({ news }: { news: NewsPreviewItem }) => {
             onClick={() => router.push(`/news/${news.url}`)}
             className="item"
             gap={1.5}
-            maxWidth={isSm ? '100%' : 223}
+            width={isSm ? '100%' : 223}
             flexShrink={0}
             sx={{ cursor: 'pointer' }}
         >
-            <Image
+            <img
                 src={news.avatar}
-                width={223}
-                height={115}
                 alt="news"
-                style={{ borderRadius: '9px', objectFit: 'cover' }}
+                style={{ borderRadius: '9px', objectFit: 'cover', width: isSm ? '100%' : 223, maxHeight: '170px' }}
             />
+            {/* <Image src={news.avatar} alt="news" style={{ borderRadius: '9px', objectFit: 'cover' }} /> */}
 
             <Col>
                 <Typography fontSize={16} fontWeight={500}>
