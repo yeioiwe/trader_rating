@@ -426,3 +426,65 @@ export interface LawyerProfileItem {
     id: number;
     profile: string;
 }
+
+export interface NewsCreateDto {
+    url: string;
+    title: string;
+    avatar: string;
+    news: string;
+    likes: number;
+    views: number;
+    date: Date;
+}
+
+export interface NewsPreviewItem {
+    id: number;
+    title: string;
+    date: Date;
+}
+
+export interface NewsPreviewList {
+    items: NewsPreviewItem[];
+}
+
+export interface NewsItem {
+    id: number;
+    url: string;
+    title: string;
+    avatar: string;
+    news: string;
+    likes: number;
+    views: number;
+    date: Date;
+}
+
+export interface NewsCreateComment {
+    name: string;
+    comment: string;
+    date: Date;
+    starRate: CommentStarRate;
+}
+
+export type NewsCommentItemStarRate = (typeof NewsCommentItemStarRate)[keyof typeof NewsCommentItemStarRate];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const NewsCommentItemStarRate = {
+    NUMBER_1: '1',
+    NUMBER_2: '2',
+    NUMBER_3: '3',
+    NUMBER_4: '4',
+    NUMBER_5: '5',
+} as const;
+
+export interface NewsCommentItem {
+    id: number;
+    name: string;
+    comment: string;
+    newsId: number;
+    date: Date;
+    starRate: NewsCommentItemStarRate;
+}
+
+export interface NewsCommentList {
+    items: NewsCommentItem[];
+}

@@ -11,6 +11,7 @@ export const SideBar = () => {
             <SideBarButton text="Проверка" url="review" />
             <SideBarButton text="Юрист" url="lawyer" />
             <SideBarButton text="Посты" url="post" />
+            <SideBarButton text="Новости" url="news" />
         </Col>
     );
 };

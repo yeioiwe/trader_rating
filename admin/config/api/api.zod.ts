@@ -216,3 +216,49 @@ export const ReviewItem = z
 export const ReviewList = z.object({ items: z.array(ReviewItem) }).passthrough();
 export const EditLawyerProfileDto = z.object({ profile: z.string() }).passthrough();
 export const LawyerProfileItem = z.object({ id: z.number(), profile: z.string() }).passthrough();
+export const NewsCreateDto = z
+    .object({
+        url: z.string(),
+        title: z.string(),
+        avatar: z.string(),
+        news: z.string(),
+        likes: z.number(),
+        views: z.number(),
+        date: z.string().datetime({ offset: true }),
+    })
+    .passthrough();
+export const NewsPreviewItem = z
+    .object({ id: z.number(), title: z.string(), date: z.string().datetime({ offset: true }) })
+    .passthrough();
+export const NewsPreviewList = z.object({ items: z.array(NewsPreviewItem) }).passthrough();
+export const NewsItem = z
+    .object({
+        id: z.number(),
+        url: z.string(),
+        title: z.string(),
+        avatar: z.string(),
+        news: z.string(),
+        likes: z.number(),
+        views: z.number(),
+        date: z.string().datetime({ offset: true }),
+    })
+    .passthrough();
+export const NewsCreateComment = z
+    .object({
+        name: z.string(),
+        comment: z.string(),
+        date: z.string().datetime({ offset: true }),
+        starRate: CommentStarRate,
+    })
+    .passthrough();
+export const NewsCommentItem = z
+    .object({
+        id: z.number(),
+        name: z.string(),
+        comment: z.string(),
+        newsId: z.number(),
+        date: z.string().datetime({ offset: true }),
+        starRate: z.enum(['1', '2', '3', '4', '5']),
+    })
+    .passthrough();
+export const NewsCommentList = z.object({ items: z.array(NewsCommentItem) }).passthrough();
