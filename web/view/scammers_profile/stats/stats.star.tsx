@@ -1,8 +1,12 @@
+'use client';
 import StarIcon from '@/public/icons/scammer_star_icon.svg';
+import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 
 export const ScammerStatsStar = () => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
         <Col
             justifyContent={'flex-start'}
@@ -22,7 +26,7 @@ export const ScammerStatsStar = () => {
             <Row justifyContent={'space-between'}>
                 <StarIcon />
 
-                <Typography fontSize={48} fontWeight={700} color={'#C53D3D'}>
+                <Typography fontSize={isSm ? 30 : 48} fontWeight={700} color={'#C53D3D'}>
                     1.7
                 </Typography>
             </Row>

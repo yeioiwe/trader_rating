@@ -1,8 +1,10 @@
 import SubscribersIcon from '@/public/icons/scammer_subscribers_icon.svg';
+import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 
 export const ScammerStatsSubscribers = ({ subscribers }: { subscribers: number }) => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     return (
         <Col
             justifyContent={'flex-start'}
@@ -22,7 +24,7 @@ export const ScammerStatsSubscribers = ({ subscribers }: { subscribers: number }
             <Row justifyContent={'space-between'}>
                 <SubscribersIcon />
 
-                <Typography fontSize={48} fontWeight={700} color={'#C53D3D'}>
+                <Typography fontSize={isSm ? 30 : 48} fontWeight={700} color={'#C53D3D'}>
                     {subscribers}
                 </Typography>
             </Row>

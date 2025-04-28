@@ -1,8 +1,11 @@
+'use client';
 import ReportsIcon from '@/public/icons/scammer_reports_icon.svg';
+import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 
 export const ScammerStatsReports = ({ reports }: { reports: number }) => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     return (
         <Col
             justifyContent={'flex-start'}
@@ -22,7 +25,7 @@ export const ScammerStatsReports = ({ reports }: { reports: number }) => {
             <Row justifyContent={'space-between'}>
                 <ReportsIcon />
 
-                <Typography fontSize={48} fontWeight={700} color={'#C53D3D'}>
+                <Typography fontSize={isSm ? 30 : 48} fontWeight={700} color={'#C53D3D'}>
                     {reports}
                 </Typography>
             </Row>

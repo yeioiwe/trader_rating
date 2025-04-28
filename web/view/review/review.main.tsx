@@ -1,7 +1,8 @@
 'use client';
 import { usePagesGetLawyerProfile } from '@/shared/config/api/pages/pages';
+import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -64,6 +65,7 @@ export const ReviewMain = () => {
 };
 
 const MoreInfoBanner = () => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     const router = useRouter();
 
     return (
@@ -72,11 +74,11 @@ const MoreInfoBanner = () => {
                 <Image width={46} height={46} src={'/icons/review_how_to_icon.png'} alt="" />
 
                 <Col>
-                    <Typography fontWeight={500} fontSize={24} color="#FFFFFF">
+                    <Typography fontWeight={500} fontSize={isSm ? 18 : 24} color="#FFFFFF">
                         Детальная информация о проерке
                     </Typography>
 
-                    <Typography fontWeight={300} fontSize={16} color="#FFFFFF">
+                    <Typography fontWeight={300} fontSize={isSm ? 12 : 16} color="#FFFFFF">
                         Узнайте как происходит процесс проверки проектов!
                     </Typography>
                 </Col>
