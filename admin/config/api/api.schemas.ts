@@ -256,6 +256,37 @@ export interface PostItem {
     date: Date;
 }
 
+export interface PostCreateComment {
+    name: string;
+    comment: string;
+    date: Date;
+    starRate: CommentStarRate;
+}
+
+export type PostCommentItemStarRate = (typeof PostCommentItemStarRate)[keyof typeof PostCommentItemStarRate];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const PostCommentItemStarRate = {
+    NUMBER_1: '1',
+    NUMBER_2: '2',
+    NUMBER_3: '3',
+    NUMBER_4: '4',
+    NUMBER_5: '5',
+} as const;
+
+export interface PostCommentItem {
+    id: number;
+    name: string;
+    comment: string;
+    postId: number;
+    date: Date;
+    starRate: PostCommentItemStarRate;
+}
+
+export interface PostCommentList {
+    items: PostCommentItem[];
+}
+
 export type HeaderBannerType = (typeof HeaderBannerType)[keyof typeof HeaderBannerType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare

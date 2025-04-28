@@ -23,7 +23,14 @@ import type {
     UseQueryResult,
 } from '@tanstack/react-query';
 
-import type { PostCreatePreviewDto, PostEditContentDto, PostItem, PostPreviewList } from '../api.schemas';
+import type {
+    PostCommentList,
+    PostCreateComment,
+    PostCreatePreviewDto,
+    PostEditContentDto,
+    PostItem,
+    PostPreviewList,
+} from '../api.schemas';
 
 import { axiosCall } from '.././api.axios';
 import type { ErrorType } from '.././api.axios';
@@ -554,3 +561,281 @@ export const usePostDelete = <TError = ErrorType<unknown>, TContext = unknown>(o
 
     return useMutation(mutationOptions);
 };
+export const postCommentCreate = (id: number, postCreateComment: PostCreateComment, signal?: AbortSignal) => {
+    return axiosCall<void>({
+        url: `/post/comment/create/${id}`,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        data: postCreateComment,
+        signal,
+    });
+};
+
+export const getPostCommentCreateMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postCommentCreate>>,
+        TError,
+        { id: number; data: PostCreateComment },
+        TContext
+    >;
+}): UseMutationOptions<
+    Awaited<ReturnType<typeof postCommentCreate>>,
+    TError,
+    { id: number; data: PostCreateComment },
+    TContext
+> => {
+    const mutationKey = ['postCommentCreate'];
+    const { mutation: mutationOptions } = options
+        ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey } };
+
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof postCommentCreate>>,
+        { id: number; data: PostCreateComment }
+    > = props => {
+        const { id, data } = props ?? {};
+
+        return postCommentCreate(id, data);
+    };
+
+    return { mutationFn, ...mutationOptions };
+};
+
+export type PostCommentCreateMutationResult = NonNullable<Awaited<ReturnType<typeof postCommentCreate>>>;
+export type PostCommentCreateMutationBody = PostCreateComment;
+export type PostCommentCreateMutationError = ErrorType<unknown>;
+
+export const usePostCommentCreate = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postCommentCreate>>,
+        TError,
+        { id: number; data: PostCreateComment },
+        TContext
+    >;
+}): UseMutationResult<
+    Awaited<ReturnType<typeof postCommentCreate>>,
+    TError,
+    { id: number; data: PostCreateComment },
+    TContext
+> => {
+    const mutationOptions = getPostCommentCreateMutationOptions(options);
+
+    return useMutation(mutationOptions);
+};
+export const postDeleteComment = (id: number, signal?: AbortSignal) => {
+    return axiosCall<void>({ url: `/post/comment/delete/${id}`, method: 'POST', signal });
+};
+
+export const getPostDeleteCommentMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<Awaited<ReturnType<typeof postDeleteComment>>, TError, { id: number }, TContext>;
+}): UseMutationOptions<Awaited<ReturnType<typeof postDeleteComment>>, TError, { id: number }, TContext> => {
+    const mutationKey = ['postDeleteComment'];
+    const { mutation: mutationOptions } = options
+        ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey } };
+
+    const mutationFn: MutationFunction<Awaited<ReturnType<typeof postDeleteComment>>, { id: number }> = props => {
+        const { id } = props ?? {};
+
+        return postDeleteComment(id);
+    };
+
+    return { mutationFn, ...mutationOptions };
+};
+
+export type PostDeleteCommentMutationResult = NonNullable<Awaited<ReturnType<typeof postDeleteComment>>>;
+
+export type PostDeleteCommentMutationError = ErrorType<unknown>;
+
+export const usePostDeleteComment = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<Awaited<ReturnType<typeof postDeleteComment>>, TError, { id: number }, TContext>;
+}): UseMutationResult<Awaited<ReturnType<typeof postDeleteComment>>, TError, { id: number }, TContext> => {
+    const mutationOptions = getPostDeleteCommentMutationOptions(options);
+
+    return useMutation(mutationOptions);
+};
+export const postGetCommentList = (id: number, signal?: AbortSignal) => {
+    return axiosCall<PostCommentList>({ url: `/post/comment/${id}`, method: 'GET', signal });
+};
+
+export const getPostGetCommentListQueryKey = (id: number) => {
+    return [`/post/comment/${id}`] as const;
+};
+
+export const getPostGetCommentListInfiniteQueryOptions = <
+    TData = InfiniteData<Awaited<ReturnType<typeof postGetCommentList>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof postGetCommentList>>, TError, TData>>;
+    },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPostGetCommentListQueryKey(id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof postGetCommentList>>> = ({ signal }) =>
+        postGetCommentList(id, signal);
+
+    return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof postGetCommentList>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PostGetCommentListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof postGetCommentList>>>;
+export type PostGetCommentListInfiniteQueryError = ErrorType<unknown>;
+
+export function usePostGetCommentListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof postGetCommentList>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options: {
+        query: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof postGetCommentList>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof postGetCommentList>>,
+                    TError,
+                    Awaited<ReturnType<typeof postGetCommentList>>
+                >,
+                'initialData'
+            >;
+    },
+): DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePostGetCommentListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof postGetCommentList>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof postGetCommentList>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof postGetCommentList>>,
+                    TError,
+                    Awaited<ReturnType<typeof postGetCommentList>>
+                >,
+                'initialData'
+            >;
+    },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePostGetCommentListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof postGetCommentList>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof postGetCommentList>>, TError, TData>>;
+    },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePostGetCommentListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof postGetCommentList>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof postGetCommentList>>, TError, TData>>;
+    },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPostGetCommentListInfiniteQueryOptions(id, options);
+
+    const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const getPostGetCommentListQueryOptions = <
+    TData = Awaited<ReturnType<typeof postGetCommentList>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof postGetCommentList>>, TError, TData>> },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPostGetCommentListQueryKey(id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof postGetCommentList>>> = ({ signal }) =>
+        postGetCommentList(id, signal);
+
+    return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof postGetCommentList>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PostGetCommentListQueryResult = NonNullable<Awaited<ReturnType<typeof postGetCommentList>>>;
+export type PostGetCommentListQueryError = ErrorType<unknown>;
+
+export function usePostGetCommentList<
+    TData = Awaited<ReturnType<typeof postGetCommentList>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options: {
+        query: Partial<UseQueryOptions<Awaited<ReturnType<typeof postGetCommentList>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof postGetCommentList>>,
+                    TError,
+                    Awaited<ReturnType<typeof postGetCommentList>>
+                >,
+                'initialData'
+            >;
+    },
+): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePostGetCommentList<
+    TData = Awaited<ReturnType<typeof postGetCommentList>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: {
+        query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof postGetCommentList>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof postGetCommentList>>,
+                    TError,
+                    Awaited<ReturnType<typeof postGetCommentList>>
+                >,
+                'initialData'
+            >;
+    },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePostGetCommentList<
+    TData = Awaited<ReturnType<typeof postGetCommentList>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof postGetCommentList>>, TError, TData>> },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePostGetCommentList<
+    TData = Awaited<ReturnType<typeof postGetCommentList>>,
+    TError = ErrorType<unknown>,
+>(
+    id: number,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof postGetCommentList>>, TError, TData>> },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPostGetCommentListQueryOptions(id, options);
+
+    const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}

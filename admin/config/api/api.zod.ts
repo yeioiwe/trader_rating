@@ -121,6 +121,25 @@ export const PostItem = z
         date: z.string().datetime({ offset: true }),
     })
     .passthrough();
+export const PostCreateComment = z
+    .object({
+        name: z.string(),
+        comment: z.string(),
+        date: z.string().datetime({ offset: true }),
+        starRate: CommentStarRate,
+    })
+    .passthrough();
+export const PostCommentItem = z
+    .object({
+        id: z.number(),
+        name: z.string(),
+        comment: z.string(),
+        postId: z.number(),
+        date: z.string().datetime({ offset: true }),
+        starRate: z.enum(['1', '2', '3', '4', '5']),
+    })
+    .passthrough();
+export const PostCommentList = z.object({ items: z.array(PostCommentItem) }).passthrough();
 export const HeaderBannerType = z.enum(['YOUTUBE', 'LAWYER']);
 export const HeaderBannerEditDto = z.object({ url: z.string(), bannerType: HeaderBannerType }).passthrough();
 export const HeaderBannerItem = z
