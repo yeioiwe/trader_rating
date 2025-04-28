@@ -13,31 +13,31 @@ export const Footer = () => {
                         <Divider />
 
                         <Row justifyContent={'space-between'}>
-                            <Link href={'https://google.com'}>
+                            <Link href={'/'}>
                                 <Typography fontWeight={700} fontSize={21}>
                                     Главная
                                 </Typography>
                             </Link>
 
-                            <Link href={'https://google.com'}>
+                            <Link href={'/verified'}>
                                 <Typography fontWeight={700} fontSize={21}>
                                     Проверенные
                                 </Typography>
                             </Link>
 
-                            <Link href={'https://google.com'}>
+                            <Link href={'/scammers'}>
                                 <Typography fontWeight={700} fontSize={21}>
                                     Мошенники
                                 </Typography>
                             </Link>
 
-                            <Link href={'https://google.com'}>
+                            <Link href={'/news'}>
                                 <Typography fontWeight={700} fontSize={21}>
                                     Новости
                                 </Typography>
                             </Link>
 
-                            <Link href={'https://google.com'}>
+                            <Link href={'/posts'}>
                                 <Typography fontWeight={700} fontSize={21}>
                                     Статьи
                                 </Typography>

@@ -6,7 +6,7 @@ const NavbarLinks = [
     { name: 'Главная', url: '/' },
     { name: 'Проверенные', url: '/verified' },
     { name: 'Мошенники', url: '/scammers' },
-    { name: 'Новости', url: '/' },
+    { name: 'Новости', url: '/news' },
     { name: 'Статьи', url: '/posts' },
 ];
 
