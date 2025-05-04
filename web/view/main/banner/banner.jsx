@@ -36,7 +36,7 @@ export function Banner() {
         }}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
-        onAutoplayTimeLeft={onAutoplayTimeLeft}
+        // onAutoplayTimeLeft={onAutoplayTimeLeft}
         className="mySwiper"
       >
         {images.items.map((s, i) => <SwiperSlide key={i} onClick={() => router.push(s.url)}>

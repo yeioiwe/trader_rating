@@ -11,7 +11,7 @@ export const FooterMobile = () => {
                     <LogoMobile />
 
                     <Typography fontSize={20} fontWeight={700}>
-                        email@yandex.ru
+                        anti-scamer@onionmail.org
                     </Typography>
 
                     <Link href={'https://google.com'}>
@@ -21,7 +21,7 @@ export const FooterMobile = () => {
                     </Link>
 
                     <Col justifyContent={'flex-start'}>
-                        <Typography>Copyright © 2024 scammer.com </Typography>
+                        <Typography>Copyright © 2025 anti-scamer.ru</Typography>
                         <Typography>All Rights Reserved.</Typography>
                     </Col>
                 </Col>
