@@ -1,5 +1,6 @@
 import { Col } from '@/shared/ui/boxes';
 import { Typography } from '@mui/material';
+import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScammersList } from './scammers.list';
@@ -15,7 +16,7 @@ export const ScammersMain = () => {
                 <ScammersTitle />
 
                 <Typography fontSize={16} color="#918C8C">
-                    {t('main.updated_at', { date: '21 Янв, 08:42' })}
+                    {t('main.updated_at', { date: dayjs().format('DD.MM.YYYY hh:mm') })}
                 </Typography>
             </Col>
 

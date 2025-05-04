@@ -2,14 +2,14 @@
 import { useScammersGetList } from '@/shared/config/api/scammers/scammers';
 import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
-import { Button, Typography, useMediaQuery } from '@mui/material';
+import { Box, Button, CircularProgress, Typography, useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { ScammerMobileItem } from './mobile/scammers.mobile.item';
 import { ScammerItem } from './scammers.item';
 
 export const ScammersList = () => {
-    const { data } = useScammersGetList();
+    const { data, isPending } = useScammersGetList();
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     const { t } = useTranslation();
 
@@ -32,6 +32,7 @@ export const ScammersList = () => {
     //     }
     // }, [data?.items]);
 
+    if (isPending) return <LoadingList />;
     if (data === undefined) return null;
 
     return (
@@ -66,5 +67,22 @@ const FullListButton = ({ text }: { text: string }) => {
                 {text}
             </Typography>
         </Button>
+    );
+};
+
+export const LoadingList = () => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+    return (
+        <Box
+            display={'flex'}
+            justifyContent={'center'}
+            width={'100%'}
+            px={isSm ? 1.5 : 2.5}
+            py={25}
+            bgcolor={'#ECF2FF'}
+            borderRadius={'19px'}
+        >
+            <CircularProgress />
+        </Box>
     );
 };

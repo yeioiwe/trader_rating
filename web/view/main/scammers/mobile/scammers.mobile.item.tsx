@@ -16,7 +16,14 @@ export const ScammerMobileItem = ({ project }: { project: ScammerDemoProfileItem
     const { t } = useTranslation();
 
     return (
-        <Col bgcolor={'#FFFFFF'} borderRadius={'8px'} width={'100%'} pr={1.5}>
+        <Col
+            onClick={() => router.push(`/scammers/${project.url}`)}
+            sx={{ cursor: 'pointer' }}
+            bgcolor={'#FFFFFF'}
+            borderRadius={'8px'}
+            width={'100%'}
+            pr={1.5}
+        >
             <Row justifyContent={'space-between'} py={1.75}>
                 <Box
                     width={24}

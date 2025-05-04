@@ -13,9 +13,17 @@ import { useTranslation } from 'react-i18next';
 
 export const ScammerProjectItem = ({ project }: { project: ScammerDemoProfileItem }) => {
     const { t } = useTranslation();
+    const router = useRouter();
 
     return (
-        <Col bgcolor={'#FFFFFF'} borderRadius={'8px'} width={'100%'} pr={2.5}>
+        <Col
+            onClick={() => router.push(`/scammers/${project.url}`)}
+            sx={{ cursor: 'pointer' }}
+            bgcolor={'#FFFFFF'}
+            borderRadius={'8px'}
+            width={'100%'}
+            pr={2.5}
+        >
             <Row justifyContent={'space-between'} py={1.75}>
                 <Row gap={2}>
                     <Box
