@@ -55,7 +55,7 @@ export const LawyerBanner = ({ url }: { url: string }) => {
             }}
             onClick={() => router.push(url)}
         >
-            <Image src={'/lawyer.png'} width={70} height={70} alt="lawyer" style={{ borderRadius: '50%' }} />
+            <Image src={'/lawyer.jpeg'} width={70} height={70} alt="lawyer" style={{ borderRadius: '9%' }} />
 
             <Col color={'#ffff'} sx={{ textAlign: 'end' }}>
                 <Typography fontSize={20} fontWeight={700}>

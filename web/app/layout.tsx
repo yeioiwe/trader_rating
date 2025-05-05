@@ -3,7 +3,7 @@ import { AppLayout } from './app.layout';
 import ChatLayout from './chat';
 
 export const metadata: Metadata = {
-    title: 'ANTI SCAMMER',
+    title: 'ANTI SCAMER',
     description: 'Description init page',
 };
 

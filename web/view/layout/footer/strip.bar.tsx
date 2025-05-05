@@ -19,31 +19,39 @@ export const StripBar = () => {
         <Container maxWidth="sm" sx={{ display: isLg ? 'none' : null }}>
             <Row
                 width={'100%'}
-                justifyContent={'space-evenly'}
+                justifyContent={'flex-start'}
                 height={80}
                 position={'fixed'}
                 zIndex={1000}
                 left={0}
                 bottom={0}
                 bgcolor={'#ECF2FF'}
+                pl={2}
             >
                 <StripLogo />
 
                 <Row gap={2}>
-                    <StripBarButton
-                        url={footer.youtubeUrl}
-                        bgcolor="#C53D3D"
-                        text="YouTube"
-                        icon={<YoutubeStripIcon />}
-                    />
-                    <StripBarButton url={footer.tgUrl} bgcolor="#449FE8" text="Telegram" icon={<TelegramStripIcon />} />
-                </Row>
+                    <Row gap={2}>
+                        <StripBarButton
+                            url={footer.youtubeUrl}
+                            bgcolor="#C53D3D"
+                            text="YouTube"
+                            icon={<YoutubeStripIcon />}
+                        />
+                        <StripBarButton
+                            url={footer.tgUrl}
+                            bgcolor="#449FE8"
+                            text="Telegram"
+                            icon={<TelegramStripIcon />}
+                        />
+                    </Row>
 
-                <Row gap={2}>
-                    <BenefitItem text="Разоблочение" />
-                    <BenefitItem text="Проверка проектов" />
-                    <BenefitItem text="Консультация" />
-                    <BenefitItem text="Отзывы на проекты" />
+                    <Row gap={2}>
+                        <BenefitItem text="Разоблачение" />
+                        <BenefitItem text="Проверка проектов" />
+                        <BenefitItem text="Консультация" />
+                        <BenefitItem text="Отзывы на проекты" />
+                    </Row>
                 </Row>
             </Row>
         </Container>
