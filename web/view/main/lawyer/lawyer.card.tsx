@@ -10,6 +10,8 @@ export const LawyerCard = () => {
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
     if (lawyer === undefined) return null;
+    if (lawyer.items === undefined) return null;
+    if (lawyer.items === null) return null;
     return (
         <Box
             flexDirection={isSm ? 'column' : 'row'}
@@ -23,9 +25,9 @@ export const LawyerCard = () => {
             borderRadius={'19px'}
             sx={{ background: 'linear-gradient(240deg, #4F7289 -17.16%, #42A5F5 90.48%)' }}
         >
-            <LawyerAvatar avatar={lawyer.avatar} name={lawyer.name} />
+            <LawyerAvatar avatar={lawyer.items.avatar} name={lawyer.items?.name} />
 
-            {isSm ? <LaweyrMobileAbout lawyer={lawyer} /> : <LaweyrAbout lawyer={lawyer} />}
+            {isSm ? <LaweyrMobileAbout lawyer={lawyer.items} /> : <LaweyrAbout lawyer={lawyer.items} />}
         </Box>
     );
 };

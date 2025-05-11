@@ -4,14 +4,14 @@ import LawyerCommentsIcon from '@/public/icons/lawyer_commnets.svg';
 import LawyerReportsIcon from '@/public/icons/lawyer_reports.svg';
 import TelegramButtonIcon from '@/public/icons/lawyer_telegram.svg';
 import LawyerVerifiedIcon from '@/public/icons/lawyer_verified.svg';
-import { LawyerBannerItem } from '@/shared/config/api/api.schemas';
+import { LawyerBanner, LawyerBannerItem } from '@/shared/config/api/api.schemas';
 import { Col, Row } from '@/shared/ui/boxes';
 import { Button, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export const LaweyrAbout = ({ lawyer }: { lawyer: LawyerBannerItem }) => {
+export const LaweyrAbout = ({ lawyer }: { lawyer: LawyerBanner }) => {
     const { t } = useTranslation();
 
     return (

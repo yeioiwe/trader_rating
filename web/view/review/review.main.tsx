@@ -8,13 +8,13 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { LawyerCard } from '../main/lawyer/lawyer.card';
 import { ReviewForm } from './review.form';
+import { ReviewLawyerProfile } from './review.lawyer.about';
 
 export const ReviewMain = () => {
-    const { data: lawyerProfile } = usePagesGetLawyerProfile();
+
     const [request, setRequest] = useState(false);
 
-    if (lawyerProfile === undefined) return null;
-
+   
     return (
         <Col gap={4}>
             <Col gap={2}>
@@ -46,20 +46,7 @@ export const ReviewMain = () => {
 
             <LawyerCard />
 
-            <Box
-                maxWidth={'100%'}
-                sx={{
-                    img: { width: '100%' },
-                    iframe: { width: '100%', minHeight: '500px' },
-                }}
-            >
-                <div className="ql-editor" style={{ width: '100%', boxSizing: 'border-box', padding: 0 }}>
-                    <div
-                        style={{ width: '100%', boxSizing: 'border-box' }}
-                        dangerouslySetInnerHTML={{ __html: lawyerProfile.profile }}
-                    />
-                </div>
-            </Box>
+            <ReviewLawyerProfile />
         </Col>
     );
 };

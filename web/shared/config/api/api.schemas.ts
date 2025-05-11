@@ -209,8 +209,17 @@ export interface ImagesBannerList {
     items: ImagesBannerItem[];
 }
 
-export interface LawyerBannerItem {
+export type LawyerBannerVisible = (typeof LawyerBannerVisible)[keyof typeof LawyerBannerVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const LawyerBannerVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
+export interface LawyerBanner {
     id: number;
+    visible: LawyerBannerVisible;
     name: string;
     title: string;
     avatar: string;
@@ -219,6 +228,16 @@ export interface LawyerBannerItem {
     reports: number;
     tgUrl: string;
     detailsUrl: string;
+}
+
+/**
+ * @nullable
+ */
+export type LawyerBannerItemItems = LawyerBanner | null;
+
+export interface LawyerBannerItem {
+    /** @nullable */
+    items: LawyerBannerItemItems;
 }
 
 export type YoutubeLayoutItemVisible = (typeof YoutubeLayoutItemVisible)[keyof typeof YoutubeLayoutItemVisible];
@@ -276,9 +295,28 @@ export interface ReviewRequestDto {
     projectUrl: string;
 }
 
-export interface LawyerProfileItem {
+export type LawyerProfileVisible = (typeof LawyerProfileVisible)[keyof typeof LawyerProfileVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const LawyerProfileVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
+export interface LawyerProfile {
     id: number;
     profile: string;
+    visible: LawyerProfileVisible;
+}
+
+/**
+ * @nullable
+ */
+export type LawyerProfileItemItems = LawyerProfile | null;
+
+export interface LawyerProfileItem {
+    /** @nullable */
+    items: LawyerProfileItemItems;
 }
 
 export interface NewsPreviewItem {

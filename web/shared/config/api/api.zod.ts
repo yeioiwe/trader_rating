@@ -94,9 +94,10 @@ export const ImagesBannerItem = z
     .object({ id: z.number(), name: z.string(), url: z.string(), image: z.string() })
     .passthrough();
 export const ImagesBannerList = z.object({ items: z.array(ImagesBannerItem) }).passthrough();
-export const LawyerBannerItem = z
+export const LawyerBanner = z
     .object({
         id: z.number(),
+        visible: z.enum(['VISIBLE', 'HIDDEN']).default('HIDDEN'),
         name: z.string(),
         title: z.string(),
         avatar: z.string(),
@@ -107,6 +108,7 @@ export const LawyerBannerItem = z
         detailsUrl: z.string(),
     })
     .passthrough();
+export const LawyerBannerItem = z.object({ items: LawyerBanner.nullable() }).passthrough();
 export const YoutubeLayoutItem = z
     .object({
         id: z.number(),
@@ -139,7 +141,10 @@ export const ReviewRequestDto = z
         projectUrl: z.string().max(30),
     })
     .passthrough();
-export const LawyerProfileItem = z.object({ id: z.number(), profile: z.string() }).passthrough();
+export const LawyerProfile = z
+    .object({ id: z.number(), profile: z.string(), visible: z.enum(['VISIBLE', 'HIDDEN']).default('HIDDEN') })
+    .passthrough();
+export const LawyerProfileItem = z.object({ items: LawyerProfile.nullable() }).passthrough();
 export const NewsPreviewItem = z
     .object({
         id: z.number(),
