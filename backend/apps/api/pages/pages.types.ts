@@ -19,7 +19,15 @@ export class ImagesBannerList {
     items!: ImagesBannerItem[];
 }
 
-export class LawyerBannerItem extends LawyerBannerEntity {}
+export class LawyerBanner extends LawyerBannerEntity {}
+
+export class LawyerBannerItem {
+    @ApiProperty({
+        type: LawyerBanner,
+        nullable: true,
+    })
+    items!: LawyerBanner | null;
+}
 
 export class YoutubeLayoutItem extends YoutubeLayoutEntity {}
 
@@ -27,4 +35,12 @@ export class LawyerLayoutItem extends LawyerLayoutEntity {}
 
 export class FooterStripItem extends FooterStripEntity {}
 
-export class LawyerProfileItem extends LawyerProfileEntity {}
+export class LawyerProfile extends LawyerProfileEntity {}
+
+export class LawyerProfileItem {
+    @ApiProperty({
+        type: LawyerProfile,
+        nullable: true,
+    })
+    items!: LawyerProfile | null;
+}

@@ -2,13 +2,14 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { FooterStripEntity } from 'apps/libs/db/entity/footer.strip.entity';
 import { HeaderBannerEntity } from 'apps/libs/db/entity/header.banner.entity';
 import { ImagesBannerEntity } from 'apps/libs/db/entity/images.banner.entity';
-import { LawyerBannerEntity } from 'apps/libs/db/entity/lawyer.banner.entity';
+import { LawyerBannerEntity, LawyerBannerVisible } from 'apps/libs/db/entity/lawyer.banner.entity';
 import { LawyerLayoutEntity, LawyerLayoutVisible } from 'apps/libs/db/entity/lawyer.layout.entity';
-import { LawyerProfileEntity } from 'apps/libs/db/entity/lawyer.profile';
+import { LawyerProfileEntity, LawyerProfileVisible } from 'apps/libs/db/entity/lawyer.profile';
 import { ReviewEntity } from 'apps/libs/db/entity/review.entity';
 import { YoutubeLayoutEntity, YoutubeLayoutVisible } from 'apps/libs/db/entity/youtube.layout.entity';
 import { EntityManager } from 'typeorm';
 import { ReviewRequestDto } from './pages.dto';
+import { Iteration } from 'ts-toolbelt';
 
 @Injectable()
 export class PagesService {
@@ -31,7 +32,9 @@ export class PagesService {
         const banner = await this.em.findOneBy(LawyerBannerEntity, { id: 1 });
         if (!banner) throw new BadRequestException();
 
-        return banner;
+        if (banner.visible === LawyerBannerVisible.HIDDEN) return { items: null };
+
+        return { items: banner };
     }
 
     async getYoutubeLayout() {
@@ -70,6 +73,8 @@ export class PagesService {
 
         if (!profile) throw new BadRequestException();
 
-        return profile;
+        if (profile.visible === LawyerProfileVisible.HIDDEN) return { items: null };
+
+        return { items: profile };
     }
 }
