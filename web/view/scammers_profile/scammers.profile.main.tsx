@@ -17,8 +17,9 @@ export const ScammerProfile = ({ id }: { id: string }) => {
         console.log(isError);
     }, [isError]);
 
+    
     if (profile === undefined) return null;
-
+    
     return (
         <Col width={'100%'} gap={4}>
             <ScammerStatsMain profile={profile} />

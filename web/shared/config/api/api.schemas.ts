@@ -94,6 +94,7 @@ export interface ScammerProfileItem {
     url: string;
     name: string;
     avatar_url: string;
+    params: string;
     positionTop: number;
     starRate: ScammerProfileItemStarRate;
     rate: number;

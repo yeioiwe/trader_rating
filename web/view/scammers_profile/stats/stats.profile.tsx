@@ -1,3 +1,4 @@
+'use client'
 import DescriptionIcon from '@/public/icons/profile_description_icon.svg';
 import LinkIcon from '@/public/icons/profile_link_icon.svg';
 import TimeIcon from '@/public/icons/profile_time_icon.svg';
@@ -9,14 +10,28 @@ import { Box, Button, Typography, useMediaQuery } from '@mui/material';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
+interface ProfileParams {
+    one: string,
+    two: string,
+    three: string
+}
 
 export const ScammerStatsProfile = ({ profile }: { profile: ScammerProfileItem }) => {
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+    const [params, setParams] = useState<ProfileParams | undefined>(undefined)
+
+    useEffect(() => {
+        if(profile.params !== '') {
+            setParams(JSON.parse(profile.params))
+        }
+    }, [profile.params])
 
     return (
         <Col
             px={1.5}
-            py={2}
+            py={2}  
             bgcolor={'#C53D3D'}
             borderRadius={'14px'}
             minWidth={isSm ? '100%' : '308px'}
@@ -26,9 +41,9 @@ export const ScammerStatsProfile = ({ profile }: { profile: ScammerProfileItem }
             <AttentionButton />
 
             <Col alignItems={'flex-start'}>
-                <DescriptionItem text="Связан с инвестициями" />
-                <DescriptionItem text="Начальные знания не нужны" />
-                <DescriptionItem text="Старт от 500 рублей" />
+                <DescriptionItem text={params?.one ?? ''} />
+                <DescriptionItem text={params?.two ?? ''} />
+                <DescriptionItem text={params?.three ?? ''} />
             </Col>
 
             <Col gap={1}>

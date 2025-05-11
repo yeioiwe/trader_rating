@@ -24,6 +24,7 @@ export const ScammerProfileItem = z
         url: z.string(),
         name: z.string(),
         avatar_url: z.string(),
+        params: z.string().default('{"one": "", "two": "", "three": ""}'),
         positionTop: z.number(),
         starRate: z.enum(['1', '2', '3', '4', '5']),
         rate: z.number(),
