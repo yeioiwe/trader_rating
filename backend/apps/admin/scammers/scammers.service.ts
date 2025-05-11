@@ -37,6 +37,7 @@ export class ScammersService {
             visible: ScummerVisible.VISIBLE,
             createdAt: new Date(),
             about: '',
+            params: '{"one": "", "two": "", "three": ""}',
             profileLikes: 0,
             profileViews: 0,
         });
@@ -79,6 +80,7 @@ export class ScammersService {
             profileLikes: project.profileLikes,
             profileViews: project.profileViews,
             about: project.about,
+            params: project.params,
         };
     }
 

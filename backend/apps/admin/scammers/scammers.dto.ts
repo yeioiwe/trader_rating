@@ -53,6 +53,9 @@ export class ScammerEditAboutDto {
 
     @IsString()
     about!: string;
+
+    @IsString()
+    params!: string;
 }
 
 export class ScammerUpdatePositionItemDto {

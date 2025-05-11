@@ -44,6 +44,9 @@ export class ScammerProfileAbout {
 
     @ApiProperty({ type: String })
     about!: string;
+
+    @ApiProperty({ type: String })
+    params!: string;
 }
 
 export class ScammerCommentItem extends ScammerCommentEntity {}

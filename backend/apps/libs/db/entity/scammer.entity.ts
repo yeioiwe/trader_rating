@@ -43,6 +43,10 @@ export class ScammerEntity {
     @ApiProperty()
     avatar_url!: string;
 
+    @Column('mediumtext')
+    @ApiProperty({ default: '{"one": "", "two": "", "three": ""}' })
+    params!: string;
+
     @Column()
     @ApiProperty()
     positionTop!: number;
