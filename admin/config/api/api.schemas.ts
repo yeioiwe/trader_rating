@@ -122,6 +122,7 @@ export interface ScammerProfileItem {
     url: string;
     name: string;
     avatar_url: string;
+    params: string;
     positionTop: number;
     starRate: ScammerProfileItemStarRate;
     rate: number;
@@ -152,6 +153,7 @@ export interface ScammerProfileAbout {
     profileLikes: number;
     profileViews: number;
     about: string;
+    params: string;
 }
 
 export type ScummerVisible = (typeof ScummerVisible)[keyof typeof ScummerVisible];
@@ -167,6 +169,7 @@ export interface ScammerEditAboutDto {
     profileLikes: number;
     profileViews: number;
     about: string;
+    params: string;
 }
 
 export interface ScammerUpdatePositionItemDto {

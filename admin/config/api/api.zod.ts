@@ -37,6 +37,7 @@ export const ScammerProfileItem = z
         url: z.string(),
         name: z.string(),
         avatar_url: z.string(),
+        params: z.string().default('{"one": "", "two": "", "three": ""}'),
         positionTop: z.number(),
         starRate: z.enum(['1', '2', '3', '4', '5']),
         rate: z.number(),
@@ -60,11 +61,18 @@ export const ScammerProfileAbout = z
         profileLikes: z.number(),
         profileViews: z.number(),
         about: z.string(),
+        params: z.string(),
     })
     .passthrough();
 export const ScummerVisible = z.enum(['VISIBLE', 'HIDDEN']);
 export const ScammerEditAboutDto = z
-    .object({ visible: ScummerVisible, profileLikes: z.number(), profileViews: z.number(), about: z.string() })
+    .object({
+        visible: ScummerVisible,
+        profileLikes: z.number(),
+        profileViews: z.number(),
+        about: z.string(),
+        params: z.string(),
+    })
     .passthrough();
 export const ScammerUpdatePositionItemDto = z.object({ id: z.number(), positionTop: z.number() }).passthrough();
 export const ScammerUpdatePositionListDto = z.object({ items: z.array(ScammerUpdatePositionItemDto) }).passthrough();

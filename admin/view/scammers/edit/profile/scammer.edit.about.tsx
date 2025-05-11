@@ -30,6 +30,7 @@ export const ScammersEditAbout = ({ id }: { id: number }) => {
                         profileLikes: getValues('profileLikes'),
                         profileViews: getValues('profileViews'),
                         visible: visible,
+                        params: `{"one": "${getValues('params1')}", "two": "${getValues('params2')}", "three": "${getValues('params3')}"}`,
                     },
                 },
                 {
@@ -55,6 +56,28 @@ export const ScammersEditAbout = ({ id }: { id: number }) => {
     return (
         <Col>
             <form>
+                <Row justifyContent={'space-between'} mb={4}>
+                    <Col>
+                        <Typography>Первый параметр:</Typography>
+
+                        <OutlinedInput {...register('params1')} />
+                    </Col>
+
+                    <Col>
+                        <Typography>Второй параметр:</Typography>
+
+                        <OutlinedInput {...register('params2')} />
+                    </Col>
+
+                    <Col>
+                        <Typography>Третий параметр:</Typography>
+
+                        <OutlinedInput {...register('params3')} />
+                    </Col>
+
+                </Row>
+
+
                 <Col gap={4}>
                     <ReactQuill
                         formats={formats123}
