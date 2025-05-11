@@ -100,3 +100,8 @@ export class EditLawyerProfileDto {
     @IsString()
     profile!: string;
 }
+
+export class TestDto {
+    @IsNumber()
+    number!: number;
+}

@@ -2,9 +2,9 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { FooterStripEntity } from 'apps/libs/db/entity/footer.strip.entity';
 import { HeaderBannerEntity, HeaderBannerType } from 'apps/libs/db/entity/header.banner.entity';
 import { ImagesBannerEntity } from 'apps/libs/db/entity/images.banner.entity';
-import { LawyerBannerEntity } from 'apps/libs/db/entity/lawyer.banner.entity';
+import { LawyerBannerEntity, LawyerBannerVisible } from 'apps/libs/db/entity/lawyer.banner.entity';
 import { LawyerLayoutEntity, LawyerLayoutVisible } from 'apps/libs/db/entity/lawyer.layout.entity';
-import { LawyerProfileEntity } from 'apps/libs/db/entity/lawyer.profile';
+import { LawyerProfileEntity, LawyerProfileVisible } from 'apps/libs/db/entity/lawyer.profile';
 import { ReviewEntity } from 'apps/libs/db/entity/review.entity';
 import { YoutubeLayoutEntity, YoutubeLayoutVisible } from 'apps/libs/db/entity/youtube.layout.entity';
 import { EntityManager } from 'typeorm';
@@ -39,6 +39,7 @@ export class PagesService {
                 description:
                     'Юрист с опытом в области финансовых и криптовалютных споров. Помогает клиентам вернуть средства, пострадавшим от недобросовестных трейдеров и мошенников. Обладает глубокими знаниями законодательства и практическим опытом решения проблем в криптовалютной сфере.',
                 avatar: '',
+                visible: LawyerBannerVisible.HIDDEN,
                 reports: 15903,
                 reviews: 2983,
             });
@@ -81,7 +82,10 @@ export class PagesService {
 
         const lawyerProfile = await this.em.find(LawyerProfileEntity);
         if (lawyerProfile.length === 0) {
-            const profile = await this.em.create(LawyerProfileEntity, { profile: '' });
+            const profile = await this.em.create(LawyerProfileEntity, {
+                profile: '',
+                visible: LawyerProfileVisible.HIDDEN,
+            });
             await this.em.save(LawyerProfileEntity, profile);
         }
     }
@@ -184,5 +188,40 @@ export class PagesService {
         if (!profile) throw new BadRequestException();
 
         return profile;
+    }
+
+    async toggleLawyerVisible() {
+        const lawyerBanner = await this.em.findOneBy(LawyerBannerEntity, { id: 1 });
+        const lawyerProfile = await this.em.findOneBy(LawyerProfileEntity, { id: 1 });
+
+        await this.em.update(
+            LawyerBannerEntity,
+            { id: 1 },
+            {
+                visible:
+                    lawyerBanner?.visible === LawyerBannerVisible.HIDDEN
+                        ? LawyerBannerVisible.VISIBLE
+                        : LawyerBannerVisible.HIDDEN,
+            },
+        );
+
+        await this.em.update(
+            LawyerProfileEntity,
+            { id: 1 },
+            {
+                visible:
+                    lawyerProfile?.visible === LawyerProfileVisible.HIDDEN
+                        ? LawyerProfileVisible.VISIBLE
+                        : LawyerProfileVisible.HIDDEN,
+            },
+        );
+    }
+
+    async getLawyerVisible() {
+        const lawyerBanner = await this.em.findOneBy(LawyerBannerEntity, { id: 1 });
+
+        if (!lawyerBanner) throw new BadRequestException();
+
+        return { visible: lawyerBanner.visible };
     }
 }

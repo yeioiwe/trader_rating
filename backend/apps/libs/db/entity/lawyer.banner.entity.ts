@@ -1,11 +1,20 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+export enum LawyerBannerVisible {
+    VISIBLE = 'VISIBLE',
+    HIDDEN = 'HIDDEN',
+}
+
 @Entity('lawyer_banner')
 export class LawyerBannerEntity {
     @PrimaryGeneratedColumn()
     @ApiProperty()
     id!: number;
+
+    @ApiProperty({ enum: LawyerBannerVisible, default: LawyerBannerVisible.HIDDEN })
+    @Column({ type: 'enum', enum: LawyerBannerVisible, default: LawyerBannerVisible.HIDDEN })
+    visible!: LawyerBannerVisible;
 
     @Column()
     @ApiProperty()

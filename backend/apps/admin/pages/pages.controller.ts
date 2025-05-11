@@ -9,6 +9,7 @@ import {
     EditLawyerProfileDto,
     EditYoutubeLayoutDto,
     HeaderBannerEditDto,
+    TestDto,
 } from './pages.dto';
 import { PagesService } from './pages.service';
 import {
@@ -18,6 +19,7 @@ import {
     LawyerBannerItem,
     LawyerLayoutItem,
     LawyerProfileItem,
+    LawyerVisible,
     ReviewList,
     YoutubeLayoutItem,
 } from './pages.types';
@@ -81,7 +83,6 @@ export class PagesController {
         return await this.pagesService.getFooterStrip();
     }
 
-    // asd
     @Post('youtube_layout')
     @ApiOkResponse()
     async editYoutubeLayout(@Body() dto: EditYoutubeLayoutDto): Promise<void> {
@@ -128,5 +129,18 @@ export class PagesController {
     @ApiOkResponse({ type: LawyerProfileItem })
     async getLawyerProfile(): Promise<LawyerProfileItem> {
         return await this.pagesService.getLawyerProfile();
+    }
+
+    @Post('lawyer_visible')
+    @ApiOkResponse()
+    async toggleLawyerVisible(@Body() dto: TestDto): Promise<void> {
+        console.log(dto);
+        return await this.pagesService.toggleLawyerVisible();
+    }
+
+    @Get('lawyer_visible')
+    @ApiOkResponse({ type: LawyerVisible })
+    async getLawyerVisible(): Promise<LawyerVisible> {
+        return await this.pagesService.getLawyerVisible();
     }
 }
