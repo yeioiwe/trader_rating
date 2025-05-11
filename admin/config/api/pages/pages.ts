@@ -37,7 +37,9 @@ import type {
     LawyerBannerItem,
     LawyerLayoutItem,
     LawyerProfileItem,
+    LawyerVisible,
     ReviewList,
+    TestDto,
     YoutubeLayoutItem,
 } from '../api.schemas';
 
@@ -1817,6 +1819,217 @@ export function usePagesGetLawyerProfile<
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerProfile>>, TError, TData>>;
 }): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
     const queryOptions = getPagesGetLawyerProfileQueryOptions(options);
+
+    const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const pagesToggleLawyerVisible = (testDto: TestDto, signal?: AbortSignal) => {
+    return axiosCall<void>({
+        url: `/pages/lawyer_visible`,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        data: testDto,
+        signal,
+    });
+};
+
+export const getPagesToggleLawyerVisibleMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof pagesToggleLawyerVisible>>,
+        TError,
+        { data: TestDto },
+        TContext
+    >;
+}): UseMutationOptions<Awaited<ReturnType<typeof pagesToggleLawyerVisible>>, TError, { data: TestDto }, TContext> => {
+    const mutationKey = ['pagesToggleLawyerVisible'];
+    const { mutation: mutationOptions } = options
+        ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey } };
+
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof pagesToggleLawyerVisible>>,
+        { data: TestDto }
+    > = props => {
+        const { data } = props ?? {};
+
+        return pagesToggleLawyerVisible(data);
+    };
+
+    return { mutationFn, ...mutationOptions };
+};
+
+export type PagesToggleLawyerVisibleMutationResult = NonNullable<Awaited<ReturnType<typeof pagesToggleLawyerVisible>>>;
+export type PagesToggleLawyerVisibleMutationBody = TestDto;
+export type PagesToggleLawyerVisibleMutationError = ErrorType<unknown>;
+
+export const usePagesToggleLawyerVisible = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof pagesToggleLawyerVisible>>,
+        TError,
+        { data: TestDto },
+        TContext
+    >;
+}): UseMutationResult<Awaited<ReturnType<typeof pagesToggleLawyerVisible>>, TError, { data: TestDto }, TContext> => {
+    const mutationOptions = getPagesToggleLawyerVisibleMutationOptions(options);
+
+    return useMutation(mutationOptions);
+};
+export const pagesGetLawyerVisible = (signal?: AbortSignal) => {
+    return axiosCall<LawyerVisible>({ url: `/pages/lawyer_visible`, method: 'GET', signal });
+};
+
+export const getPagesGetLawyerVisibleQueryKey = () => {
+    return [`/pages/lawyer_visible`] as const;
+};
+
+export const getPagesGetLawyerVisibleInfiniteQueryOptions = <
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetLawyerVisible>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerVisible>>, TError, TData>>;
+}) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPagesGetLawyerVisibleQueryKey();
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof pagesGetLawyerVisible>>> = ({ signal }) =>
+        pagesGetLawyerVisible(signal);
+
+    return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof pagesGetLawyerVisible>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PagesGetLawyerVisibleInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof pagesGetLawyerVisible>>>;
+export type PagesGetLawyerVisibleInfiniteQueryError = ErrorType<unknown>;
+
+export function usePagesGetLawyerVisibleInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetLawyerVisible>>>,
+    TError = ErrorType<unknown>,
+>(options: {
+    query: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerVisible>>, TError, TData>> &
+        Pick<
+            DefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetLawyerVisible>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetLawyerVisible>>
+            >,
+            'initialData'
+        >;
+}): DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetLawyerVisibleInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetLawyerVisible>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerVisible>>, TError, TData>> &
+        Pick<
+            UndefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetLawyerVisible>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetLawyerVisible>>
+            >,
+            'initialData'
+        >;
+}): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetLawyerVisibleInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetLawyerVisible>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerVisible>>, TError, TData>>;
+}): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePagesGetLawyerVisibleInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetLawyerVisible>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerVisible>>, TError, TData>>;
+}): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPagesGetLawyerVisibleInfiniteQueryOptions(options);
+
+    const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const getPagesGetLawyerVisibleQueryOptions = <
+    TData = Awaited<ReturnType<typeof pagesGetLawyerVisible>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerVisible>>, TError, TData>>;
+}) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPagesGetLawyerVisibleQueryKey();
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof pagesGetLawyerVisible>>> = ({ signal }) =>
+        pagesGetLawyerVisible(signal);
+
+    return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof pagesGetLawyerVisible>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PagesGetLawyerVisibleQueryResult = NonNullable<Awaited<ReturnType<typeof pagesGetLawyerVisible>>>;
+export type PagesGetLawyerVisibleQueryError = ErrorType<unknown>;
+
+export function usePagesGetLawyerVisible<
+    TData = Awaited<ReturnType<typeof pagesGetLawyerVisible>>,
+    TError = ErrorType<unknown>,
+>(options: {
+    query: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerVisible>>, TError, TData>> &
+        Pick<
+            DefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetLawyerVisible>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetLawyerVisible>>
+            >,
+            'initialData'
+        >;
+}): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetLawyerVisible<
+    TData = Awaited<ReturnType<typeof pagesGetLawyerVisible>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerVisible>>, TError, TData>> &
+        Pick<
+            UndefinedInitialDataOptions<
+                Awaited<ReturnType<typeof pagesGetLawyerVisible>>,
+                TError,
+                Awaited<ReturnType<typeof pagesGetLawyerVisible>>
+            >,
+            'initialData'
+        >;
+}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetLawyerVisible<
+    TData = Awaited<ReturnType<typeof pagesGetLawyerVisible>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerVisible>>, TError, TData>>;
+}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePagesGetLawyerVisible<
+    TData = Awaited<ReturnType<typeof pagesGetLawyerVisible>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetLawyerVisible>>, TError, TData>>;
+}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPagesGetLawyerVisibleQueryOptions(options);
 
     const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
         queryKey: DataTag<QueryKey, TData, TError>;

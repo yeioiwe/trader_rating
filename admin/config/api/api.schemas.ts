@@ -342,8 +342,17 @@ export interface EditLawyerBannerDto {
     detailsUrl: string;
 }
 
+export type LawyerBannerItemVisible = (typeof LawyerBannerItemVisible)[keyof typeof LawyerBannerItemVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const LawyerBannerItemVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
 export interface LawyerBannerItem {
     id: number;
+    visible: LawyerBannerItemVisible;
     name: string;
     title: string;
     avatar: string;
@@ -453,9 +462,34 @@ export interface EditLawyerProfileDto {
     profile: string;
 }
 
+export type LawyerProfileItemVisible = (typeof LawyerProfileItemVisible)[keyof typeof LawyerProfileItemVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const LawyerProfileItemVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
 export interface LawyerProfileItem {
     id: number;
     profile: string;
+    visible: LawyerProfileItemVisible;
+}
+
+export interface TestDto {
+    number: number;
+}
+
+export type LawyerVisibleVisible = (typeof LawyerVisibleVisible)[keyof typeof LawyerVisibleVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const LawyerVisibleVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
+export interface LawyerVisible {
+    visible: LawyerVisibleVisible;
 }
 
 export interface NewsCreateDto {

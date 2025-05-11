@@ -165,6 +165,7 @@ export const EditLawyerBannerDto = z
 export const LawyerBannerItem = z
     .object({
         id: z.number(),
+        visible: z.enum(['VISIBLE', 'HIDDEN']).default('HIDDEN'),
         name: z.string(),
         title: z.string(),
         avatar: z.string(),
@@ -234,7 +235,11 @@ export const ReviewItem = z
     .passthrough();
 export const ReviewList = z.object({ items: z.array(ReviewItem) }).passthrough();
 export const EditLawyerProfileDto = z.object({ profile: z.string() }).passthrough();
-export const LawyerProfileItem = z.object({ id: z.number(), profile: z.string() }).passthrough();
+export const LawyerProfileItem = z
+    .object({ id: z.number(), profile: z.string(), visible: z.enum(['VISIBLE', 'HIDDEN']).default('HIDDEN') })
+    .passthrough();
+export const TestDto = z.object({ number: z.number() }).passthrough();
+export const LawyerVisible = z.object({ visible: z.enum(['VISIBLE', 'HIDDEN']) }).passthrough();
 export const NewsCreateDto = z
     .object({
         url: z.string(),
