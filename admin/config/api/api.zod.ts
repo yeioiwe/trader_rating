@@ -294,3 +294,96 @@ export const NewsCommentItem = z
     })
     .passthrough();
 export const NewsCommentList = z.object({ items: z.array(NewsCommentItem) }).passthrough();
+export const VerifiedStarRate = z.enum(['1', '2', '3', '4', '5']);
+export const VerifiedCategory = z.enum(['INVESTMENTS', 'TRADER', 'CAPPER', 'GAME', 'CASINO', 'EXCHANGES']);
+export const VerifiedCreateDto = z
+    .object({
+        url: z.string(),
+        name: z.string(),
+        avatar_url: z.string(),
+        starRate: VerifiedStarRate,
+        category: VerifiedCategory,
+        rate: z.number(),
+        subcribers: z.number(),
+        profit: z.number(),
+        reviews: z.number(),
+        shortDescription: z.string(),
+        tgUsername: z.string(),
+        reviewDate: z.string().datetime({ offset: true }),
+    })
+    .passthrough();
+export const VerifiedDemoProfileItem = z
+    .object({
+        id: z.number(),
+        name: z.string(),
+        positionTop: z.number(),
+        tgUsername: z.string(),
+        category: z.enum(['INVESTMENTS', 'TRADER', 'CAPPER', 'GAME', 'CASINO', 'EXCHANGES']),
+        visible: z.enum(['VISIBLE', 'HIDDEN']),
+    })
+    .passthrough();
+export const VerifiedDemoProfileItemList = z.object({ items: z.array(VerifiedDemoProfileItem) }).passthrough();
+export const VerifiedProfileItem = z
+    .object({
+        id: z.number(),
+        url: z.string(),
+        name: z.string(),
+        avatar_url: z.string(),
+        params: z.string().default('{"one": "", "two": "", "three": ""}'),
+        positionTop: z.number(),
+        starRate: z.enum(['1', '2', '3', '4', '5']),
+        rate: z.number(),
+        subcribers: z.number(),
+        profit: z.number(),
+        reviews: z.number(),
+        shortDescription: z.string(),
+        tgUsername: z.string(),
+        visible: z.enum(['VISIBLE', 'HIDDEN']).default('VISIBLE'),
+        category: z.enum(['INVESTMENTS', 'TRADER', 'CAPPER', 'GAME', 'CASINO', 'EXCHANGES']),
+        createdAt: z.string().datetime({ offset: true }),
+        reviewDate: z.string().datetime({ offset: true }),
+        profileLikes: z.number(),
+        profileViews: z.number(),
+        about: z.string(),
+    })
+    .passthrough();
+export const VerifiedProfileAbout = z
+    .object({
+        visible: z.enum(['VISIBLE', 'HIDDEN']),
+        profileLikes: z.number(),
+        profileViews: z.number(),
+        about: z.string(),
+        params: z.string(),
+    })
+    .passthrough();
+export const VerifiedVisible = z.enum(['VISIBLE', 'HIDDEN']);
+export const VerifiedEditAboutDto = z
+    .object({
+        visible: VerifiedVisible,
+        profileLikes: z.number(),
+        profileViews: z.number(),
+        about: z.string(),
+        params: z.string(),
+    })
+    .passthrough();
+export const VerifiedUpdatePositionItemDto = z.object({ id: z.number(), positionTop: z.number() }).passthrough();
+export const VerifiedUpdatePositionListDto = z.object({ items: z.array(VerifiedUpdatePositionItemDto) }).passthrough();
+export const VerifiedCreateComment = z
+    .object({
+        name: z.string(),
+        comment: z.string(),
+        date: z.string().datetime({ offset: true }),
+        starRate: CommentStarRate,
+    })
+    .passthrough();
+export const VerifiedCommentItem = z
+    .object({
+        id: z.number(),
+        name: z.string(),
+        comment: z.string(),
+        projectId: z.number(),
+        date: z.string().datetime({ offset: true }),
+        starRate: z.enum(['1', '2', '3', '4', '5']),
+    })
+    .passthrough();
+export const VerifiedCommentList = z.object({ items: z.array(VerifiedCommentItem) }).passthrough();

@@ -556,3 +556,206 @@ export interface NewsCommentItem {
 export interface NewsCommentList {
     items: NewsCommentItem[];
 }
+
+export type VerifiedStarRate = (typeof VerifiedStarRate)[keyof typeof VerifiedStarRate];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const VerifiedStarRate = {
+    NUMBER_1: '1',
+    NUMBER_2: '2',
+    NUMBER_3: '3',
+    NUMBER_4: '4',
+    NUMBER_5: '5',
+} as const;
+
+export type VerifiedCategory = (typeof VerifiedCategory)[keyof typeof VerifiedCategory];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const VerifiedCategory = {
+    INVESTMENTS: 'INVESTMENTS',
+    TRADER: 'TRADER',
+    CAPPER: 'CAPPER',
+    GAME: 'GAME',
+    CASINO: 'CASINO',
+    EXCHANGES: 'EXCHANGES',
+} as const;
+
+export interface VerifiedCreateDto {
+    url: string;
+    name: string;
+    avatar_url: string;
+    starRate: VerifiedStarRate;
+    category: VerifiedCategory;
+    rate: number;
+    subcribers: number;
+    profit: number;
+    reviews: number;
+    shortDescription: string;
+    tgUsername: string;
+    reviewDate: Date;
+}
+
+export type VerifiedDemoProfileItemCategory =
+    (typeof VerifiedDemoProfileItemCategory)[keyof typeof VerifiedDemoProfileItemCategory];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const VerifiedDemoProfileItemCategory = {
+    INVESTMENTS: 'INVESTMENTS',
+    TRADER: 'TRADER',
+    CAPPER: 'CAPPER',
+    GAME: 'GAME',
+    CASINO: 'CASINO',
+    EXCHANGES: 'EXCHANGES',
+} as const;
+
+export type VerifiedDemoProfileItemVisible =
+    (typeof VerifiedDemoProfileItemVisible)[keyof typeof VerifiedDemoProfileItemVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const VerifiedDemoProfileItemVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
+export interface VerifiedDemoProfileItem {
+    id: number;
+    name: string;
+    positionTop: number;
+    tgUsername: string;
+    category: VerifiedDemoProfileItemCategory;
+    visible: VerifiedDemoProfileItemVisible;
+}
+
+export interface VerifiedDemoProfileItemList {
+    items: VerifiedDemoProfileItem[];
+}
+
+export type VerifiedProfileItemStarRate =
+    (typeof VerifiedProfileItemStarRate)[keyof typeof VerifiedProfileItemStarRate];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const VerifiedProfileItemStarRate = {
+    NUMBER_1: '1',
+    NUMBER_2: '2',
+    NUMBER_3: '3',
+    NUMBER_4: '4',
+    NUMBER_5: '5',
+} as const;
+
+export type VerifiedProfileItemVisible = (typeof VerifiedProfileItemVisible)[keyof typeof VerifiedProfileItemVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const VerifiedProfileItemVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
+export type VerifiedProfileItemCategory =
+    (typeof VerifiedProfileItemCategory)[keyof typeof VerifiedProfileItemCategory];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const VerifiedProfileItemCategory = {
+    INVESTMENTS: 'INVESTMENTS',
+    TRADER: 'TRADER',
+    CAPPER: 'CAPPER',
+    GAME: 'GAME',
+    CASINO: 'CASINO',
+    EXCHANGES: 'EXCHANGES',
+} as const;
+
+export interface VerifiedProfileItem {
+    id: number;
+    url: string;
+    name: string;
+    avatar_url: string;
+    params: string;
+    positionTop: number;
+    starRate: VerifiedProfileItemStarRate;
+    rate: number;
+    subcribers: number;
+    profit: number;
+    reviews: number;
+    shortDescription: string;
+    tgUsername: string;
+    visible: VerifiedProfileItemVisible;
+    category: VerifiedProfileItemCategory;
+    createdAt: Date;
+    reviewDate: Date;
+    profileLikes: number;
+    profileViews: number;
+    about: string;
+}
+
+export type VerifiedProfileAboutVisible =
+    (typeof VerifiedProfileAboutVisible)[keyof typeof VerifiedProfileAboutVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const VerifiedProfileAboutVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
+export interface VerifiedProfileAbout {
+    visible: VerifiedProfileAboutVisible;
+    profileLikes: number;
+    profileViews: number;
+    about: string;
+    params: string;
+}
+
+export type VerifiedVisible = (typeof VerifiedVisible)[keyof typeof VerifiedVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const VerifiedVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
+export interface VerifiedEditAboutDto {
+    visible: VerifiedVisible;
+    profileLikes: number;
+    profileViews: number;
+    about: string;
+    params: string;
+}
+
+export interface VerifiedUpdatePositionItemDto {
+    id: number;
+    positionTop: number;
+}
+
+export interface VerifiedUpdatePositionListDto {
+    items: VerifiedUpdatePositionItemDto[];
+}
+
+export interface VerifiedCreateComment {
+    name: string;
+    comment: string;
+    date: Date;
+    starRate: CommentStarRate;
+}
+
+export type VerifiedCommentItemStarRate =
+    (typeof VerifiedCommentItemStarRate)[keyof typeof VerifiedCommentItemStarRate];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const VerifiedCommentItemStarRate = {
+    NUMBER_1: '1',
+    NUMBER_2: '2',
+    NUMBER_3: '3',
+    NUMBER_4: '4',
+    NUMBER_5: '5',
+} as const;
+
+export interface VerifiedCommentItem {
+    id: number;
+    name: string;
+    comment: string;
+    projectId: number;
+    date: Date;
+    starRate: VerifiedCommentItemStarRate;
+}
+
+export interface VerifiedCommentList {
+    items: VerifiedCommentItem[];
+}

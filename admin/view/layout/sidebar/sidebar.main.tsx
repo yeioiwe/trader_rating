@@ -8,6 +8,7 @@ export const SideBar = () => {
         <Col gap={1} borderRadius={'9px'}>
             <SideBarButton text="Главная" url="dashboard" />
             <SideBarButton text="Мошенники" url="scammers" />
+            <SideBarButton text="Проверенные" url="verified" />
             <SideBarButton text="Проверка" url="review" />
             <SideBarButton text="Юрист" url="lawyer" />
             <SideBarButton text="Посты" url="post" />
