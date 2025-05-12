@@ -5,6 +5,7 @@ import { NewsModule } from './news/news.module';
 import { PagesModule } from './pages/pages.module';
 import { PostModule } from './post/post.module';
 import { ScammersModule } from './scammers/scammers.module';
+import { VerifiedModule } from './verified/verified.module';
 
 @Module({
     imports: [
@@ -16,6 +17,7 @@ import { ScammersModule } from './scammers/scammers.module';
         PostModule,
         PagesModule,
         NewsModule,
+        VerifiedModule,
     ],
     controllers: [],
     providers: [],
