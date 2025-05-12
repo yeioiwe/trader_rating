@@ -1,37 +1,21 @@
 import VerifiedIcon from '@/public/icons/about_verified.svg';
 import StatisticCommentsIcon from '@/public/icons/statistic_commnets.svg';
 import VerifiedProfitIcon from '@/public/icons/verified_profit.svg';
+import { VerifiedDemoProfileItem } from '@/shared/config/api/api.schemas';
 import { Col, Row } from '@/shared/ui/boxes';
+import { StarsGroup } from '@/shared/ui/stars.group';
 import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export const VerifiedMobileItem = ({
-    position,
-    avatarURL,
-    username,
-    starsRate,
-    ratePercent,
-    reports,
-    reviews,
-    about,
-    projectLink,
-}: {
-    position: number;
-    avatarURL: string;
-    username: string;
-    starsRate: number;
-    ratePercent: number;
-    reports: number;
-    reviews: number;
-    about: string;
-    projectLink: string;
-}) => {
+export const VerifiedMobileItem = ({ project }: { project: VerifiedDemoProfileItem }) => {
+    const router = useRouter();
     const { t } = useTranslation();
 
     return (
-        <Col bgcolor={'#FFFFFF'} borderRadius={'8px'} width={'100%'} pr={1.5}>
+        <Col bgcolor={'#FFFFFF'} borderRadius={'8px'} width={'100%'} pr={1.5} sx={{cursor: 'pointer'}} onClick={() => router.push(`/verified/${project.url}`)}>
             <Row justifyContent={'space-between'} py={1.75}>
                 <Box
                     width={24}
@@ -43,20 +27,20 @@ export const VerifiedMobileItem = ({
                     alignItems={'center'}
                 >
                     <Typography fontWeight={700} fontSize={14} color="white">
-                        {position}
+                        {project.positionTop}
                     </Typography>
                 </Box>
 
                 <Row gap={1}>
-                    <Image src={avatarURL} alt="avatar" width={45} height={45} style={{ borderRadius: '6px' }} />
+                    <Image src={project.avatar_url} alt="avatar" width={45} height={45} style={{ borderRadius: '6px' }} />
 
                     <Col alignItems={'flex-start'} height={'100%'} justifyContent={'space-around'}>
                         <Typography fontWeight={500} fontSize={14}>
-                            {username}
+                            {project.name}
                         </Typography>
 
-                        {/* TODO */}
-                        {/* <StarsGroup rating={starsRate} /> */}
+                      
+                        <StarsGroup rating={project.starRate} />
                     </Col>
                 </Row>
 
@@ -68,34 +52,34 @@ export const VerifiedMobileItem = ({
             </Row>
 
             <Row pl={1.5} justifyContent={'space-between'}>
-                <RateCircle percent={ratePercent} />
+                <RateCircle percent={project.rate} />
 
                 <StatisticMobileItem
                     title={t('main.scammers.statistic_comments')}
                     icon={<StatisticCommentsIcon />}
                     bgcolor={'#6a7474'}
-                    value={reviews}
+                    value={project.reviews}
                 />
 
                 <StatisticMobileItem
-                    title={'Прибыль'}
+                    title={'Прибыль %'}
                     icon={<VerifiedProfitIcon />}
                     bgcolor={'#3BB974'}
-                    value={reports}
+                    value={project.profit}
                 />
             </Row>
 
             <Box pl={1.5} pt={2}>
-                <TraderAbout about={about} />
+                <TraderAbout about={project.shortDescription} />
             </Box>
 
-            <Row gap={1} pl={1.5} my={1.5} justifyContent={'flex-start'}>
+            <Row sx={{cursor: 'pointer'}} gap={1} pl={1.5} my={1.5} justifyContent={'flex-start'} onClick={() => router.push(`https://t.me/${project.tgUsername}`)}>
                 <Typography fontSize={14} fontWeight={700}>
                     Ссылка:
                 </Typography>
 
                 <Typography fontSize={14} fontWeight={700} color={'#3BB974'}>
-                    {projectLink}
+                    t.me/@{project.tgUsername}
                 </Typography>
             </Row>
         </Col>

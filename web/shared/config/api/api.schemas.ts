@@ -367,3 +367,138 @@ export interface NewsCommentItem {
 export interface NewsCommentList {
     items: NewsCommentItem[];
 }
+
+export type VerifiedDemoProfileItemStarRate =
+    (typeof VerifiedDemoProfileItemStarRate)[keyof typeof VerifiedDemoProfileItemStarRate];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const VerifiedDemoProfileItemStarRate = {
+    NUMBER_1: '1',
+    NUMBER_2: '2',
+    NUMBER_3: '3',
+    NUMBER_4: '4',
+    NUMBER_5: '5',
+} as const;
+
+export type VerifiedDemoProfileItemCategory =
+    (typeof VerifiedDemoProfileItemCategory)[keyof typeof VerifiedDemoProfileItemCategory];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const VerifiedDemoProfileItemCategory = {
+    INVESTMENTS: 'INVESTMENTS',
+    TRADER: 'TRADER',
+    CAPPER: 'CAPPER',
+    GAME: 'GAME',
+    CASINO: 'CASINO',
+    EXCHANGES: 'EXCHANGES',
+} as const;
+
+export type VerifiedDemoProfileItemVisible =
+    (typeof VerifiedDemoProfileItemVisible)[keyof typeof VerifiedDemoProfileItemVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const VerifiedDemoProfileItemVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
+export interface VerifiedDemoProfileItem {
+    id: number;
+    url: string;
+    name: string;
+    avatar_url: string;
+    positionTop: number;
+    starRate: VerifiedDemoProfileItemStarRate;
+    rate: number;
+    profit: number;
+    reviews: number;
+    shortDescription: string;
+    tgUsername: string;
+    category: VerifiedDemoProfileItemCategory;
+    visible: VerifiedDemoProfileItemVisible;
+}
+
+export interface VerifiedDemoProfileItemList {
+    items: VerifiedDemoProfileItem[];
+}
+
+export type VerifiedProfileItemStarRate =
+    (typeof VerifiedProfileItemStarRate)[keyof typeof VerifiedProfileItemStarRate];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const VerifiedProfileItemStarRate = {
+    NUMBER_1: '1',
+    NUMBER_2: '2',
+    NUMBER_3: '3',
+    NUMBER_4: '4',
+    NUMBER_5: '5',
+} as const;
+
+export type VerifiedProfileItemVisible = (typeof VerifiedProfileItemVisible)[keyof typeof VerifiedProfileItemVisible];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const VerifiedProfileItemVisible = {
+    VISIBLE: 'VISIBLE',
+    HIDDEN: 'HIDDEN',
+} as const;
+
+export type VerifiedProfileItemCategory =
+    (typeof VerifiedProfileItemCategory)[keyof typeof VerifiedProfileItemCategory];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const VerifiedProfileItemCategory = {
+    INVESTMENTS: 'INVESTMENTS',
+    TRADER: 'TRADER',
+    CAPPER: 'CAPPER',
+    GAME: 'GAME',
+    CASINO: 'CASINO',
+    EXCHANGES: 'EXCHANGES',
+} as const;
+
+export interface VerifiedProfileItem {
+    id: number;
+    url: string;
+    name: string;
+    avatar_url: string;
+    params: string;
+    positionTop: number;
+    starRate: VerifiedProfileItemStarRate;
+    rate: number;
+    subcribers: number;
+    profit: number;
+    reviews: number;
+    shortDescription: string;
+    tgUsername: string;
+    visible: VerifiedProfileItemVisible;
+    category: VerifiedProfileItemCategory;
+    createdAt: Date;
+    reviewDate: Date;
+    profileLikes: number;
+    profileViews: number;
+    about: string;
+}
+
+export type VerifiedCommentItemStarRate =
+    (typeof VerifiedCommentItemStarRate)[keyof typeof VerifiedCommentItemStarRate];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const VerifiedCommentItemStarRate = {
+    NUMBER_1: '1',
+    NUMBER_2: '2',
+    NUMBER_3: '3',
+    NUMBER_4: '4',
+    NUMBER_5: '5',
+} as const;
+
+export interface VerifiedCommentItem {
+    id: number;
+    name: string;
+    comment: string;
+    projectId: number;
+    date: Date;
+    starRate: VerifiedCommentItemStarRate;
+}
+
+export interface VerifiedCommentList {
+    items: VerifiedCommentItem[];
+}

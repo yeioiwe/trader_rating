@@ -1,38 +1,23 @@
+'use client';
 import VerifiedIcon from '@/public/icons/about_verified.svg';
 import ReviewIcon from '@/public/icons/arrow_icon.svg';
 import StatisticCommentsIcon from '@/public/icons/statistic_commnets.svg';
 import VerifiedProfitIcon from '@/public/icons/verified_profit.svg';
+import { VerifiedDemoProfileItem } from '@/shared/config/api/api.schemas';
 import { Col, Row } from '@/shared/ui/boxes';
+import { StarsGroup } from '@/shared/ui/stars.group';
 import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export const VerifiedItem = ({
-    position,
-    avatarURL,
-    username,
-    starsRate,
-    ratePercent,
-    reports,
-    reviews,
-    about,
-    projectLink,
-}: {
-    position: number;
-    avatarURL: string;
-    username: string;
-    starsRate: number;
-    ratePercent: number;
-    reports: number;
-    reviews: number;
-    about: string;
-    projectLink: string;
-}) => {
+export const VerifiedItem = ({ project }: { project: VerifiedDemoProfileItem }) => {
+    const router = useRouter();
     const { t } = useTranslation();
 
     return (
-        <Col bgcolor={'#FFFFFF'} borderRadius={'8px'} width={'100%'} pr={2.5}>
+        <Col bgcolor={'#FFFFFF'} borderRadius={'8px'} width={'100%'} pr={2.5} sx={{cursor: 'pointer'}} onClick={() => router.push(`/verified/${project.url}`)}>
             <Row justifyContent={'space-between'} py={1.75}>
                 <Row gap={2}>
                     <Box
@@ -45,55 +30,54 @@ export const VerifiedItem = ({
                         alignItems={'center'}
                     >
                         <Typography fontWeight={700} fontSize={16} color="white">
-                            {position}
+                            {project.positionTop}
                         </Typography>
                     </Box>
 
                     <Row gap={2} height={75}>
-                        <Image src={avatarURL} alt="avatar" width={75} height={75} style={{ borderRadius: '6px' }} />
+                        <Image src={project.avatar_url} alt="avatar" width={75} height={75} style={{ borderRadius: '6px' }} />
 
                         <Col alignItems={'flex-start'} height={'100%'} justifyContent={'space-around'}>
                             <Typography fontWeight={500} fontSize={20}>
-                                {username}
+                                {project.name}
                             </Typography>
 
-                            {/* TODO */}
-                            {/* <StarsGroup rating={starsRate} /> */}
+                            <StarsGroup rating={project.starRate} />
                         </Col>
                     </Row>
                 </Row>
 
                 <Row gap={6}>
-                    <RateCircle percent={ratePercent} />
+                    <RateCircle percent={project.rate} />
 
                     <StatisticItem
-                        title={t('main.verified.statistic_profit')}
+                        title={'Прибыль %'}
                         icon={<VerifiedProfitIcon />}
                         bgcolor={'#3BB974'}
-                        value={reports}
+                        value={project.profit}
                     />
 
                     <StatisticItem
                         title={t('main.verified.statistic_comments')}
                         icon={<StatisticCommentsIcon />}
                         bgcolor={'#6a7474'}
-                        value={reviews}
+                        value={project.reviews}
                     />
                 </Row>
             </Row>
 
-            <Col pl={'50px'} pb={1.75} gap={2}>
-                <Row gap={4} alignItems={'flex-start'}>
-                    <TraderAbout about={about} />
+            <Col pl={'50px'} pb={1.75} gap={2} >
+                <Row gap={4} alignItems={'flex-start'} justifyContent={'space-between'}>
+                    <TraderAbout about={project.shortDescription} />
 
                     <ReviewButton />
                 </Row>
 
-                <Row gap={1} justifyContent={'flex-start'}>
+                <Row gap={1} sx={{cursor: 'pointer'}} justifyContent={'flex-start'} onClick={() => router.push(`https://t.me/${project.tgUsername}`)}>
                     <Typography fontWeight={700}>{t('main.verified.project_link')}</Typography>
 
                     <Typography fontWeight={700} color={'#3BB974'}>
-                        {projectLink}
+                        t.me/@{project.tgUsername}
                     </Typography>
                 </Row>
             </Col>

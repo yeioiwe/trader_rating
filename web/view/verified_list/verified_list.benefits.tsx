@@ -4,17 +4,19 @@ import BenefitsLoveIcon from '@/public/icons/benefits_love.svg';
 import BenefitsShieldIcon from '@/public/icons/benefits_shield.svg';
 import BenefitsTimeIcon from '@/public/icons/benefits_time.svg';
 import BenefitsIcon from '@/public/icons/verified_benefits.svg';
+import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 import { ReactNode } from 'react';
 
 export const VerifiedListBenefits = () => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));       
     return (
         <Col gap={1.75}>
             <Row gap={2} justifyContent={'flex-start'}>
                 <BenefitsIcon />
 
-                <Typography fontWeight={700} fontSize={24}>
+                <Typography fontWeight={700} fontSize={isSm ? 15 : 24}>
                     Преимущества проверенных проектов
                 </Typography>
             </Row>
@@ -53,7 +55,7 @@ export const VerifiedListBenefits = () => {
             <Row gap={2} justifyContent={'flex-start'} mt={4}>
                 <BenefitsInvestIcon />
 
-                <Typography fontWeight={700} fontSize={24}>
+                <Typography fontWeight={700} fontSize={isSm ? 13 : 24}>
                     Доверяйте профессионалам – инвестируйте с умом
                 </Typography>
             </Row>

@@ -1,11 +1,17 @@
 import { Col, Row } from '@/shared/ui/boxes';
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, useMediaQuery } from '@mui/material';
 import { useState } from 'react';
 import { VerifiedHiddenProject } from './verified.hidden.item';
 import { VerifiedListTypeSort } from './verified.projects.sort';
 import { VerifiedProjectsTitle } from './verified.projects.title';
+import { useVerifiedGetList } from '@/shared/config/api/verified/verified';
+import theme from '@/shared/config/theme/theme';
+import { VerifiedMobileItem } from '@/view/main/verified/mobile/verified.mobile.item';
+import { VerifiedItem } from '@/view/main/verified/verified.item';
 
 export const VerfiedProjectsList = () => {
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+    const { data } = useVerifiedGetList();
     const [sort, setSort] = useState<VerifiedSortType>(sortParams[0]);
 
     return (
@@ -16,10 +22,9 @@ export const VerfiedProjectsList = () => {
                 <VerifiedProjectsTitle />
 
                 <Col p={2.5} bgcolor={'#ECF2FF'} borderRadius={'19px'} gap={2.25}>
-                    {/* {demoScammerUsers.map((s, i) => (
-                        <VerifiedProjectItem 
-                        {...s} key={i} />
-                    ))} */}
+                    {data?.items.map((s, i) =>
+                        isSm ? <VerifiedMobileItem project={s} key={i} /> : <VerifiedItem project={s} key={i} />,
+                    )}
 
                     <VerifiedHiddenProject />
                     <VerifiedHiddenProject />
@@ -27,13 +32,13 @@ export const VerfiedProjectsList = () => {
                     <VerifiedHiddenProject />
                     <VerifiedHiddenProject />
 
-                    <Row justifyContent={'center'}>
+                    {/* <Row justifyContent={'center'}>
                         <Button sx={{ bgcolor: 'white', borderRadius: '9px', minWidth: 250, minHeight: 50 }}>
                             <Typography color="#5297FF" fontSize={16} fontWeight={700}>
                                 Загрузить ещё
                             </Typography>
                         </Button>
-                    </Row>
+                    </Row> */}
                 </Col>
             </Col>
         </Col>
