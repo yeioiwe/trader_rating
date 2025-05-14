@@ -36,7 +36,7 @@ const StatsTopLogo = ({ position }: { position: number }) => {
 
             <Box width={'100%'} position={'absolute'} top={21} display={'flex'} justifyContent={'center'}>
                 <Typography color="#C53D3D" fontSize={32} fontWeight={700}>
-                    23
+                    {position}
                 </Typography>
             </Box>
         </Box>
