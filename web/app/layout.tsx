@@ -34,6 +34,8 @@ export default function RootLayout({
                         });
                     `}
             </Script>
+
+            <meta name="google-site-verification" content="atr7ShW9vzg8anq9CR7PL2JnCeN_3UEmFsyiXEnZdLY" />
             </head>
             <body>
                 <AppLayout>{children}</AppLayout>
