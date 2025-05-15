@@ -14,7 +14,7 @@ export const FooterMobile = () => {
                         anti-scamer@onionmail.org
                     </Typography>
 
-                    <Link href={'https://google.com'}>
+                    <Link href={'/policy'}>
                         <Typography sx={{ textDecoration: 'none', color: 'inherit' }}>
                             Пользовательское соглашение
                         </Typography>
