@@ -23,8 +23,8 @@ export default function RootLayout({
                 <Script
                     src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
                     strategy="afterInteractive"
-                    />
-                    <Script id="google-analytics" strategy="afterInteractive">
+                />
+                <Script id="google-analytics" strategy="afterInteractive">
                     {`
                         window.dataLayer = window.dataLayer || [];
                         function gtag(){dataLayer.push(arguments);}
@@ -33,9 +33,29 @@ export default function RootLayout({
                         page_path: window.location.pathname,
                         });
                     `}
-            </Script>
+                </Script>
 
-            <meta name="google-site-verification" content="atr7ShW9vzg8anq9CR7PL2JnCeN_3UEmFsyiXEnZdLY" />
+                <meta name="google-site-verification" content="atr7ShW9vzg8anq9CR7PL2JnCeN_3UEmFsyiXEnZdLY" />
+
+
+                <Script type="text/javascript" >
+                    {`
+                    (function(m,e,t,r,i,k,a){m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+                    m[i].l=1*new Date();
+                    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+                    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+                    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+                    ym(102183547, "init", {
+                        clickmap:true,
+                        trackLinks:true,
+                        accurateTrackBounce:true
+                    });
+                    `}
+                </Script>
+
+                <noscript><div><img src="https://mc.yandex.ru/watch/102183547" style={{ position: 'absolute', left: '-9999px' }} alt="" /></div></noscript>
+
             </head>
             <body>
                 <AppLayout>{children}</AppLayout>
