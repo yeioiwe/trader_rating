@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /search?q=
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /private/
+Allow: /
+
+Sitemap: https://anti-scamer.ru/sitemap.xml
