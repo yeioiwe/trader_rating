@@ -14,7 +14,7 @@ export const PostOnePage = ({ url, initialData }: { url: string; initialData: an
     const router = useRouter();
     const { data: post } = usePostGetOne(url, initialData);
 
-    if (post === undefined) return null;
+    if (post === undefined) return null
     return (
         <Col gap={2} width={'100%'}>
             <Row justifyContent={'flex-start'} gap={1} sx={{ cursor: 'pointer' }} onClick={() => router.push('/posts')}>

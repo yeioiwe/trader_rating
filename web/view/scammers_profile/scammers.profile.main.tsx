@@ -9,9 +9,9 @@ import { ScammersProfileOverview } from './scammers.profile.overview';
 import { ScammerStatsMain } from './stats/stats.main';
 import { CircularProgress, Skeleton } from '@mui/material';
 
-export const ScammerProfile = ({ id }: { id: string }) => {
+export const ScammerProfile = ({ id, initialData }: { id: string; initialData: any }) => {
     const router = useRouter();
-    const { data: profile, isError, isLoading } = useScammersGetOne(id);
+    const { data: profile, isError, isLoading } = useScammersGetOne(id, initialData);
 
     //TODO not found page
     useEffect(() => {
@@ -20,7 +20,7 @@ export const ScammerProfile = ({ id }: { id: string }) => {
 
     if (isLoading) return <ScammerProfileLoading />;
     if (profile === undefined) return null;
-    
+
     return (
         <Col width={'100%'} gap={4}>
             <ScammerStatsMain profile={profile} />

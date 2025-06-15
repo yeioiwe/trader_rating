@@ -10,9 +10,9 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { NewsCommentsList } from './comments/news.comments.main';
 
-export const NewsPostMain = ({ url }: { url: string }) => {
+export const NewsPostMain = ({ url, initialData }: { url: string; initialData: any }) => {
     const router = useRouter();
-    const { data: news } = useNewsGetOne(url);
+    const { data: news } = useNewsGetOne(url, initialData);
 
     if (news === undefined) return null;
     return (
