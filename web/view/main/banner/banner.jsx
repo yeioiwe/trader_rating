@@ -8,20 +8,24 @@ import 'swiper/css/pagination';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import './styles.css';
+import { Box, CircularProgress } from '@mui/material';
 
 export function Banner() {
-  const {data: images} = usePagesGetImagesBanner() 
+  const { data: images, isPending } = usePagesGetImagesBanner()
   const router = useRouter()
 
   const progressCircle = useRef(null);
   const progressContent = useRef(null);
+
   const onAutoplayTimeLeft = (s, time, progress) => {
     progressCircle.current.style.setProperty('--progress', 1 - progress);
     progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
   };
 
-  if(images === undefined) return null
-  if(images.items.length === 0) return null
+  if (isPending) return <BannerSkeleton />;
+  if (images === undefined) return null;
+  if (images.items.length === 0) return null;
+
   return (
     <>
       <Swiper
@@ -40,7 +44,7 @@ export function Banner() {
         className="mySwiper"
       >
         {images.items.map((s, i) => <SwiperSlide key={i} onClick={() => router.push(s.url)}>
-        <img src={s.image} />
+          <img src={s.image} />
         </SwiperSlide>)}
 
         <div className="autoplay-progress" slot="container-end">
@@ -54,3 +58,10 @@ export function Banner() {
   );
 }
 
+const BannerSkeleton = () => {
+  return (
+    <Box display={'flex'} justifyContent={'center'} alignItems={'center'} width={'100%'} height={350} bgcolor={'#ECF2FF'} borderRadius={'8px'}>
+      <CircularProgress />
+    </Box>
+  );
+}

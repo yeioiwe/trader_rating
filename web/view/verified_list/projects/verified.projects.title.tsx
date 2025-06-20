@@ -1,3 +1,4 @@
+'use client';
 import InfoIcon from '@/public/icons/info.svg';
 import VerifiedIcon from '@/public/icons/layout_verified.svg';
 import { Row } from '@/shared/ui/boxes';

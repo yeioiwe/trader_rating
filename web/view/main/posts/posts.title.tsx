@@ -1,3 +1,4 @@
+'use client';
 import PostsTitleIcon from '@/public/icons/layout_post.svg';
 import { Col, Row } from '@/shared/ui/boxes';
 import { Typography } from '@mui/material';

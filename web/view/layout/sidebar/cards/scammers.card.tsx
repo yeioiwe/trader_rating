@@ -1,29 +1,20 @@
 'use client';
 import WarningIcon from '@/public/icons/layout_warning.svg';
-import { ScammerDemoProfileItem, ScammerDemoProfileItemStarRate } from '@/shared/config/api/api.schemas';
-import { useScammersGetList } from '@/shared/config/api/scammers/scammers';
+import { ScammerDemoProfileItemStarRate } from '@/shared/config/api/api.schemas';
+import { useScammersGetTopFive } from '@/shared/config/api/scammers/scammers';
 import { Col, Row } from '@/shared/ui/boxes';
 import { StarsGroup } from '@/shared/ui/stars.group';
 import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SidebarCard } from './card';
 
 export const ScammersCard = () => {
-    const { data } = useScammersGetList();
+    const { data } = useScammersGetTopFive();
     const { t } = useTranslation();
-    const [scammers, setScammers] = useState<ScammerDemoProfileItem[] | undefined>();
 
-    useEffect(() => {
-        if (data?.items !== undefined) {
-            const top5Scammers = data.items.slice(0, 5);
-            setScammers(top5Scammers);
-        }
-    }, [data?.items]);
-
-    if (scammers === undefined) return null;
+    if (data === undefined) return null;
 
     return (
         <SidebarCard bgcolor={'#ECF5FF'} icon={<WarningIcon />}>
@@ -39,7 +30,7 @@ export const ScammersCard = () => {
                 </Col>
 
                 <Col gap={1}>
-                    {scammers.map((p, i) => (
+                    {data.items.map((p, i) => (
                         <ScammerCard
                             key={i}
                             avatar_url={p.avatar_url}

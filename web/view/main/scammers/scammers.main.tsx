@@ -1,14 +1,13 @@
+'use client';
 import { Col } from '@/shared/ui/boxes';
 import { Typography } from '@mui/material';
 import dayjs from 'dayjs';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScammersList } from './scammers.list';
 import { ScammersTitle } from './scammers.title';
 
-export const ScammersMain = () => {
+export const ScammersMain = ({ scammersTopFiveInitialData }: { scammersTopFiveInitialData: any }) => {
     const { t } = useTranslation();
-    const [sort, setSort] = useState<SortType>(sortParams[0]);
 
     return (
         <Col gap={2.5}>
@@ -20,8 +19,7 @@ export const ScammersMain = () => {
                 </Typography>
             </Col>
 
-            {/* <ScammersTypeSort sort={sort} setSort={setSort} /> */}
-            <ScammersList />
+            <ScammersList scammersTopFiveInitialData={scammersTopFiveInitialData} />
         </Col>
     );
 };

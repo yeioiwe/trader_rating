@@ -1,3 +1,4 @@
+'use client';
 import { usePagesGetLawyerBanner } from '@/shared/config/api/pages/pages';
 import theme from '@/shared/config/theme/theme';
 import { Box, useMediaQuery } from '@mui/material';

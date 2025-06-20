@@ -26,6 +26,184 @@ import type { ScammerCommentList, ScammerDemoProfileItemList, ScammerProfileItem
 import { axiosCall } from '.././api.axios';
 import type { ErrorType } from '.././api.axios';
 
+export const scammersGetTopFive = (signal?: AbortSignal) => {
+    return axiosCall<ScammerDemoProfileItemList>({ url: `/scammers/top_five`, method: 'GET', signal });
+};
+
+export const getScammersGetTopFiveQueryKey = () => {
+    return [`/scammers/top_five`] as const;
+};
+
+export const getScammersGetTopFiveInfiniteQueryOptions = <
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetTopFive>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetTopFive>>, TError, TData>>;
+}) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getScammersGetTopFiveQueryKey();
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof scammersGetTopFive>>> = ({ signal }) =>
+        scammersGetTopFive(signal);
+
+    return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof scammersGetTopFive>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ScammersGetTopFiveInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof scammersGetTopFive>>>;
+export type ScammersGetTopFiveInfiniteQueryError = ErrorType<unknown>;
+
+export function useScammersGetTopFiveInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetTopFive>>>,
+    TError = ErrorType<unknown>,
+>(
+    options: {
+        query: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetTopFive>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetTopFive>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetTopFive>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetTopFiveInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetTopFive>>>,
+    TError = ErrorType<unknown>,
+>(
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetTopFive>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetTopFive>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetTopFive>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetTopFiveInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetTopFive>>>,
+    TError = ErrorType<unknown>,
+>(
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetTopFive>>, TError, TData>>;
+    },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function useScammersGetTopFiveInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetTopFive>>>,
+    TError = ErrorType<unknown>,
+>(
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetTopFive>>, TError, TData>>;
+    },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getScammersGetTopFiveInfiniteQueryOptions(options);
+
+    const query = useInfiniteQuery(queryOptions, queryClient) as UseInfiniteQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const getScammersGetTopFiveQueryOptions = <
+    TData = Awaited<ReturnType<typeof scammersGetTopFive>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetTopFive>>, TError, TData>>;
+}) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getScammersGetTopFiveQueryKey();
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof scammersGetTopFive>>> = ({ signal }) =>
+        scammersGetTopFive(signal);
+
+    return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof scammersGetTopFive>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ScammersGetTopFiveQueryResult = NonNullable<Awaited<ReturnType<typeof scammersGetTopFive>>>;
+export type ScammersGetTopFiveQueryError = ErrorType<unknown>;
+
+export function useScammersGetTopFive<
+    TData = Awaited<ReturnType<typeof scammersGetTopFive>>,
+    TError = ErrorType<unknown>,
+>(
+    options: {
+        query: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetTopFive>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetTopFive>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetTopFive>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetTopFive<
+    TData = Awaited<ReturnType<typeof scammersGetTopFive>>,
+    TError = ErrorType<unknown>,
+>(
+    options?: {
+        query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetTopFive>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetTopFive>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetTopFive>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetTopFive<
+    TData = Awaited<ReturnType<typeof scammersGetTopFive>>,
+    TError = ErrorType<unknown>,
+>(
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetTopFive>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function useScammersGetTopFive<
+    TData = Awaited<ReturnType<typeof scammersGetTopFive>>,
+    TError = ErrorType<unknown>,
+>(
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetTopFive>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getScammersGetTopFiveQueryOptions(options);
+
+    const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
 export const scammersGetList = (signal?: AbortSignal) => {
     return axiosCall<ScammerDemoProfileItemList>({ url: `/scammers/list`, method: 'GET', signal });
 };

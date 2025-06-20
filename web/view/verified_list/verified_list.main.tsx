@@ -1,3 +1,4 @@
+'use client'
 import { Col } from '@/shared/ui/boxes';
 import { Banner } from '../main/banner/banner';
 import { VerfiedProjectsList } from './projects/verified.projects.list';

@@ -1,5 +1,5 @@
 'use client';
-import { useScammersGetList } from '@/shared/config/api/scammers/scammers';
+import { useScammersGetTopFive } from '@/shared/config/api/scammers/scammers';
 import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
 import { Box, Button, CircularProgress, Typography, useMediaQuery } from '@mui/material';
@@ -8,29 +8,10 @@ import { useTranslation } from 'react-i18next';
 import { ScammerMobileItem } from './mobile/scammers.mobile.item';
 import { ScammerItem } from './scammers.item';
 
-export const ScammersList = () => {
-    const { data, isPending } = useScammersGetList();
+export const ScammersList = ({ scammersTopFiveInitialData }: { scammersTopFiveInitialData: any }) => {
+    const { data, isPending } = useScammersGetTopFive({ query: { initialData: scammersTopFiveInitialData } });
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     const { t } = useTranslation();
-
-    // const [sort, setSort] = useState<ScammerDemoProfileItemCategory | undefined>();
-    // const [projects, setProjects] = useState<ScammerDemoProfileItem[] | undefined>();
-
-    // useEffect(() => {
-    //     if (sort !== undefined) {
-    //         const sortedProjects = data?.items.filter(p => p.category === sort);
-
-    //         setProjects(sortedProjects);
-    //     } else {
-    //         setProjects(data?.items);
-    //     }
-    // }, [sort]);
-
-    // useEffect(() => {
-    //     if (data !== undefined) {
-    //         setProjects(data.items);
-    //     }
-    // }, [data?.items]);
 
     if (isPending) return <LoadingList />;
     if (data === undefined) return null;

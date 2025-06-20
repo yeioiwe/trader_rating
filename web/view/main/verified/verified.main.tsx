@@ -1,3 +1,4 @@
+'use client';
 import { Col } from '@/shared/ui/boxes';
 import { Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
@@ -7,7 +8,7 @@ import dayjs from 'dayjs';
 
 export const VerifiedMain = () => {
     const { t } = useTranslation();
-   
+
     return (
         <Col gap={2.5}>
             <Col gap={1}>

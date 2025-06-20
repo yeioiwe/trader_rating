@@ -1,4 +1,4 @@
-import { VerifiedDemoProfileItem } from '@/shared/config/api/api.schemas';
+'use client';
 import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
 import { VerifiedHiddenProject } from '@/view/verified_list/projects/verified.hidden.item';

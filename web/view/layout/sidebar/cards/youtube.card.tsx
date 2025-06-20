@@ -1,11 +1,10 @@
 'use client';
 import TelegramIcon from '@/public/icons/youtube_layout_tg.svg';
 import YoutubeIcon from '@/public/icons/youtube_layout_yt.svg';
-
 import YoutubeTopIcon from '@/public/icons/youtube_layout_icon.svg';
 import { usePagesGetYoutubeLayout } from '@/shared/config/api/pages/pages';
 import { Col, Row } from '@/shared/ui/boxes';
-import { Button, Typography } from '@mui/material';
+import { Button, CircularProgress, Skeleton, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';

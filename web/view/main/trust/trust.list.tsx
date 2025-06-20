@@ -1,3 +1,4 @@
+'use client';
 import TrustIcon1 from '@/public/icons/trust_icon_1.svg';
 import TrustIcon2 from '@/public/icons/trust_icon_2.svg';
 import TrustIcon3 from '@/public/icons/trust_icon_3.svg';

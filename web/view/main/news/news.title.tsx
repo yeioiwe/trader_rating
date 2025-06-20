@@ -1,3 +1,4 @@
+'use client';
 import NewsTitleIcon from '@/public/icons/layout_news.svg';
 import { Col, Row } from '@/shared/ui/boxes';
 import { Typography } from '@mui/material';

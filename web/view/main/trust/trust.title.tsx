@@ -1,3 +1,4 @@
+'use client';
 import TrustIcon from '@/public/icons/trust_icon.svg';
 import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
