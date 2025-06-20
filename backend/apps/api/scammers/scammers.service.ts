@@ -7,13 +7,57 @@ import { EntityManager } from 'typeorm';
 export class ScammersService {
     constructor(private em: EntityManager) {}
 
+    async getTopFive() {
+        const projects = await this.em.find(ScammerEntity, {
+            order: { positionTop: 'ASC' },
+            where: { visible: ScummerVisible.VISIBLE },
+        });
+
+        const topFive = projects.slice(0, 5);
+
+        const sortedTopFive = topFive.map(({ id, url, name, avatar_url, positionTop, starRate, rate, reports, reviews, shortDescription, tgUsername, category, visible }) => ({
+            id,
+            url,
+            name,
+            avatar_url,
+            positionTop,
+            starRate,
+            rate,
+            reports,
+            reviews,
+            shortDescription,
+            tgUsername,
+            category,
+            visible,
+        }));
+
+        
+        return { items: sortedTopFive };
+    }
+
     async getList() {
         const projects = await this.em.find(ScammerEntity, {
             order: { positionTop: 'ASC' },
             where: { visible: ScummerVisible.VISIBLE },
         });
 
-        return { items: projects };
+        const sortedProjects = projects.map(({ id, url, name, avatar_url, positionTop, starRate, rate, reports, reviews, shortDescription, tgUsername, category, visible }) => ({
+            id,
+            url,
+            name,
+            avatar_url,
+            positionTop,
+            starRate,
+            rate,
+            reports,
+            reviews,
+            shortDescription,
+            tgUsername,
+            category,
+            visible,
+        }));
+
+        return { items: sortedProjects };
     }
 
     async getOne(profileId: string) {

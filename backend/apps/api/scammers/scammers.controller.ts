@@ -7,6 +7,12 @@ import { ScammerCommentList, ScammerDemoProfileItemList, ScammerProfileItem } fr
 export class ScammersController {
     constructor(private scammersService: ScammersService) {}
 
+    @Get('top_five')
+    @ApiOkResponse({ type: ScammerDemoProfileItemList })
+    async getTopFive(): Promise<ScammerDemoProfileItemList> {
+        return await this.scammersService.getTopFive();
+    }
+
     @Get('list')
     @ApiOkResponse({ type: ScammerDemoProfileItemList })
     async getList(): Promise<ScammerDemoProfileItemList> {
