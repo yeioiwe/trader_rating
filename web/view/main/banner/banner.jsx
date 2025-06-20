@@ -44,7 +44,7 @@ export function Banner() {
         className="mySwiper"
       >
         {images.items.map((s, i) => <SwiperSlide key={i} onClick={() => router.push(s.url)}>
-          <img src={s.image} />
+          <img alt='Banner image' src={s.image} />
         </SwiperSlide>)}
 
         <div className="autoplay-progress" slot="container-end">
