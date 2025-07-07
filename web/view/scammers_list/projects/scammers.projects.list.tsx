@@ -9,9 +9,9 @@ import { ScammerProjectItem } from './scammers.projects.item';
 import { ScammersListTypeSort } from './scammers.projects.sort';
 import { ScammersProjectsTitle } from './scammers.projects.title';
 
-export const ScammerProjectsList = () => {
+export const ScammerProjectsList = ({ initialData }: { initialData: any }) => {
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
-    const { data } = useScammersGetList();
+    const { data } = useScammersGetList({ query: { initialData: initialData } });
     const [sort, setSort] = useState<ScammerDemoProfileItemCategory | undefined>();
     const [projects, setProjects] = useState<ScammerDemoProfileItem[] | undefined>();
 

@@ -9,8 +9,8 @@ import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation';
 import { NewsTitle } from '../main/news/news.title';
 
-export const NewsListMain = () => {
-    const { data: news } = useNewsGetList();
+export const NewsListMain = ({ initialData }: { initialData: any }) => {
+    const { data: news } = useNewsGetList({ query: { initialData: initialData } });
 
     if (news === undefined) return null;
 

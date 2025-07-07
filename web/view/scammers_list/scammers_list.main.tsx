@@ -6,12 +6,12 @@ import { ScammersListAbout } from './scammers_list.about';
 import { ScammersListPosts } from './scammers_list.posts';
 import { ScammersListTitle } from './scammers_list.title';
 
-export const ScammersListMain = () => {
+export const ScammersListMain = ({ initialData }: { initialData: any }) => {
     return (
         <Col gap={4} width={'100%'} flexGrow={1}>
             <Banner />
             <ScammersListTitle />
-            <ScammerProjectsList />
+            <ScammerProjectsList initialData={initialData} />
             <ScammersListPosts />
             <ScammersListAbout />
         </Col>

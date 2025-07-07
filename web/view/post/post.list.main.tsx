@@ -5,8 +5,8 @@ import { Col, Row } from '@/shared/ui/boxes';
 import { Typography } from '@mui/material';
 import { PostListItem } from './list/post.list.item';
 
-export const PostListMain = () => {
-    const { data: posts } = usePostGetList();
+export const PostListMain = ({ initialData }: { initialData: any }) => {
+    const { data: posts } = usePostGetList({ query: { initialData: initialData } });
 
     if (posts === undefined) return null;
 

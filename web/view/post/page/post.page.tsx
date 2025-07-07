@@ -12,7 +12,7 @@ import { PostCommentsList } from './comments/post.comments.main';
 
 export const PostOnePage = ({ url, initialData }: { url: string; initialData: any }) => {
     const router = useRouter();
-    const { data: post } = usePostGetOne(url, initialData);
+    const { data: post } = usePostGetOne(url, { query: { initialData: initialData } });
 
     if (post === undefined) return null
     return (
