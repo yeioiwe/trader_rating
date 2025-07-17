@@ -25,7 +25,7 @@ export const SearchCard = () => {
 
     const handleSelect = (event: any, value: any) => {
         if (value?.url) {
-            window.open(value.url, '_blank'); // открыть в новой вкладке
+            window.open(value.url, '_blank');
         }
     };
 

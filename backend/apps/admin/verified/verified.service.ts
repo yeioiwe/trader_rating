@@ -41,6 +41,7 @@ export class VerifiedService {
             params: '{"one": "", "two": "", "three": ""}',
             profileLikes: 0,
             profileViews: 0,
+            notification: false,
         });
 
         const newVerified = await this.em.save(VerifiedEntity, verified);

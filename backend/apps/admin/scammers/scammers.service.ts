@@ -40,6 +40,7 @@ export class ScammersService {
             params: '{"one": "", "two": "", "three": ""}',
             profileLikes: 0,
             profileViews: 0,
+            notification: false,
         });
 
         const newScammer = await this.em.save(ScammerEntity, scammer);

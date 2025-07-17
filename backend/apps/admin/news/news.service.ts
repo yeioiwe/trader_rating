@@ -9,7 +9,7 @@ export class NewsService {
     constructor(private em: EntityManager) {}
 
     async create(dto: NewsCreateDto) {
-        const news = this.em.create(NewsEntity, { ...dto });
+        const news = this.em.create(NewsEntity, { ...dto, notification: false });
 
         await this.em.save(NewsEntity, news);
     }

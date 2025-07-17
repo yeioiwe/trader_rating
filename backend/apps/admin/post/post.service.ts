@@ -9,7 +9,7 @@ export class PostService {
     constructor(private em: EntityManager) {}
 
     async createPreview(dto: PostCreatePreviewDto) {
-        const post = this.em.create(PostEntity, { ...dto, post: '' });
+        const post = this.em.create(PostEntity, { ...dto, post: '', notification: false });
 
         const cretedPost = await this.em.save(PostEntity, post);
 
