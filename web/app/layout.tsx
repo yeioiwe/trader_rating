@@ -7,7 +7,8 @@ const GA_MEASUREMENT_ID = 'G-8MNRF9T3XL';
 
 export const metadata: Metadata = {
     title: 'Рейтинги трейдеров - отзывы, проверки и топ-прогнозы на криптовалютные проекты от ANTI SCAMER',
-    description: 'Рейтинги трейдеров от ANTI SCAMER | Честные отзывы и аналитика | Новости и статьи по криптовалютам, блокчейну, майнингу и инвестициям | Проверки компаний и брокеров',
+    description:
+        'Рейтинги трейдеров от ANTI SCAMER | Честные отзывы и аналитика | Новости и статьи по криптовалютам, блокчейну, майнингу и инвестициям | Проверки компаний и брокеров',
 };
 
 export default function RootLayout({
@@ -18,6 +19,8 @@ export default function RootLayout({
     return (
         <html lang="ru">
             <head>
+                <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
                 <ChatLayout />
 
                 <Script
@@ -37,8 +40,7 @@ export default function RootLayout({
 
                 <meta name="google-site-verification" content="atr7ShW9vzg8anq9CR7PL2JnCeN_3UEmFsyiXEnZdLY" />
 
-
-                <Script type="text/javascript" >
+                <Script type="text/javascript">
                     {`
                     (function(m,e,t,r,i,k,a){m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
                     m[i].l=1*new Date();
@@ -54,8 +56,15 @@ export default function RootLayout({
                     `}
                 </Script>
 
-                <noscript><div><img src="https://mc.yandex.ru/watch/102183547" style={{ position: 'absolute', left: '-9999px' }} alt="" /></div></noscript>
-
+                <noscript>
+                    <div>
+                        <img
+                            src="https://mc.yandex.ru/watch/102183547"
+                            style={{ position: 'absolute', left: '-9999px' }}
+                            alt=""
+                        />
+                    </div>
+                </noscript>
             </head>
             <body>
                 <AppLayout>{children}</AppLayout>

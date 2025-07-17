@@ -3,7 +3,7 @@ import ArrowIcon from '@/public/icons/arrow_icon.svg';
 import PostIcon from '@/public/icons/layout_post.svg';
 import { usePostGetList } from '@/shared/config/api/post/post';
 import { Col, Row } from '@/shared/ui/boxes';
-import { Button, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { SidebarCard } from './card';
@@ -52,7 +52,9 @@ const PostItem = ({ title, url }: { title: string; url: string }) => {
         >
             <Typography fontSize={14}>{title}</Typography>
 
-            <ArrowIcon />
+            <Row justifyContent={'center'} alignItems={'center'} minWidth={'22px'} minHeight={'22px'}>
+                <ArrowIcon />
+            </Row>
         </Row>
     );
 };
