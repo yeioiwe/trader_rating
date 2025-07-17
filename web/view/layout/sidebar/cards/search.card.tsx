@@ -1,10 +1,36 @@
-import SearchIcon from '@/public/icons/layout_search.svg';
+'use client';
 import { Col } from '@/shared/ui/boxes';
-import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Typography } from '@mui/material';
+import { Autocomplete, TextField, Typography } from '@mui/material';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
+const data = [
+    { name: 'Google', url: '/' },
+    { name: 'Github', url: '/' },
+    { name: 'Gmail', url: '/' },
+    { name: 'Facebook', url: '/' },
+    { name: 'Gitlab', url: '/' },
+];
 
 export const SearchCard = () => {
     const { t } = useTranslation();
+
+    const [inputValue, setInputValue] = useState('');
+    const [focused, setFocused] = useState(false);
+
+    const filteredOptions = useMemo(() => {
+        if (inputValue.length < 3) return [];
+        return data.filter(item => item.name.toLowerCase().includes(inputValue.toLowerCase()));
+    }, [inputValue]);
+
+    const handleSelect = (event: any, value: any) => {
+        if (value?.url) {
+            window.open(value.url, '_blank'); // открыть в новой вкладке
+        }
+    };
+
+    const showHint = focused && inputValue.length < 3;
+    const showNoResults = focused && inputValue.length >= 3 && filteredOptions.length === 0;
 
     return (
         <Col bgcolor={'#ECF2FF'} borderRadius={'19px'} p={2} gap={1.5}>
@@ -12,21 +38,35 @@ export const SearchCard = () => {
                 {t('sidebar.search.title')}
             </Typography>
 
-            <FormControl>
-                <InputLabel>{t('sidebar.search.placeholder')}</InputLabel>
+            <Autocomplete
+                freeSolo
+                options={filteredOptions}
+                getOptionLabel={option => (typeof option === 'string' ? option : option.name)}
+                onInputChange={(event, newInputValue) => {
+                    setInputValue(newInputValue);
+                }}
+                onChange={handleSelect}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+                renderInput={params => <TextField {...params} label="Поиск" variant="outlined" />}
+                renderOption={(props, option) => (
+                    <li {...props} key={option.url}>
+                        {option.name}
+                    </li>
+                )}
+            />
 
-                <OutlinedInput
-                    sx={{ borderRadius: '9px' }}
-                    label={t('sidebar.search.placeholder')}
-                    endAdornment={
-                        <InputAdornment position="end">
-                            <IconButton>
-                                <SearchIcon />
-                            </IconButton>
-                        </InputAdornment>
-                    }
-                />
-            </FormControl>
+            {showHint && (
+                <Typography textAlign={'center'} variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                    🔍 Введите минимум 3 символа, чтобы начать поиск по названию сайта.
+                </Typography>
+            )}
+
+            {showNoResults && (
+                <Typography textAlign={'center'} variant="body2" color="error" sx={{ mt: 1 }}>
+                    ❌ Ничего не найдено по вашему запросу.
+                </Typography>
+            )}
         </Col>
     );
 };
