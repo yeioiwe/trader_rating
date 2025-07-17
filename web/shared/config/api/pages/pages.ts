@@ -33,6 +33,7 @@ import type {
     LawyerLayoutItem,
     LawyerProfileItem,
     ReviewRequestDto,
+    SearchItemList,
     YoutubeLayoutItem,
 } from '../api.schemas';
 
@@ -1412,3 +1413,180 @@ export const usePagesCreateComment = <TError = ErrorType<unknown>, TContext = un
 
     return useMutation(mutationOptions, queryClient);
 };
+export const pagesGetSaerchList = (signal?: AbortSignal) => {
+    return axiosCall<SearchItemList>({ url: `/pages/search_list`, method: 'GET', signal });
+};
+
+export const getPagesGetSaerchListQueryKey = () => {
+    return [`/pages/search_list`] as const;
+};
+
+export const getPagesGetSaerchListInfiniteQueryOptions = <
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetSaerchList>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetSaerchList>>, TError, TData>>;
+}) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPagesGetSaerchListQueryKey();
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof pagesGetSaerchList>>> = ({ signal }) =>
+        pagesGetSaerchList(signal);
+
+    return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof pagesGetSaerchList>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PagesGetSaerchListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof pagesGetSaerchList>>>;
+export type PagesGetSaerchListInfiniteQueryError = ErrorType<unknown>;
+
+export function usePagesGetSaerchListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetSaerchList>>>,
+    TError = ErrorType<unknown>,
+>(
+    options: {
+        query: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetSaerchList>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof pagesGetSaerchList>>,
+                    TError,
+                    Awaited<ReturnType<typeof pagesGetSaerchList>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetSaerchListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetSaerchList>>>,
+    TError = ErrorType<unknown>,
+>(
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetSaerchList>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof pagesGetSaerchList>>,
+                    TError,
+                    Awaited<ReturnType<typeof pagesGetSaerchList>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetSaerchListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetSaerchList>>>,
+    TError = ErrorType<unknown>,
+>(
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetSaerchList>>, TError, TData>>;
+    },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePagesGetSaerchListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetSaerchList>>>,
+    TError = ErrorType<unknown>,
+>(
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetSaerchList>>, TError, TData>>;
+    },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPagesGetSaerchListInfiniteQueryOptions(options);
+
+    const query = useInfiniteQuery(queryOptions, queryClient) as UseInfiniteQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const getPagesGetSaerchListQueryOptions = <
+    TData = Awaited<ReturnType<typeof pagesGetSaerchList>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetSaerchList>>, TError, TData>>;
+}) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPagesGetSaerchListQueryKey();
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof pagesGetSaerchList>>> = ({ signal }) =>
+        pagesGetSaerchList(signal);
+
+    return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof pagesGetSaerchList>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PagesGetSaerchListQueryResult = NonNullable<Awaited<ReturnType<typeof pagesGetSaerchList>>>;
+export type PagesGetSaerchListQueryError = ErrorType<unknown>;
+
+export function usePagesGetSaerchList<
+    TData = Awaited<ReturnType<typeof pagesGetSaerchList>>,
+    TError = ErrorType<unknown>,
+>(
+    options: {
+        query: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetSaerchList>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof pagesGetSaerchList>>,
+                    TError,
+                    Awaited<ReturnType<typeof pagesGetSaerchList>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetSaerchList<
+    TData = Awaited<ReturnType<typeof pagesGetSaerchList>>,
+    TError = ErrorType<unknown>,
+>(
+    options?: {
+        query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetSaerchList>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof pagesGetSaerchList>>,
+                    TError,
+                    Awaited<ReturnType<typeof pagesGetSaerchList>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetSaerchList<
+    TData = Awaited<ReturnType<typeof pagesGetSaerchList>>,
+    TError = ErrorType<unknown>,
+>(
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetSaerchList>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePagesGetSaerchList<
+    TData = Awaited<ReturnType<typeof pagesGetSaerchList>>,
+    TError = ErrorType<unknown>,
+>(
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetSaerchList>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPagesGetSaerchListQueryOptions(options);
+
+    const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}

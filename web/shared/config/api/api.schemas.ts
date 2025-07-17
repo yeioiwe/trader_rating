@@ -359,6 +359,15 @@ export interface CreateCommentDto {
     commentType: CommentType;
 }
 
+export interface SearchItem {
+    name: string;
+    url: string;
+}
+
+export interface SearchItemList {
+    items: SearchItem[];
+}
+
 export interface NewsPreviewItem {
     id: number;
     url: string;

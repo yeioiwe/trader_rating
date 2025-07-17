@@ -1,26 +1,20 @@
 'use client';
+import { usePagesGetSaerchList } from '@/shared/config/api/pages/pages';
 import { Col } from '@/shared/ui/boxes';
 import { Autocomplete, TextField, Typography } from '@mui/material';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const data = [
-    { name: 'Google', url: '/' },
-    { name: 'Github', url: '/' },
-    { name: 'Gmail', url: '/' },
-    { name: 'Facebook', url: '/' },
-    { name: 'Gitlab', url: '/' },
-];
-
 export const SearchCard = () => {
     const { t } = useTranslation();
+    const { data: searchList } = usePagesGetSaerchList();
 
     const [inputValue, setInputValue] = useState('');
     const [focused, setFocused] = useState(false);
 
     const filteredOptions = useMemo(() => {
         if (inputValue.length < 3) return [];
-        return data.filter(item => item.name.toLowerCase().includes(inputValue.toLowerCase()));
+        return searchList?.items.filter(item => item.name.toLowerCase().includes(inputValue.toLowerCase()));
     }, [inputValue]);
 
     const handleSelect = (event: any, value: any) => {
@@ -30,8 +24,9 @@ export const SearchCard = () => {
     };
 
     const showHint = focused && inputValue.length < 3;
-    const showNoResults = focused && inputValue.length >= 3 && filteredOptions.length === 0;
+    const showNoResults = focused && inputValue.length >= 3 && filteredOptions?.length === 0;
 
+    if (filteredOptions === undefined) return null;
     return (
         <Col bgcolor={'#ECF2FF'} borderRadius={'19px'} p={2} gap={1.5}>
             <Typography fontSize={20} fontWeight={700}>

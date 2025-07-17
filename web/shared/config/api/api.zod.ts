@@ -159,6 +159,8 @@ export const CreateCommentDto = z
         commentType: CommentType,
     })
     .passthrough();
+export const SearchItem = z.object({ name: z.string(), url: z.string() }).passthrough();
+export const SearchItemList = z.object({ items: z.array(SearchItem) }).passthrough();
 export const NewsPreviewItem = z
     .object({
         id: z.number(),
