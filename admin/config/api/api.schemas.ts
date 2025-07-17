@@ -80,6 +80,7 @@ export interface ScammerDemoProfileItem {
     tgUsername: string;
     category: ScammerDemoProfileItemCategory;
     visible: ScammerDemoProfileItemVisible;
+    notification: boolean;
 }
 
 export interface ScammerDemoProfileItemList {
@@ -138,6 +139,7 @@ export interface ScammerProfileItem {
     profileLikes: number;
     profileViews: number;
     about: string;
+    notification: boolean;
 }
 
 export type ScammerProfileAboutVisible = (typeof ScammerProfileAboutVisible)[keyof typeof ScammerProfileAboutVisible];
@@ -242,6 +244,7 @@ export interface PostPreviewItem {
     likes: number;
     views: number;
     date: Date;
+    notification: boolean;
 }
 
 export interface PostPreviewList {
@@ -257,6 +260,7 @@ export interface PostItem {
     views: number;
     readTime: number;
     date: Date;
+    notification: boolean;
 }
 
 export interface PostCreateComment {
@@ -495,6 +499,42 @@ export interface LawyerVisible {
     visible: LawyerVisibleVisible;
 }
 
+export type CommentCreateItemCommentType =
+    (typeof CommentCreateItemCommentType)[keyof typeof CommentCreateItemCommentType];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const CommentCreateItemCommentType = {
+    SCAMMER: 'SCAMMER',
+    VERIFIED: 'VERIFIED',
+    NEWS: 'NEWS',
+    POST: 'POST',
+} as const;
+
+export type CommentCreateItemStarRate = (typeof CommentCreateItemStarRate)[keyof typeof CommentCreateItemStarRate];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const CommentCreateItemStarRate = {
+    NUMBER_1: '1',
+    NUMBER_2: '2',
+    NUMBER_3: '3',
+    NUMBER_4: '4',
+    NUMBER_5: '5',
+} as const;
+
+export interface CommentCreateItem {
+    id: number;
+    name: string;
+    comment: string;
+    projectId: string;
+    date: Date;
+    commentType: CommentCreateItemCommentType;
+    starRate: CommentCreateItemStarRate;
+}
+
+export interface CommentCreateItemList {
+    items: CommentCreateItem[];
+}
+
 export interface NewsCreateDto {
     url: string;
     title: string;
@@ -509,6 +549,7 @@ export interface NewsPreviewItem {
     id: number;
     title: string;
     date: Date;
+    notification: boolean;
 }
 
 export interface NewsPreviewList {
@@ -524,6 +565,7 @@ export interface NewsItem {
     likes: number;
     views: number;
     date: Date;
+    notification: boolean;
 }
 
 export interface NewsCreateComment {
@@ -624,6 +666,7 @@ export interface VerifiedDemoProfileItem {
     tgUsername: string;
     category: VerifiedDemoProfileItemCategory;
     visible: VerifiedDemoProfileItemVisible;
+    notification: boolean;
 }
 
 export interface VerifiedDemoProfileItemList {
@@ -684,6 +727,7 @@ export interface VerifiedProfileItem {
     profileLikes: number;
     profileViews: number;
     about: string;
+    notification: boolean;
 }
 
 export type VerifiedProfileAboutVisible =

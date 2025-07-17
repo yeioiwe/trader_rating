@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { ApiOkResponse } from '@nestjs/swagger';
+import { ApiOkResponse, ApiParam } from '@nestjs/swagger';
 import { JwtGuard } from '../auth/guard/jwt.guard';
 import {
     CreateImagesBannerDto,
@@ -13,6 +13,7 @@ import {
 } from './pages.dto';
 import { PagesService } from './pages.service';
 import {
+    CommentCreateItemList,
     FooterStripItem,
     HeaderBannerItem,
     ImagesBannerList,
@@ -23,6 +24,7 @@ import {
     ReviewList,
     YoutubeLayoutItem,
 } from './pages.types';
+import { CommentType } from 'apps/libs/db/entity/comment.create.entity';
 
 @UseGuards(JwtGuard)
 @Controller('pages')
@@ -142,5 +144,28 @@ export class PagesController {
     @ApiOkResponse({ type: LawyerVisible })
     async getLawyerVisible(): Promise<LawyerVisible> {
         return await this.pagesService.getLawyerVisible();
+    }
+
+    @Get('comment/request_list/:type/:id')
+    @ApiParam({ name: 'type', enum: CommentType })
+    @ApiParam({ name: 'id', type: Number })
+    @ApiOkResponse({ type: CommentCreateItemList })
+    async getCommentRequestList(
+        @Param('type') type: CommentType,
+        @Param('id') projectId: number,
+    ): Promise<CommentCreateItemList> {
+        return await this.pagesService.getCommentRequestList(type, projectId);
+    }
+
+    @Post('comment/delete/:id')
+    @ApiOkResponse()
+    async deleteRequestComment(@Param('id') id: number): Promise<void> {
+        await this.pagesService.deleteRequestComment(id);
+    }
+
+    @Post('comment/save/:id')
+    @ApiOkResponse()
+    async saveRequestComment(@Param('id') id: number): Promise<void> {
+        await this.pagesService.saveRequestComment(id);
     }
 }

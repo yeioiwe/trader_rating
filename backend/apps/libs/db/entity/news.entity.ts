@@ -35,4 +35,8 @@ export class NewsEntity {
     @Column('datetime')
     @ApiProperty({ type: Date })
     date!: Date;
+
+    @Column('boolean')
+    @ApiProperty({ type: 'boolean', default: false })
+    notification!: boolean;
 }

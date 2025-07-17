@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { NewsCommentsList } from './comments/news.comments.main';
+import { CommentMain } from '../comment/comment.main';
 
 export const NewsPostMain = ({ url, initialData }: { url: string; initialData: any }) => {
     const router = useRouter();
@@ -49,6 +50,8 @@ export const NewsPostMain = ({ url, initialData }: { url: string; initialData: a
             </Row>
 
             <PostLikes like={news.likes} watch={news.views} />
+
+            <CommentMain id={news.url} type="NEWS" />
 
             <NewsCommentsList id={news.id} />
         </Col>

@@ -96,7 +96,7 @@ const VerifiedDemoCard = (verified: VerifiedDemoProfileItem) => {
             py={2}
             px={4}
             borderRadius={'6px'}
-            border={'2px solid rgb(212 212 212)'}
+            border={verified.notification ? '2px solid #2892c4' : '2px solid rgb(212 212 212)'}
             sx={{ cursor: 'pointer' }}
         >
             <Row justifyContent={'flex-start'} gap={4}>

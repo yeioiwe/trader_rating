@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { CommentCreateEntity } from 'apps/libs/db/entity/comment.create.entity';
 import { FooterStripEntity } from 'apps/libs/db/entity/footer.strip.entity';
 import { HeaderBannerEntity } from 'apps/libs/db/entity/header.banner.entity';
 import { ImagesBannerEntity } from 'apps/libs/db/entity/images.banner.entity';
@@ -43,4 +44,14 @@ export class LawyerProfileItem extends LawyerProfileEntity {}
 export class LawyerVisible {
     @ApiProperty({ enum: LawyerBannerVisible })
     visible!: LawyerBannerVisible;
+}
+
+export class CommentCreateItem extends CommentCreateEntity {}
+
+export class CommentCreateItemList {
+    @ApiProperty({
+        type: CommentCreateItem,
+        isArray: true,
+    })
+    items!: CommentCreateItem[];
 }

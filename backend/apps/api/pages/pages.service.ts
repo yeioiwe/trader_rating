@@ -8,8 +8,12 @@ import { LawyerProfileEntity, LawyerProfileVisible } from 'apps/libs/db/entity/l
 import { ReviewEntity } from 'apps/libs/db/entity/review.entity';
 import { YoutubeLayoutEntity, YoutubeLayoutVisible } from 'apps/libs/db/entity/youtube.layout.entity';
 import { EntityManager } from 'typeorm';
-import { ReviewRequestDto } from './pages.dto';
-import { Iteration } from 'ts-toolbelt';
+import { CreateCommentDto, ReviewRequestDto } from './pages.dto';
+import { CommentCreateEntity, CommentType } from 'apps/libs/db/entity/comment.create.entity';
+import { PostEntity } from 'apps/libs/db/entity/post.entity';
+import { NewsEntity } from 'apps/libs/db/entity/news.entity';
+import { VerifiedEntity } from 'apps/libs/db/entity/verified.entity';
+import { ScammerEntity } from 'apps/libs/db/entity/scammer.entity';
 
 @Injectable()
 export class PagesService {
@@ -63,7 +67,7 @@ export class PagesService {
     }
 
     async createReviewRequest(dto: ReviewRequestDto) {
-        const request = await this.em.create(ReviewEntity, { ...dto, createdAt: new Date() });
+        const request = this.em.create(ReviewEntity, { ...dto, createdAt: new Date() });
 
         await this.em.save(ReviewEntity, request);
     }
@@ -76,5 +80,34 @@ export class PagesService {
         if (profile.visible === LawyerProfileVisible.HIDDEN) return { items: null };
 
         return { items: profile };
+    }
+
+    async createComment(dto: CreateCommentDto) {
+        const newComment = this.em.create(CommentCreateEntity, {
+            comment: dto.message,
+            commentType: dto.commentType,
+            date: new Date(),
+            name: dto.name,
+            projectId: dto.projectId,
+            starRate: dto.rate,
+        });
+
+        await this.em.save(CommentCreateEntity, newComment);
+
+        switch (dto.commentType) {
+            case CommentType.POST: {
+                await this.em.update(PostEntity, { url: dto.projectId }, { notification: true });
+                break;
+            }
+            case CommentType.NEWS:
+                await this.em.update(NewsEntity, { url: dto.projectId }, { notification: true });
+                break;
+            case CommentType.VERIFIED:
+                await this.em.update(VerifiedEntity, { url: dto.projectId }, { notification: true });
+                break;
+            case CommentType.SCAMMER:
+                await this.em.update(ScammerEntity, { url: dto.projectId }, { notification: true });
+                break;
+        }
     }
 }

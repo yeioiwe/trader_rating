@@ -9,6 +9,7 @@ import { VerifiedProfileOverview } from './verified.profile.overview';
 import { VerifiedProfileComments } from './comments/verified.comments.main';
 import { VerifiedProfileList } from './scammer_list/verified.list.main';
 import { CircularProgress, Skeleton } from '@mui/material';
+import { CommentMain } from '../comment/comment.main';
 
 export const VerifiedProfile = ({ id }: { id: string }) => {
     const router = useRouter();
@@ -21,16 +22,18 @@ export const VerifiedProfile = ({ id }: { id: string }) => {
 
     if (isLoading) return <VerifiedProfileLoading />;
     if (profile === undefined) return null;
-    
+
     return (
         <Col width={'100%'} gap={4}>
             <VerifiedStatsMain profile={profile} />
 
             <VerifiedProfileOverview id={id} />
 
+            <CommentMain id={profile.url} type="VERIFIED" />
+
             <VerifiedProfileComments id={profile.id} />
 
-            <VerifiedProfileList /> 
+            <VerifiedProfileList />
         </Col>
     );
 };

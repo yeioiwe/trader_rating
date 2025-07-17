@@ -22,7 +22,7 @@ export class ScammersController {
 
     @Post('create')
     @ApiOkResponse({ type: Number })
-    async create(@Body() body: ScammerCreateDto): Promise<Number> {
+    async create(@Body() body: ScammerCreateDto): Promise<number> {
         return await this.scammersService.scammerCreate(body);
     }
 

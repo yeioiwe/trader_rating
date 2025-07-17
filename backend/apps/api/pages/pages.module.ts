@@ -10,6 +10,7 @@ import { ReviewEntity } from 'apps/libs/db/entity/review.entity';
 import { YoutubeLayoutEntity } from 'apps/libs/db/entity/youtube.layout.entity';
 import { PagesController } from './pages.controller';
 import { PagesService } from './pages.service';
+import { CommentCreateEntity } from 'apps/libs/db/entity/comment.create.entity';
 
 @Module({
     imports: [
@@ -22,6 +23,7 @@ import { PagesService } from './pages.service';
             LawyerLayoutEntity,
             ReviewEntity,
             LawyerProfileEntity,
+            CommentCreateEntity,
         ]),
     ],
     providers: [PagesService],

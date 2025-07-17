@@ -1,7 +1,3 @@
-// import { ApiProperty } from '@nestjs/swagger';
-// import { ScammerCommentEntity } from 'apps/libs/db/entity/scammer.comment.entity';
-// import { ScammerEntity, ScummerCategory, ScummerVisible } from 'apps/libs/db/entity/scammer.entity';
-
 import { ApiProperty } from '@nestjs/swagger';
 import { VerifiedCommentEntity } from 'apps/libs/db/entity/verified.comment.entity';
 import { VerifiedCategory, VerifiedEntity, VerifiedVisible } from 'apps/libs/db/entity/verified.entity';
@@ -24,6 +20,9 @@ export class VerifiedDemoProfileItem {
 
     @ApiProperty({ enum: VerifiedVisible })
     visible!: VerifiedVisible;
+
+    @ApiProperty({ type: Boolean })
+    notification!: boolean;
 }
 
 export class VerifiedDemoProfileItemList {

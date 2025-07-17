@@ -9,12 +9,13 @@ import dayjs from 'dayjs';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { PostCommentsList } from './comments/post.comments.main';
+import { CommentMain } from '@/view/comment/comment.main';
 
 export const PostOnePage = ({ url, initialData }: { url: string; initialData: any }) => {
     const router = useRouter();
     const { data: post } = usePostGetOne(url, { query: { initialData: initialData } });
 
-    if (post === undefined) return null
+    if (post === undefined) return null;
     return (
         <Col gap={2} width={'100%'}>
             <Row justifyContent={'flex-start'} gap={1} sx={{ cursor: 'pointer' }} onClick={() => router.push('/posts')}>
@@ -61,6 +62,8 @@ export const PostOnePage = ({ url, initialData }: { url: string; initialData: an
             </Row>
 
             <PostLikes like={post.likes} watch={post.views} />
+
+            <CommentMain id={post.url} type="POST" />
 
             <PostCommentsList id={post.id} />
         </Col>

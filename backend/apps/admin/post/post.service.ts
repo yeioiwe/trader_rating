@@ -9,7 +9,7 @@ export class PostService {
     constructor(private em: EntityManager) {}
 
     async createPreview(dto: PostCreatePreviewDto) {
-        const post = await this.em.create(PostEntity, { ...dto, post: '' });
+        const post = this.em.create(PostEntity, { ...dto, post: '' });
 
         const cretedPost = await this.em.save(PostEntity, post);
 
@@ -27,7 +27,14 @@ export class PostService {
     async getList() {
         const posts = await this.em.find(PostEntity, { order: { date: 'DESC' } });
 
-        const demoPosts = posts.map(({ id, title, likes, views, date }) => ({ id, title, likes, views, date }));
+        const demoPosts = posts.map(({ id, title, likes, views, date, notification }) => ({
+            id,
+            title,
+            likes,
+            views,
+            date,
+            notification,
+        }));
         return { items: demoPosts };
     }
 
@@ -44,7 +51,7 @@ export class PostService {
     }
 
     async createComment(postId: number, dto: PostCreateComment) {
-        const comment = await this.em.create(PostCommentEntity, { ...dto, postId });
+        const comment = this.em.create(PostCommentEntity, { ...dto, postId });
 
         await this.em.save(PostCommentEntity, comment);
     }

@@ -31,7 +31,7 @@ export class ScammersService {
             sortId++;
         }
 
-        const scammer = await this.em.create(ScammerEntity, {
+        const scammer = this.em.create(ScammerEntity, {
             ...dto,
             positionTop: sortId,
             visible: ScummerVisible.VISIBLE,
@@ -50,14 +50,17 @@ export class ScammersService {
     async getList() {
         const scammersList = await this.em.find(ScammerEntity, { order: { positionTop: 'ASC' } });
 
-        const scammersDemo = scammersList.map(({ id, name, positionTop, tgUsername, category, visible }) => ({
-            id,
-            name,
-            positionTop,
-            tgUsername,
-            category,
-            visible,
-        }));
+        const scammersDemo = scammersList.map(
+            ({ id, name, positionTop, tgUsername, category, visible, notification }) => ({
+                id,
+                name,
+                positionTop,
+                tgUsername,
+                category,
+                visible,
+                notification,
+            }),
+        );
 
         return { items: scammersDemo };
     }
@@ -103,19 +106,19 @@ export class ScammersService {
     async updatePosition(dto: ScammerUpdatePositionListDto) {
         const scammersList = await this.em.find(ScammerEntity);
 
-        scammersList.forEach(async scammer => {
+        for (const scammer of scammersList) {
             const newItem = dto.items.find(item => item.id === scammer.id);
 
             if (newItem && newItem.positionTop !== scammer.positionTop) {
                 await this.em.update(ScammerEntity, { id: scammer.id }, { positionTop: newItem.positionTop });
             }
-        });
+        }
 
         return;
     }
 
     async createComment(projectId: number, dto: ScammerCreateComment) {
-        const comment = await this.em.create(ScammerCommentEntity, { ...dto, projectId });
+        const comment = this.em.create(ScammerCommentEntity, { ...dto, projectId });
 
         await this.em.save(ScammerCommentEntity, comment);
     }

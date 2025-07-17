@@ -1,17 +1,32 @@
 import { queryClient } from '@/config/api/api.axios';
 import { VerifiedCommentItem } from '@/config/api/api.schemas';
-import { getVerifiedGetCommentListQueryKey, useVerifiedDeleteCreate, useVerifiedGetCommentList } from '@/config/api/verified/verified';
+import { getPagesGetCommentRequestListQueryKey, usePagesGetCommentRequestList } from '@/config/api/pages/pages';
+import {
+    getVerifiedGetCommentListQueryKey,
+    useVerifiedDeleteCreate,
+    useVerifiedGetCommentList,
+} from '@/config/api/verified/verified';
 import { Col, Row } from '@/shared/ui/boxes';
+import { RequestCommentItem } from '@/view/comments/request.comment';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { IconButton, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 
 export const VerifiedEditCommentList = ({ id }: { id: number }) => {
     const { data } = useVerifiedGetCommentList(id);
+    const { data: requestComment } = usePagesGetCommentRequestList('VERIFIED', id);
+
+    const successInvalidate = () => {
+        queryClient.invalidateQueries({ queryKey: getPagesGetCommentRequestListQueryKey('VERIFIED', id) });
+        queryClient.invalidateQueries({ queryKey: getVerifiedGetCommentListQueryKey(id) });
+    };
 
     if (data === undefined) return null;
     return (
         <Col gap={2}>
+            {requestComment?.items.map((c, i) => (
+                <RequestCommentItem successInvalidate={successInvalidate} comment={c} key={i} />
+            ))}
             {data.items.map((c, i) => (
                 <VerifiedEditItem comment={c} verififedId={id} key={i} />
             ))}

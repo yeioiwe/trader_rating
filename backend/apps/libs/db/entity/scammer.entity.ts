@@ -106,4 +106,8 @@ export class ScammerEntity {
     @Column('mediumtext')
     @ApiProperty()
     about!: string;
+
+    @Column('boolean')
+    @ApiProperty({ type: 'boolean', default: false })
+    notification!: boolean;
 }

@@ -110,6 +110,7 @@ export interface ScammerProfileItem {
     profileLikes: number;
     profileViews: number;
     about: string;
+    notification: boolean;
 }
 
 export type ScammerCommentItemStarRate = (typeof ScammerCommentItemStarRate)[keyof typeof ScammerCommentItemStarRate];
@@ -159,6 +160,7 @@ export interface PostItem {
     views: number;
     readTime: number;
     date: Date;
+    notification: boolean;
 }
 
 export type PostCommentItemStarRate = (typeof PostCommentItemStarRate)[keyof typeof PostCommentItemStarRate];
@@ -320,6 +322,43 @@ export interface LawyerProfileItem {
     items: LawyerProfileItemItems;
 }
 
+export type CommentStarRate = (typeof CommentStarRate)[keyof typeof CommentStarRate];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const CommentStarRate = {
+    NUMBER_1: '1',
+    NUMBER_2: '2',
+    NUMBER_3: '3',
+    NUMBER_4: '4',
+    NUMBER_5: '5',
+} as const;
+
+export type CommentType = (typeof CommentType)[keyof typeof CommentType];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const CommentType = {
+    SCAMMER: 'SCAMMER',
+    VERIFIED: 'VERIFIED',
+    NEWS: 'NEWS',
+    POST: 'POST',
+} as const;
+
+export interface CreateCommentDto {
+    /**
+     * @minLength 3
+     * @maxLength 30
+     */
+    name: string;
+    /**
+     * @minLength 10
+     * @maxLength 400
+     */
+    message: string;
+    rate: CommentStarRate;
+    projectId: string;
+    commentType: CommentType;
+}
+
 export interface NewsPreviewItem {
     id: number;
     url: string;
@@ -342,6 +381,7 @@ export interface NewsItem {
     likes: number;
     views: number;
     date: Date;
+    notification: boolean;
 }
 
 export type NewsCommentItemStarRate = (typeof NewsCommentItemStarRate)[keyof typeof NewsCommentItemStarRate];
@@ -476,6 +516,7 @@ export interface VerifiedProfileItem {
     profileLikes: number;
     profileViews: number;
     about: string;
+    notification: boolean;
 }
 
 export type VerifiedCommentItemStarRate =

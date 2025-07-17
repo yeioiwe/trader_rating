@@ -25,6 +25,7 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+    CreateCommentDto,
     FooterStripItem,
     HeaderBannerItem,
     ImagesBannerList,
@@ -1349,3 +1350,65 @@ export function usePagesGetLawyerProfile<
 
     return query;
 }
+
+export const pagesCreateComment = (createCommentDto: CreateCommentDto, signal?: AbortSignal) => {
+    return axiosCall<void>({
+        url: `/pages/create_comment`,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        data: createCommentDto,
+        signal,
+    });
+};
+
+export const getPagesCreateCommentMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof pagesCreateComment>>,
+        TError,
+        { data: CreateCommentDto },
+        TContext
+    >;
+}): UseMutationOptions<
+    Awaited<ReturnType<typeof pagesCreateComment>>,
+    TError,
+    { data: CreateCommentDto },
+    TContext
+> => {
+    const mutationKey = ['pagesCreateComment'];
+    const { mutation: mutationOptions } = options
+        ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey } };
+
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof pagesCreateComment>>,
+        { data: CreateCommentDto }
+    > = props => {
+        const { data } = props ?? {};
+
+        return pagesCreateComment(data);
+    };
+
+    return { mutationFn, ...mutationOptions };
+};
+
+export type PagesCreateCommentMutationResult = NonNullable<Awaited<ReturnType<typeof pagesCreateComment>>>;
+export type PagesCreateCommentMutationBody = CreateCommentDto;
+export type PagesCreateCommentMutationError = ErrorType<unknown>;
+
+export const usePagesCreateComment = <TError = ErrorType<unknown>, TContext = unknown>(
+    options?: {
+        mutation?: UseMutationOptions<
+            Awaited<ReturnType<typeof pagesCreateComment>>,
+            TError,
+            { data: CreateCommentDto },
+            TContext
+        >;
+    },
+    queryClient?: QueryClient,
+): UseMutationResult<Awaited<ReturnType<typeof pagesCreateComment>>, TError, { data: CreateCommentDto }, TContext> => {
+    const mutationOptions = getPagesCreateCommentMutationOptions(options);
+
+    return useMutation(mutationOptions, queryClient);
+};

@@ -28,6 +28,7 @@ export const ScammerDemoProfileItem = z
         tgUsername: z.string(),
         category: z.enum(['INVESTMENTS', 'TRADER', 'CAPPER', 'GAME', 'CASINO', 'EXCHANGES']),
         visible: z.enum(['VISIBLE', 'HIDDEN']),
+        notification: z.boolean(),
     })
     .passthrough();
 export const ScammerDemoProfileItemList = z.object({ items: z.array(ScammerDemoProfileItem) }).passthrough();
@@ -53,6 +54,7 @@ export const ScammerProfileItem = z
         profileLikes: z.number(),
         profileViews: z.number(),
         about: z.string(),
+        notification: z.boolean().default(false),
     })
     .passthrough();
 export const ScammerProfileAbout = z
@@ -114,6 +116,7 @@ export const PostPreviewItem = z
         likes: z.number(),
         views: z.number(),
         date: z.string().datetime({ offset: true }),
+        notification: z.boolean(),
     })
     .passthrough();
 export const PostPreviewList = z.object({ items: z.array(PostPreviewItem) }).passthrough();
@@ -127,6 +130,7 @@ export const PostItem = z
         views: z.number(),
         readTime: z.number(),
         date: z.string().datetime({ offset: true }),
+        notification: z.boolean().default(false),
     })
     .passthrough();
 export const PostCreateComment = z
@@ -248,6 +252,18 @@ export const LawyerProfileItem = z
     .passthrough();
 export const TestDto = z.object({ number: z.number() }).passthrough();
 export const LawyerVisible = z.object({ visible: z.enum(['VISIBLE', 'HIDDEN']) }).passthrough();
+export const CommentCreateItem = z
+    .object({
+        id: z.number(),
+        name: z.string(),
+        comment: z.string(),
+        projectId: z.string(),
+        date: z.string().datetime({ offset: true }),
+        commentType: z.enum(['SCAMMER', 'VERIFIED', 'NEWS', 'POST']),
+        starRate: z.enum(['1', '2', '3', '4', '5']),
+    })
+    .passthrough();
+export const CommentCreateItemList = z.object({ items: z.array(CommentCreateItem) }).passthrough();
 export const NewsCreateDto = z
     .object({
         url: z.string(),
@@ -260,7 +276,12 @@ export const NewsCreateDto = z
     })
     .passthrough();
 export const NewsPreviewItem = z
-    .object({ id: z.number(), title: z.string(), date: z.string().datetime({ offset: true }) })
+    .object({
+        id: z.number(),
+        title: z.string(),
+        date: z.string().datetime({ offset: true }),
+        notification: z.boolean(),
+    })
     .passthrough();
 export const NewsPreviewList = z.object({ items: z.array(NewsPreviewItem) }).passthrough();
 export const NewsItem = z
@@ -273,6 +294,7 @@ export const NewsItem = z
         likes: z.number(),
         views: z.number(),
         date: z.string().datetime({ offset: true }),
+        notification: z.boolean().default(false),
     })
     .passthrough();
 export const NewsCreateComment = z
@@ -320,6 +342,7 @@ export const VerifiedDemoProfileItem = z
         tgUsername: z.string(),
         category: z.enum(['INVESTMENTS', 'TRADER', 'CAPPER', 'GAME', 'CASINO', 'EXCHANGES']),
         visible: z.enum(['VISIBLE', 'HIDDEN']),
+        notification: z.boolean(),
     })
     .passthrough();
 export const VerifiedDemoProfileItemList = z.object({ items: z.array(VerifiedDemoProfileItem) }).passthrough();
@@ -345,6 +368,7 @@ export const VerifiedProfileItem = z
         profileLikes: z.number(),
         profileViews: z.number(),
         about: z.string(),
+        notification: z.boolean().default(false),
     })
     .passthrough();
 export const VerifiedProfileAbout = z

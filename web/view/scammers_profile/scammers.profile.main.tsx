@@ -7,7 +7,9 @@ import { ScammerProfileComments } from './comments/scammer.comments.main';
 import { ScammerProfileList } from './scammer_list/scammer.list.main';
 import { ScammersProfileOverview } from './scammers.profile.overview';
 import { ScammerStatsMain } from './stats/stats.main';
-import { CircularProgress, Skeleton } from '@mui/material';
+import { CircularProgress } from '@mui/material';
+import { CommentMain } from '../comment/comment.main';
+import { CommentType } from '@/shared/config/api/api.schemas';
 
 export const ScammerProfile = ({ id, initialData }: { id: string; initialData: any }) => {
     const router = useRouter();
@@ -26,6 +28,8 @@ export const ScammerProfile = ({ id, initialData }: { id: string; initialData: a
             <ScammerStatsMain profile={profile} />
 
             <ScammersProfileOverview id={id} />
+
+            <CommentMain type={CommentType.SCAMMER} id={id} />
 
             <ScammerProfileComments id={profile.id} />
 

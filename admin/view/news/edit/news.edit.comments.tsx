@@ -7,7 +7,9 @@ import {
     useNewsDeleteComment,
     useNewsGetCommentList,
 } from '@/config/api/news/news';
+import { getPagesGetCommentRequestListQueryKey, usePagesGetCommentRequestList } from '@/config/api/pages/pages';
 import { Col, Row } from '@/shared/ui/boxes';
+import { RequestCommentItem } from '@/view/comments/request.comment';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Button, IconButton, MenuItem, OutlinedInput, Select, Typography } from '@mui/material';
 import { DateField, LocalizationProvider } from '@mui/x-date-pickers';
@@ -19,10 +21,19 @@ import { useForm } from 'react-hook-form';
 
 export const NewsEditCommentList = ({ id }: { id: number }) => {
     const { data } = useNewsGetCommentList(id);
+    const { data: requestCommnet } = usePagesGetCommentRequestList('NEWS', id);
+
+    const successInvalidate = () => {
+        queryClient.invalidateQueries({ queryKey: getPagesGetCommentRequestListQueryKey('NEWS', id) });
+        queryClient.invalidateQueries({ queryKey: getNewsGetCommentListQueryKey(id) });
+    };
 
     if (data === undefined) return null;
     return (
         <Col gap={2}>
+            {requestCommnet?.items.map((c, i) => (
+                <RequestCommentItem successInvalidate={successInvalidate} comment={c} key={i} />
+            ))}
             {data.items.map((c, i) => (
                 <NewsEditItem comment={c} newsId={id} key={i} />
             ))}

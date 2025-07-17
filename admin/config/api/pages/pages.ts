@@ -24,6 +24,7 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+    CommentCreateItemList,
     CreateImagesBannerDto,
     EditFooterStripDto,
     EditLawyerBannerDto,
@@ -2039,3 +2040,307 @@ export function usePagesGetLawyerVisible<
 
     return query;
 }
+
+export const pagesGetCommentRequestList = (
+    type: 'SCAMMER' | 'VERIFIED' | 'NEWS' | 'POST',
+    id: number,
+    signal?: AbortSignal,
+) => {
+    return axiosCall<CommentCreateItemList>({
+        url: `/pages/comment/request_list/${type}/${id}`,
+        method: 'GET',
+        signal,
+    });
+};
+
+export const getPagesGetCommentRequestListQueryKey = (type: 'SCAMMER' | 'VERIFIED' | 'NEWS' | 'POST', id: number) => {
+    return [`/pages/comment/request_list/${type}/${id}`] as const;
+};
+
+export const getPagesGetCommentRequestListInfiniteQueryOptions = <
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetCommentRequestList>>>,
+    TError = ErrorType<unknown>,
+>(
+    type: 'SCAMMER' | 'VERIFIED' | 'NEWS' | 'POST',
+    id: number,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetCommentRequestList>>, TError, TData>>;
+    },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPagesGetCommentRequestListQueryKey(type, id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof pagesGetCommentRequestList>>> = ({ signal }) =>
+        pagesGetCommentRequestList(type, id, signal);
+
+    return { queryKey, queryFn, enabled: !!(type && id), ...queryOptions } as UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof pagesGetCommentRequestList>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PagesGetCommentRequestListInfiniteQueryResult = NonNullable<
+    Awaited<ReturnType<typeof pagesGetCommentRequestList>>
+>;
+export type PagesGetCommentRequestListInfiniteQueryError = ErrorType<unknown>;
+
+export function usePagesGetCommentRequestListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetCommentRequestList>>>,
+    TError = ErrorType<unknown>,
+>(
+    type: 'SCAMMER' | 'VERIFIED' | 'NEWS' | 'POST',
+    id: number,
+    options: {
+        query: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetCommentRequestList>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof pagesGetCommentRequestList>>,
+                    TError,
+                    Awaited<ReturnType<typeof pagesGetCommentRequestList>>
+                >,
+                'initialData'
+            >;
+    },
+): DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetCommentRequestListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetCommentRequestList>>>,
+    TError = ErrorType<unknown>,
+>(
+    type: 'SCAMMER' | 'VERIFIED' | 'NEWS' | 'POST',
+    id: number,
+    options?: {
+        query?: Partial<
+            UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetCommentRequestList>>, TError, TData>
+        > &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof pagesGetCommentRequestList>>,
+                    TError,
+                    Awaited<ReturnType<typeof pagesGetCommentRequestList>>
+                >,
+                'initialData'
+            >;
+    },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetCommentRequestListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetCommentRequestList>>>,
+    TError = ErrorType<unknown>,
+>(
+    type: 'SCAMMER' | 'VERIFIED' | 'NEWS' | 'POST',
+    id: number,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetCommentRequestList>>, TError, TData>>;
+    },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePagesGetCommentRequestListInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof pagesGetCommentRequestList>>>,
+    TError = ErrorType<unknown>,
+>(
+    type: 'SCAMMER' | 'VERIFIED' | 'NEWS' | 'POST',
+    id: number,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof pagesGetCommentRequestList>>, TError, TData>>;
+    },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPagesGetCommentRequestListInfiniteQueryOptions(type, id, options);
+
+    const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const getPagesGetCommentRequestListQueryOptions = <
+    TData = Awaited<ReturnType<typeof pagesGetCommentRequestList>>,
+    TError = ErrorType<unknown>,
+>(
+    type: 'SCAMMER' | 'VERIFIED' | 'NEWS' | 'POST',
+    id: number,
+    options?: {
+        query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetCommentRequestList>>, TError, TData>>;
+    },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPagesGetCommentRequestListQueryKey(type, id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof pagesGetCommentRequestList>>> = ({ signal }) =>
+        pagesGetCommentRequestList(type, id, signal);
+
+    return { queryKey, queryFn, enabled: !!(type && id), ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof pagesGetCommentRequestList>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PagesGetCommentRequestListQueryResult = NonNullable<Awaited<ReturnType<typeof pagesGetCommentRequestList>>>;
+export type PagesGetCommentRequestListQueryError = ErrorType<unknown>;
+
+export function usePagesGetCommentRequestList<
+    TData = Awaited<ReturnType<typeof pagesGetCommentRequestList>>,
+    TError = ErrorType<unknown>,
+>(
+    type: 'SCAMMER' | 'VERIFIED' | 'NEWS' | 'POST',
+    id: number,
+    options: {
+        query: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetCommentRequestList>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof pagesGetCommentRequestList>>,
+                    TError,
+                    Awaited<ReturnType<typeof pagesGetCommentRequestList>>
+                >,
+                'initialData'
+            >;
+    },
+): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetCommentRequestList<
+    TData = Awaited<ReturnType<typeof pagesGetCommentRequestList>>,
+    TError = ErrorType<unknown>,
+>(
+    type: 'SCAMMER' | 'VERIFIED' | 'NEWS' | 'POST',
+    id: number,
+    options?: {
+        query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetCommentRequestList>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof pagesGetCommentRequestList>>,
+                    TError,
+                    Awaited<ReturnType<typeof pagesGetCommentRequestList>>
+                >,
+                'initialData'
+            >;
+    },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePagesGetCommentRequestList<
+    TData = Awaited<ReturnType<typeof pagesGetCommentRequestList>>,
+    TError = ErrorType<unknown>,
+>(
+    type: 'SCAMMER' | 'VERIFIED' | 'NEWS' | 'POST',
+    id: number,
+    options?: {
+        query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetCommentRequestList>>, TError, TData>>;
+    },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePagesGetCommentRequestList<
+    TData = Awaited<ReturnType<typeof pagesGetCommentRequestList>>,
+    TError = ErrorType<unknown>,
+>(
+    type: 'SCAMMER' | 'VERIFIED' | 'NEWS' | 'POST',
+    id: number,
+    options?: {
+        query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof pagesGetCommentRequestList>>, TError, TData>>;
+    },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPagesGetCommentRequestListQueryOptions(type, id, options);
+
+    const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const pagesDeleteRequestComment = (id: number, signal?: AbortSignal) => {
+    return axiosCall<void>({ url: `/pages/comment/delete/${id}`, method: 'POST', signal });
+};
+
+export const getPagesDeleteRequestCommentMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof pagesDeleteRequestComment>>,
+        TError,
+        { id: number },
+        TContext
+    >;
+}): UseMutationOptions<Awaited<ReturnType<typeof pagesDeleteRequestComment>>, TError, { id: number }, TContext> => {
+    const mutationKey = ['pagesDeleteRequestComment'];
+    const { mutation: mutationOptions } = options
+        ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey } };
+
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof pagesDeleteRequestComment>>,
+        { id: number }
+    > = props => {
+        const { id } = props ?? {};
+
+        return pagesDeleteRequestComment(id);
+    };
+
+    return { mutationFn, ...mutationOptions };
+};
+
+export type PagesDeleteRequestCommentMutationResult = NonNullable<
+    Awaited<ReturnType<typeof pagesDeleteRequestComment>>
+>;
+
+export type PagesDeleteRequestCommentMutationError = ErrorType<unknown>;
+
+export const usePagesDeleteRequestComment = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof pagesDeleteRequestComment>>,
+        TError,
+        { id: number },
+        TContext
+    >;
+}): UseMutationResult<Awaited<ReturnType<typeof pagesDeleteRequestComment>>, TError, { id: number }, TContext> => {
+    const mutationOptions = getPagesDeleteRequestCommentMutationOptions(options);
+
+    return useMutation(mutationOptions);
+};
+export const pagesSaveRequestComment = (id: number, signal?: AbortSignal) => {
+    return axiosCall<void>({ url: `/pages/comment/save/${id}`, method: 'POST', signal });
+};
+
+export const getPagesSaveRequestCommentMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof pagesSaveRequestComment>>,
+        TError,
+        { id: number },
+        TContext
+    >;
+}): UseMutationOptions<Awaited<ReturnType<typeof pagesSaveRequestComment>>, TError, { id: number }, TContext> => {
+    const mutationKey = ['pagesSaveRequestComment'];
+    const { mutation: mutationOptions } = options
+        ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey } };
+
+    const mutationFn: MutationFunction<Awaited<ReturnType<typeof pagesSaveRequestComment>>, { id: number }> = props => {
+        const { id } = props ?? {};
+
+        return pagesSaveRequestComment(id);
+    };
+
+    return { mutationFn, ...mutationOptions };
+};
+
+export type PagesSaveRequestCommentMutationResult = NonNullable<Awaited<ReturnType<typeof pagesSaveRequestComment>>>;
+
+export type PagesSaveRequestCommentMutationError = ErrorType<unknown>;
+
+export const usePagesSaveRequestComment = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof pagesSaveRequestComment>>,
+        TError,
+        { id: number },
+        TContext
+    >;
+}): UseMutationResult<Awaited<ReturnType<typeof pagesSaveRequestComment>>, TError, { id: number }, TContext> => {
+    const mutationOptions = getPagesSaveRequestCommentMutationOptions(options);
+
+    return useMutation(mutationOptions);
+};

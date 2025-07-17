@@ -51,7 +51,7 @@ const NewsPreviewItem = ({ news }: { news: NewsPreviewItemType }) => {
             py={2}
             px={4}
             bgcolor={'white'}
-            border={'2px solid rgb(212 212 212)'}
+            border={news.notification ? '2px solid #2892c4' : '2px solid rgb(212 212 212)'}
             borderRadius={'9px'}
             onClick={() => router.push(`/news/edit/${news.id}`)}
             sx={{ cursor: 'pointer' }}

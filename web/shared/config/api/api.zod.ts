@@ -40,6 +40,7 @@ export const ScammerProfileItem = z
         profileLikes: z.number(),
         profileViews: z.number(),
         about: z.string(),
+        notification: z.boolean().default(false),
     })
     .passthrough();
 export const ScammerCommentItem = z
@@ -75,6 +76,7 @@ export const PostItem = z
         views: z.number(),
         readTime: z.number(),
         date: z.string().datetime({ offset: true }),
+        notification: z.boolean().default(false),
     })
     .passthrough();
 export const PostCommentItem = z
@@ -146,6 +148,17 @@ export const LawyerProfile = z
     .object({ id: z.number(), profile: z.string(), visible: z.enum(['VISIBLE', 'HIDDEN']).default('HIDDEN') })
     .passthrough();
 export const LawyerProfileItem = z.object({ items: LawyerProfile.nullable() }).passthrough();
+export const CommentStarRate = z.enum(['1', '2', '3', '4', '5']);
+export const CommentType = z.enum(['SCAMMER', 'VERIFIED', 'NEWS', 'POST']);
+export const CreateCommentDto = z
+    .object({
+        name: z.string().min(3).max(30),
+        message: z.string().min(10).max(400),
+        rate: CommentStarRate,
+        projectId: z.string(),
+        commentType: CommentType,
+    })
+    .passthrough();
 export const NewsPreviewItem = z
     .object({
         id: z.number(),
@@ -167,6 +180,7 @@ export const NewsItem = z
         likes: z.number(),
         views: z.number(),
         date: z.string().datetime({ offset: true }),
+        notification: z.boolean().default(false),
     })
     .passthrough();
 export const NewsCommentItem = z
@@ -220,6 +234,7 @@ export const VerifiedProfileItem = z
         profileLikes: z.number(),
         profileViews: z.number(),
         about: z.string(),
+        notification: z.boolean().default(false),
     })
     .passthrough();
 export const VerifiedCommentItem = z

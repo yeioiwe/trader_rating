@@ -2,12 +2,19 @@
 import { queryClient } from '@/config/api/api.axios';
 import { CommentStarRate, PostCommentItem } from '@/config/api/api.schemas';
 import {
+    getPagesGetCommentRequestListQueryKey,
+    getPagesGetHeaderBannerInfiniteQueryOptions,
+    usePagesGetCommentRequestList,
+} from '@/config/api/pages/pages';
+import {
     getPostGetCommentListQueryKey,
     usePostCommentCreate,
     usePostDeleteComment,
     usePostGetCommentList,
 } from '@/config/api/post/post';
+import { getScammersGetCommentListQueryKey } from '@/config/api/scammers/scammers';
 import { Col, Row } from '@/shared/ui/boxes';
+import { RequestCommentItem } from '@/view/comments/request.comment';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Button, IconButton, MenuItem, OutlinedInput, Select, Typography } from '@mui/material';
 import { DateField, LocalizationProvider } from '@mui/x-date-pickers';
@@ -18,11 +25,20 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 export const PostEditCommentList = ({ id }: { id: number }) => {
+    const { data: commentsRequest } = usePagesGetCommentRequestList('POST', id);
     const { data } = usePostGetCommentList(id);
+
+    const successInvalidate = () => {
+        queryClient.invalidateQueries({ queryKey: getPagesGetCommentRequestListQueryKey('POST', id) });
+        queryClient.invalidateQueries({ queryKey: getPostGetCommentListQueryKey(id) });
+    };
 
     if (data === undefined) return null;
     return (
         <Col gap={2}>
+            {commentsRequest?.items.map((c, i) => (
+                <RequestCommentItem comment={c} successInvalidate={successInvalidate} key={i} />
+            ))}
             {data.items.map((c, i) => (
                 <PostEditItem comment={c} postId={id} key={i} />
             ))}

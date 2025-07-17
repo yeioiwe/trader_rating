@@ -20,6 +20,9 @@ export class ScammerDemoProfileItem {
 
     @ApiProperty({ enum: ScummerVisible })
     visible!: ScummerVisible;
+
+    @ApiProperty({ type: Boolean })
+    notification!: boolean;
 }
 
 export class ScammerDemoProfileItemList {

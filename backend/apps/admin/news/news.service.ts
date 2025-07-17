@@ -9,7 +9,7 @@ export class NewsService {
     constructor(private em: EntityManager) {}
 
     async create(dto: NewsCreateDto) {
-        const news = await this.em.create(NewsEntity, { ...dto });
+        const news = this.em.create(NewsEntity, { ...dto });
 
         await this.em.save(NewsEntity, news);
     }
@@ -25,7 +25,7 @@ export class NewsService {
     async getList() {
         const newsList = await this.em.find(NewsEntity);
 
-        const demoNews = newsList.map(({ id, title, date }) => ({ id, title, date }));
+        const demoNews = newsList.map(({ id, title, date, notification }) => ({ id, title, date, notification }));
 
         return { items: demoNews };
     }
@@ -39,7 +39,7 @@ export class NewsService {
     }
 
     async createComment(newsId: number, dto: NewsCreateComment) {
-        const comment = await this.em.create(NewsCommentEntity, { ...dto, newsId });
+        const comment = this.em.create(NewsCommentEntity, { ...dto, newsId });
 
         await this.em.save(NewsCommentEntity, comment);
     }

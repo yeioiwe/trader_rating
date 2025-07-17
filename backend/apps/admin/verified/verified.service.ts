@@ -32,7 +32,7 @@ export class VerifiedService {
             sortId++;
         }
 
-        const verified = await this.em.create(VerifiedEntity, {
+        const verified = this.em.create(VerifiedEntity, {
             ...dto,
             positionTop: sortId,
             visible: VerifiedVisible.VISIBLE,
@@ -51,14 +51,17 @@ export class VerifiedService {
     async getList() {
         const verifiedList = await this.em.find(VerifiedEntity, { order: { positionTop: 'ASC' } });
 
-        const verifiedDemo = verifiedList.map(({ id, name, positionTop, tgUsername, category, visible }) => ({
-            id,
-            name,
-            positionTop,
-            tgUsername,
-            category,
-            visible,
-        }));
+        const verifiedDemo = verifiedList.map(
+            ({ id, name, positionTop, tgUsername, category, visible, notification }) => ({
+                id,
+                name,
+                positionTop,
+                tgUsername,
+                category,
+                visible,
+                notification,
+            }),
+        );
 
         return { items: verifiedDemo };
     }
@@ -116,7 +119,7 @@ export class VerifiedService {
     }
 
     async createComment(projectId: number, dto: VerifiedCreateComment) {
-        const comment = await this.em.create(VerifiedCommentEntity, { ...dto, projectId });
+        const comment = this.em.create(VerifiedCommentEntity, { ...dto, projectId });
 
         await this.em.save(VerifiedCommentEntity, comment);
     }

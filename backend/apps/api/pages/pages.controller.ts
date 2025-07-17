@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
-import { ReviewRequestDto } from './pages.dto';
+import { CreateCommentDto, ReviewRequestDto } from './pages.dto';
 import { PagesService } from './pages.service';
 import {
     FooterStripItem,
@@ -62,5 +62,11 @@ export class PagesController {
     @ApiOkResponse({ type: LawyerProfileItem })
     async getLawyerProfile(): Promise<LawyerProfileItem> {
         return await this.pagesService.getLawyerProfile();
+    }
+
+    @Post('create_comment')
+    @ApiOkResponse()
+    async createComment(@Body() dto: CreateCommentDto): Promise<void> {
+        return await this.pagesService.createComment(dto);
     }
 }

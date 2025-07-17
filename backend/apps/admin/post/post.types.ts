@@ -17,6 +17,9 @@ export class PostPreviewItem {
 
     @ApiProperty({ type: Date })
     date!: Date;
+
+    @ApiProperty({ type: Boolean })
+    notification!: boolean;
 }
 
 export class PostPreviewList {
