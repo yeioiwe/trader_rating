@@ -12,8 +12,8 @@ import { CreateCommentDto, ReviewRequestDto } from './pages.dto';
 import { CommentCreateEntity, CommentType } from 'apps/libs/db/entity/comment.create.entity';
 import { PostEntity } from 'apps/libs/db/entity/post.entity';
 import { NewsEntity } from 'apps/libs/db/entity/news.entity';
-import { VerifiedEntity } from 'apps/libs/db/entity/verified.entity';
-import { ScammerEntity } from 'apps/libs/db/entity/scammer.entity';
+import { VerifiedEntity, VerifiedVisible } from 'apps/libs/db/entity/verified.entity';
+import { ScammerEntity, ScummerVisible } from 'apps/libs/db/entity/scammer.entity';
 
 @Injectable()
 export class PagesService {
@@ -109,5 +109,23 @@ export class PagesService {
                 await this.em.update(ScammerEntity, { url: dto.projectId }, { notification: true });
                 break;
         }
+    }
+
+    async getSaerchList() {
+        const scammersList = await this.em.find(ScammerEntity, { where: { visible: ScummerVisible.VISIBLE } });
+
+        const sortedScammersList = scammersList.map(({ name, url }) => ({
+            name,
+            url: `/scammers/${url}`,
+        }));
+
+        const verifiedList = await this.em.find(VerifiedEntity, { where: { visible: VerifiedVisible.VISIBLE } });
+
+        const sortedVerifiedList = verifiedList.map(({ name, url }) => ({
+            name,
+            url: `/verified/${url}`,
+        }));
+
+        return { items: [...sortedScammersList, ...sortedVerifiedList] };
     }
 }

@@ -44,3 +44,19 @@ export class LawyerProfileItem {
     })
     items!: LawyerProfile | null;
 }
+
+export class SearchItem {
+    @ApiProperty({ type: String })
+    name!: string;
+
+    @ApiProperty({ type: String })
+    url!: string;
+}
+
+export class SearchItemList {
+    @ApiProperty({
+        type: SearchItem,
+        isArray: true,
+    })
+    items!: SearchItem[];
+}

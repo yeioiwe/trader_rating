@@ -9,6 +9,7 @@ import {
     LawyerBannerItem,
     LawyerLayoutItem,
     LawyerProfileItem,
+    SearchItemList,
     YoutubeLayoutItem,
 } from './pages.types';
 
@@ -68,5 +69,11 @@ export class PagesController {
     @ApiOkResponse()
     async createComment(@Body() dto: CreateCommentDto): Promise<void> {
         return await this.pagesService.createComment(dto);
+    }
+
+    @Get('search_list')
+    @ApiOkResponse({ type: SearchItemList })
+    async getSaerchList(): Promise<SearchItemList> {
+        return await this.pagesService.getSaerchList();
     }
 }
