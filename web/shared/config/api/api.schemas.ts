@@ -111,6 +111,8 @@ export interface ScammerProfileItem {
     profileViews: number;
     about: string;
     notification: boolean;
+    title: string;
+    description: string;
 }
 
 export type ScammerCommentItemStarRate = (typeof ScammerCommentItemStarRate)[keyof typeof ScammerCommentItemStarRate];
@@ -135,6 +137,11 @@ export interface ScammerCommentItem {
 
 export interface ScammerCommentList {
     items: ScammerCommentItem[];
+}
+
+export interface SeoItem {
+    title: string;
+    description: string;
 }
 
 export interface PostPreviewItem {
@@ -526,6 +533,8 @@ export interface VerifiedProfileItem {
     profileViews: number;
     about: string;
     notification: boolean;
+    title: string;
+    description: string;
 }
 
 export type VerifiedCommentItemStarRate =

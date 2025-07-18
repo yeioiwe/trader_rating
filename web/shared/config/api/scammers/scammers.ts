@@ -21,7 +21,7 @@ import type {
     UseQueryResult,
 } from '@tanstack/react-query';
 
-import type { ScammerCommentList, ScammerDemoProfileItemList, ScammerProfileItem } from '../api.schemas';
+import type { ScammerCommentList, ScammerDemoProfileItemList, ScammerProfileItem, SeoItem } from '../api.schemas';
 
 import { axiosCall } from '.././api.axios';
 import type { ErrorType } from '.././api.axios';
@@ -716,6 +716,178 @@ export function useScammersGetCommentList<
     queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
     const queryOptions = getScammersGetCommentListQueryOptions(id, options);
+
+    const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const scammersGetSeo = (id: string, signal?: AbortSignal) => {
+    return axiosCall<SeoItem>({ url: `/scammers/seo/${id}`, method: 'GET', signal });
+};
+
+export const getScammersGetSeoQueryKey = (id: string) => {
+    return [`/scammers/seo/${id}`] as const;
+};
+
+export const getScammersGetSeoInfiniteQueryOptions = <
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options?: { query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetSeo>>, TError, TData>> },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getScammersGetSeoQueryKey(id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof scammersGetSeo>>> = ({ signal }) =>
+        scammersGetSeo(id, signal);
+
+    return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof scammersGetSeo>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ScammersGetSeoInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof scammersGetSeo>>>;
+export type ScammersGetSeoInfiniteQueryError = ErrorType<unknown>;
+
+export function useScammersGetSeoInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options: {
+        query: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetSeo>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetSeo>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetSeo>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetSeoInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetSeo>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetSeo>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetSeo>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetSeoInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options?: { query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetSeo>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function useScammersGetSeoInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof scammersGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options?: { query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof scammersGetSeo>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getScammersGetSeoInfiniteQueryOptions(id, options);
+
+    const query = useInfiniteQuery(queryOptions, queryClient) as UseInfiniteQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const getScammersGetSeoQueryOptions = <
+    TData = Awaited<ReturnType<typeof scammersGetSeo>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetSeo>>, TError, TData>> },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getScammersGetSeoQueryKey(id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof scammersGetSeo>>> = ({ signal }) =>
+        scammersGetSeo(id, signal);
+
+    return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof scammersGetSeo>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ScammersGetSeoQueryResult = NonNullable<Awaited<ReturnType<typeof scammersGetSeo>>>;
+export type ScammersGetSeoQueryError = ErrorType<unknown>;
+
+export function useScammersGetSeo<TData = Awaited<ReturnType<typeof scammersGetSeo>>, TError = ErrorType<unknown>>(
+    id: string,
+    options: {
+        query: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetSeo>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetSeo>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetSeo>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetSeo<TData = Awaited<ReturnType<typeof scammersGetSeo>>, TError = ErrorType<unknown>>(
+    id: string,
+    options?: {
+        query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetSeo>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof scammersGetSeo>>,
+                    TError,
+                    Awaited<ReturnType<typeof scammersGetSeo>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useScammersGetSeo<TData = Awaited<ReturnType<typeof scammersGetSeo>>, TError = ErrorType<unknown>>(
+    id: string,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetSeo>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function useScammersGetSeo<TData = Awaited<ReturnType<typeof scammersGetSeo>>, TError = ErrorType<unknown>>(
+    id: string,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof scammersGetSeo>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getScammersGetSeoQueryOptions(id, options);
 
     const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
         queryKey: DataTag<QueryKey, TData, TError>;

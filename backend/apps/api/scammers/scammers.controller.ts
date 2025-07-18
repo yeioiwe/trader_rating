@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { ScammersService } from './scammers.service';
-import { ScammerCommentList, ScammerDemoProfileItemList, ScammerProfileItem } from './scammers.types';
+import { ScammerCommentList, ScammerDemoProfileItemList, ScammerProfileItem, SeoItem } from './scammers.types';
 
 @Controller('scammers')
 export class ScammersController {
@@ -29,5 +29,11 @@ export class ScammersController {
     @ApiOkResponse({ type: ScammerCommentList })
     async getCommentList(@Param('id') profileId: number): Promise<ScammerCommentList> {
         return await this.scammersService.getCommentList(profileId);
+    }
+
+    @Get('seo/:id')
+    @ApiOkResponse({ type: SeoItem })
+    async getSeo(@Param('id') id: string): Promise<SeoItem> {
+        return await this.scammersService.getSeo(id);
     }
 }

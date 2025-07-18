@@ -21,7 +21,7 @@ import type {
     UseQueryResult,
 } from '@tanstack/react-query';
 
-import type { VerifiedCommentList, VerifiedDemoProfileItemList, VerifiedProfileItem } from '../api.schemas';
+import type { SeoItem, VerifiedCommentList, VerifiedDemoProfileItemList, VerifiedProfileItem } from '../api.schemas';
 
 import { axiosCall } from '.././api.axios';
 import type { ErrorType } from '.././api.axios';
@@ -538,6 +538,178 @@ export function useVerifiedGetCommentList<
     queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
     const queryOptions = getVerifiedGetCommentListQueryOptions(id, options);
+
+    const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const verifiedGetSeo = (id: string, signal?: AbortSignal) => {
+    return axiosCall<SeoItem>({ url: `/verified/seo/${id}`, method: 'GET', signal });
+};
+
+export const getVerifiedGetSeoQueryKey = (id: string) => {
+    return [`/verified/seo/${id}`] as const;
+};
+
+export const getVerifiedGetSeoInfiniteQueryOptions = <
+    TData = InfiniteData<Awaited<ReturnType<typeof verifiedGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options?: { query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof verifiedGetSeo>>, TError, TData>> },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getVerifiedGetSeoQueryKey(id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof verifiedGetSeo>>> = ({ signal }) =>
+        verifiedGetSeo(id, signal);
+
+    return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof verifiedGetSeo>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type VerifiedGetSeoInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof verifiedGetSeo>>>;
+export type VerifiedGetSeoInfiniteQueryError = ErrorType<unknown>;
+
+export function useVerifiedGetSeoInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof verifiedGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options: {
+        query: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof verifiedGetSeo>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof verifiedGetSeo>>,
+                    TError,
+                    Awaited<ReturnType<typeof verifiedGetSeo>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useVerifiedGetSeoInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof verifiedGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof verifiedGetSeo>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof verifiedGetSeo>>,
+                    TError,
+                    Awaited<ReturnType<typeof verifiedGetSeo>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useVerifiedGetSeoInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof verifiedGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options?: { query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof verifiedGetSeo>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function useVerifiedGetSeoInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof verifiedGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options?: { query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof verifiedGetSeo>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getVerifiedGetSeoInfiniteQueryOptions(id, options);
+
+    const query = useInfiniteQuery(queryOptions, queryClient) as UseInfiniteQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const getVerifiedGetSeoQueryOptions = <
+    TData = Awaited<ReturnType<typeof verifiedGetSeo>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof verifiedGetSeo>>, TError, TData>> },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getVerifiedGetSeoQueryKey(id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof verifiedGetSeo>>> = ({ signal }) =>
+        verifiedGetSeo(id, signal);
+
+    return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof verifiedGetSeo>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type VerifiedGetSeoQueryResult = NonNullable<Awaited<ReturnType<typeof verifiedGetSeo>>>;
+export type VerifiedGetSeoQueryError = ErrorType<unknown>;
+
+export function useVerifiedGetSeo<TData = Awaited<ReturnType<typeof verifiedGetSeo>>, TError = ErrorType<unknown>>(
+    id: string,
+    options: {
+        query: Partial<UseQueryOptions<Awaited<ReturnType<typeof verifiedGetSeo>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof verifiedGetSeo>>,
+                    TError,
+                    Awaited<ReturnType<typeof verifiedGetSeo>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useVerifiedGetSeo<TData = Awaited<ReturnType<typeof verifiedGetSeo>>, TError = ErrorType<unknown>>(
+    id: string,
+    options?: {
+        query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof verifiedGetSeo>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof verifiedGetSeo>>,
+                    TError,
+                    Awaited<ReturnType<typeof verifiedGetSeo>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useVerifiedGetSeo<TData = Awaited<ReturnType<typeof verifiedGetSeo>>, TError = ErrorType<unknown>>(
+    id: string,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof verifiedGetSeo>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function useVerifiedGetSeo<TData = Awaited<ReturnType<typeof verifiedGetSeo>>, TError = ErrorType<unknown>>(
+    id: string,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof verifiedGetSeo>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getVerifiedGetSeoQueryOptions(id, options);
 
     const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
         queryKey: DataTag<QueryKey, TData, TError>;

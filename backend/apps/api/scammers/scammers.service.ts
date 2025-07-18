@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { ScammerCommentEntity } from 'apps/libs/db/entity/scammer.comment.entity';
 import { ScammerEntity, ScummerVisible } from 'apps/libs/db/entity/scammer.entity';
 import { EntityManager } from 'typeorm';
+import { SeoItem } from './scammers.types';
 
 @Injectable()
 export class ScammersService {
@@ -15,23 +16,38 @@ export class ScammersService {
 
         const topFive = projects.slice(0, 5);
 
-        const sortedTopFive = topFive.map(({ id, url, name, avatar_url, positionTop, starRate, rate, reports, reviews, shortDescription, tgUsername, category, visible }) => ({
-            id,
-            url,
-            name,
-            avatar_url,
-            positionTop,
-            starRate,
-            rate,
-            reports,
-            reviews,
-            shortDescription,
-            tgUsername,
-            category,
-            visible,
-        }));
+        const sortedTopFive = topFive.map(
+            ({
+                id,
+                url,
+                name,
+                avatar_url,
+                positionTop,
+                starRate,
+                rate,
+                reports,
+                reviews,
+                shortDescription,
+                tgUsername,
+                category,
+                visible,
+            }) => ({
+                id,
+                url,
+                name,
+                avatar_url,
+                positionTop,
+                starRate,
+                rate,
+                reports,
+                reviews,
+                shortDescription,
+                tgUsername,
+                category,
+                visible,
+            }),
+        );
 
-        
         return { items: sortedTopFive };
     }
 
@@ -41,21 +57,37 @@ export class ScammersService {
             where: { visible: ScummerVisible.VISIBLE },
         });
 
-        const sortedProjects = projects.map(({ id, url, name, avatar_url, positionTop, starRate, rate, reports, reviews, shortDescription, tgUsername, category, visible }) => ({
-            id,
-            url,
-            name,
-            avatar_url,
-            positionTop,
-            starRate,
-            rate,
-            reports,
-            reviews,
-            shortDescription,
-            tgUsername,
-            category,
-            visible,
-        }));
+        const sortedProjects = projects.map(
+            ({
+                id,
+                url,
+                name,
+                avatar_url,
+                positionTop,
+                starRate,
+                rate,
+                reports,
+                reviews,
+                shortDescription,
+                tgUsername,
+                category,
+                visible,
+            }) => ({
+                id,
+                url,
+                name,
+                avatar_url,
+                positionTop,
+                starRate,
+                rate,
+                reports,
+                reviews,
+                shortDescription,
+                tgUsername,
+                category,
+                visible,
+            }),
+        );
 
         return { items: sortedProjects };
     }
@@ -75,5 +107,13 @@ export class ScammersService {
         const comments = await this.em.find(ScammerCommentEntity, { where: { projectId }, order: { date: 'DESC' } });
 
         return { items: comments };
+    }
+
+    async getSeo(id: string): Promise<SeoItem> {
+        const profile = await this.em.findOneBy(ScammerEntity, { url: id });
+
+        if (!profile) throw new BadRequestException();
+
+        return { title: profile.title, description: profile.description };
     }
 }

@@ -62,3 +62,11 @@ export class ScammerCommentList {
     })
     items!: ScammerCommentItem[];
 }
+
+export class SeoItem {
+    @ApiProperty({ type: String })
+    title!: string;
+
+    @ApiProperty({ type: String })
+    description!: string;
+}

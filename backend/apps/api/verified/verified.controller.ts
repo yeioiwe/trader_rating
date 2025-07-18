@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { VerifiedService } from './verified.service';
 import { ApiOkResponse } from '@nestjs/swagger';
-import { VerifiedCommentList, VerifiedDemoProfileItemList, VerifiedProfileItem } from './verified.types';
+import { SeoItem, VerifiedCommentList, VerifiedDemoProfileItemList, VerifiedProfileItem } from './verified.types';
 
 @Controller('verified')
 export class VerifiedController {
@@ -23,5 +23,11 @@ export class VerifiedController {
     @ApiOkResponse({ type: VerifiedCommentList })
     async getCommentList(@Param('id') profileId: number): Promise<VerifiedCommentList> {
         return await this.verifiedService.getCommentList(profileId);
+    }
+
+    @Get('seo/:id')
+    @ApiOkResponse({ type: SeoItem })
+    async getSeo(@Param('id') id: string): Promise<SeoItem> {
+        return await this.verifiedService.getSeo(id);
     }
 }

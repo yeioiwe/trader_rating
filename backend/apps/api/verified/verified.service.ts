@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { VerifiedCommentEntity } from 'apps/libs/db/entity/verified.comment.entity';
 import { VerifiedEntity, VerifiedVisible } from 'apps/libs/db/entity/verified.entity';
 import { EntityManager } from 'typeorm';
+import { SeoItem } from './verified.types';
 
 @Injectable()
 export class VerifiedService {
@@ -34,5 +35,13 @@ export class VerifiedService {
         });
 
         return { items: comments };
+    }
+
+    async getSeo(id: string): Promise<SeoItem> {
+        const profile = await this.em.findOneBy(VerifiedEntity, { url: id });
+
+        if (!profile) throw new BadRequestException();
+
+        return { title: profile.title, description: profile.description };
     }
 }
