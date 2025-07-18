@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { VerifiedEdit } from './profile/verified.edit.profile';
 import { VerifiedEditCommentCreate } from './comments/verified.comment.create';
 import { VerifiedEditCommentList } from './comments/verified.comment.list';
-
+import { VerifiedSeoMain } from './seo/seo.main';
 
 export const VerifiedEditMain = ({ id }: { id: number }) => {
     const [value, setValue] = useState(0);
@@ -30,9 +30,10 @@ export const VerifiedEditMain = ({ id }: { id: number }) => {
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                         <Tab label="Профиль проекта" {...a11yProps(0)} />
                         <Tab label="Комментарии" {...a11yProps(1)} />
+                        <Tab label="SEO Заголовки" {...a11yProps(2)} />
                     </Tabs>
                 </Box>
-            <CustomTabPanel value={value} index={0}>
+                <CustomTabPanel value={value} index={0}>
                     <VerifiedEdit id={id} />
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={1}>
@@ -41,6 +42,10 @@ export const VerifiedEditMain = ({ id }: { id: number }) => {
 
                         <VerifiedEditCommentList id={id} />
                     </Col>
+                </CustomTabPanel>
+
+                <CustomTabPanel value={value} index={2}>
+                    <VerifiedSeoMain id={id} />
                 </CustomTabPanel>
             </Box>
         </Col>

@@ -55,6 +55,8 @@ export const ScammerProfileItem = z
         profileViews: z.number(),
         about: z.string(),
         notification: z.boolean().default(false),
+        title: z.string(),
+        description: z.string(),
     })
     .passthrough();
 export const ScammerProfileAbout = z
@@ -98,6 +100,8 @@ export const ScammerCommentItem = z
     })
     .passthrough();
 export const ScammerCommentList = z.object({ items: z.array(ScammerCommentItem) }).passthrough();
+export const CreateSeoDto = z.object({ title: z.string(), description: z.string() }).passthrough();
+export const SeoItem = z.object({ title: z.string(), description: z.string() }).passthrough();
 export const PostCreatePreviewDto = z
     .object({
         url: z.string(),
@@ -369,6 +373,8 @@ export const VerifiedProfileItem = z
         profileViews: z.number(),
         about: z.string(),
         notification: z.boolean().default(false),
+        title: z.string(),
+        description: z.string(),
     })
     .passthrough();
 export const VerifiedProfileAbout = z

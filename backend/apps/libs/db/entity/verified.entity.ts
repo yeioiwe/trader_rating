@@ -110,4 +110,19 @@ export class VerifiedEntity {
     @Column('boolean')
     @ApiProperty({ type: 'boolean', default: false })
     notification!: boolean;
+
+    @Column('varchar', {
+        length: 255,
+        default: 'Рейтинг проверенных трейдеров - отзывы, проверки, новости и топ-прогнозы от ANTI SCAMER',
+    })
+    @ApiProperty()
+    title!: string;
+
+    @Column('varchar', {
+        length: 255,
+        default:
+            'Рейтинг проверенных трейдеров | Честные отзывы, рейтинги и аналитика | Новости и статьи по криптовалютам, блокчейну, майнингу и инвестициям | Проверки компаний и брокеров | ТОП проверенных трейдеров от ANTI SCAMER',
+    })
+    @ApiProperty()
+    description!: string;
 }

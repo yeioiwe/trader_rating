@@ -3,11 +3,13 @@ import { ScammerCommentEntity } from 'apps/libs/db/entity/scammer.comment.entity
 import { ScammerEntity, ScummerVisible } from 'apps/libs/db/entity/scammer.entity';
 import { EntityManager } from 'typeorm';
 import {
+    CreateSeoDto,
     ScammerCreateComment,
     ScammerCreateDto,
     ScammerEditAboutDto,
     ScammerUpdatePositionListDto,
 } from './scammers.dto';
+import { SeoItem } from './scammers.types';
 
 @Injectable()
 export class ScammersService {
@@ -132,5 +134,17 @@ export class ScammersService {
         const comments = await this.em.find(ScammerCommentEntity, { where: { projectId }, order: { date: 'DESC' } });
 
         return { items: comments };
+    }
+
+    async seoCreate(id: number, dto: CreateSeoDto) {
+        await this.em.update(ScammerEntity, { id }, { title: dto.title, description: dto.description });
+    }
+
+    async getSeo(id: number): Promise<SeoItem> {
+        const profile = await this.em.findOneBy(ScammerEntity, { id });
+
+        if (!profile) throw new BadRequestException();
+
+        return { title: profile.title, description: profile.description };
     }
 }

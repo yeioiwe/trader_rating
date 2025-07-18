@@ -2,6 +2,7 @@ import { BadRequestException } from '@nestjs/common';
 import { Injectable } from '@nestjs/common';
 import { EntityManager } from 'typeorm';
 import {
+    CreateSeoDto,
     VerifiedCreateComment,
     VerifiedCreateDto,
     VerifiedEditAboutDto,
@@ -9,6 +10,7 @@ import {
 } from './verified.dto';
 import { VerifiedEntity, VerifiedVisible } from 'apps/libs/db/entity/verified.entity';
 import { VerifiedCommentEntity } from 'apps/libs/db/entity/verified.comment.entity';
+import { SeoItem } from './verified.types';
 
 @Injectable()
 export class VerifiedService {
@@ -133,5 +135,17 @@ export class VerifiedService {
         const comments = await this.em.find(VerifiedCommentEntity, { where: { projectId }, order: { date: 'DESC' } });
 
         return { items: comments };
+    }
+
+    async seoCreate(id: number, dto: CreateSeoDto) {
+        await this.em.update(VerifiedEntity, { id }, { title: dto.title, description: dto.description });
+    }
+
+    async getSeo(id: number): Promise<SeoItem> {
+        const profile = await this.em.findOneBy(VerifiedEntity, { id });
+
+        if (!profile) throw new BadRequestException();
+
+        return { title: profile.title, description: profile.description };
     }
 }

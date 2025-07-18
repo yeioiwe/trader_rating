@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { ScammerEditCommentCreate } from './comments/scammer.comment.create';
 import { ScammerEditCommentList } from './comments/scammer.comment.list';
 import { ScammersEdit } from './profile/scammers.edit.profile';
+import { ScammerSeoMain } from './seo/seo.main';
 
 export const ScammerEditMain = ({ id }: { id: number }) => {
     const [value, setValue] = useState(0);
@@ -29,6 +30,7 @@ export const ScammerEditMain = ({ id }: { id: number }) => {
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                         <Tab label="Профиль мошенника" {...a11yProps(0)} />
                         <Tab label="Комментарии" {...a11yProps(1)} />
+                        <Tab label="SEO заголовки" {...a11yProps(2)} />
                     </Tabs>
                 </Box>
 
@@ -41,6 +43,9 @@ export const ScammerEditMain = ({ id }: { id: number }) => {
 
                         <ScammerEditCommentList id={id} />
                     </Col>
+                </CustomTabPanel>
+                <CustomTabPanel value={value} index={2}>
+                    <ScammerSeoMain id={id} />
                 </CustomTabPanel>
             </Box>
         </Col>

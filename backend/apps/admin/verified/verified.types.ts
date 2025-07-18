@@ -61,3 +61,11 @@ export class VerifiedCommentList {
     })
     items!: VerifiedCommentItem[];
 }
+
+export class SeoItem {
+    @ApiProperty({ type: String })
+    title!: string;
+
+    @ApiProperty({ type: String })
+    description!: string;
+}

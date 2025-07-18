@@ -3,12 +3,14 @@ import { JwtGuard } from '../auth/guard/jwt.guard';
 import { VerifiedService } from './verified.service';
 import { ApiOkResponse } from '@nestjs/swagger';
 import {
+    CreateSeoDto,
     VerifiedCreateComment,
     VerifiedCreateDto,
     VerifiedEditAboutDto,
     VerifiedUpdatePositionListDto,
 } from './verified.dto';
 import {
+    SeoItem,
     VerifiedCommentList,
     VerifiedDemoProfileItemList,
     VerifiedProfileAbout,
@@ -22,7 +24,7 @@ export class VerifiedController {
 
     @Post('create')
     @ApiOkResponse({ type: Number })
-    async create(@Body() body: VerifiedCreateDto): Promise<Number> {
+    async create(@Body() body: VerifiedCreateDto): Promise<number> {
         return await this.verifiedService.verifiedCreate(body);
     }
 
@@ -78,5 +80,17 @@ export class VerifiedController {
     @ApiOkResponse({ type: VerifiedCommentList })
     async getCommentList(@Param('id') projectId: number): Promise<VerifiedCommentList> {
         return await this.verifiedService.getCommentList(projectId);
+    }
+
+    @Post('seo/create/:id')
+    @ApiOkResponse()
+    async editSeo(@Param('id') id: number, @Body() dto: CreateSeoDto): Promise<void> {
+        return await this.verifiedService.seoCreate(id, dto);
+    }
+
+    @Get('seo/:id')
+    @ApiOkResponse({ type: SeoItem })
+    async getSeo(@Param('id') id: number): Promise<SeoItem> {
+        return await this.verifiedService.getSeo(id);
     }
 }

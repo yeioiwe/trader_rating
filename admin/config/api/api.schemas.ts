@@ -140,6 +140,8 @@ export interface ScammerProfileItem {
     profileViews: number;
     about: string;
     notification: boolean;
+    title: string;
+    description: string;
 }
 
 export type ScammerProfileAboutVisible = (typeof ScammerProfileAboutVisible)[keyof typeof ScammerProfileAboutVisible];
@@ -223,6 +225,16 @@ export interface ScammerCommentItem {
 
 export interface ScammerCommentList {
     items: ScammerCommentItem[];
+}
+
+export interface CreateSeoDto {
+    title: string;
+    description: string;
+}
+
+export interface SeoItem {
+    title: string;
+    description: string;
 }
 
 export interface PostCreatePreviewDto {
@@ -728,6 +740,8 @@ export interface VerifiedProfileItem {
     profileViews: number;
     about: string;
     notification: boolean;
+    title: string;
+    description: string;
 }
 
 export type VerifiedProfileAboutVisible =

@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { JwtGuard } from '../auth/guard/jwt.guard';
 import {
+    CreateSeoDto,
     ScammerCreateComment,
     ScammerCreateDto,
     ScammerEditAboutDto,
@@ -13,6 +14,7 @@ import {
     ScammerDemoProfileItemList,
     ScammerProfileAbout,
     ScammerProfileItem,
+    SeoItem,
 } from './scammers.types';
 
 @UseGuards(JwtGuard)
@@ -78,5 +80,17 @@ export class ScammersController {
     @ApiOkResponse({ type: ScammerCommentList })
     async getCommentList(@Param('id') projectId: number): Promise<ScammerCommentList> {
         return await this.scammersService.getCommentList(projectId);
+    }
+
+    @Post('seo/create/:id')
+    @ApiOkResponse()
+    async editSeo(@Param('id') id: number, @Body() dto: CreateSeoDto): Promise<void> {
+        return await this.scammersService.seoCreate(id, dto);
+    }
+
+    @Get('seo/:id')
+    @ApiOkResponse({ type: SeoItem })
+    async getSeo(@Param('id') id: number): Promise<SeoItem> {
+        return await this.scammersService.getSeo(id);
     }
 }
