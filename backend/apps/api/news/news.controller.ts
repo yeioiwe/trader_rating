@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { NewsService } from './news.service';
-import { NewsCommentList, NewsItem, NewsPreviewList } from './news.types';
+import { NewsCommentList, NewsItem, NewsPreviewList, SeoItem } from './news.types';
 
 @Controller('news')
 export class NewsController {
@@ -29,5 +29,11 @@ export class NewsController {
     @ApiOkResponse({ type: NewsCommentList })
     async getComments(@Param('id') newsId: number): Promise<NewsCommentList> {
         return await this.newsService.getComments(newsId);
+    }
+
+    @Get('seo/:id')
+    @ApiOkResponse({ type: SeoItem })
+    async getSeo(@Param('id') id: string): Promise<SeoItem> {
+        return await this.newsService.getSeo(id);
     }
 }

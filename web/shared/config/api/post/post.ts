@@ -21,7 +21,7 @@ import type {
     UseQueryResult,
 } from '@tanstack/react-query';
 
-import type { PostCommentsList, PostItem, PostPreviewList } from '../api.schemas';
+import type { PostCommentsList, PostItem, PostPreviewList, SeoItem } from '../api.schemas';
 
 import { axiosCall } from '.././api.axios';
 import type { ErrorType } from '.././api.axios';
@@ -515,6 +515,173 @@ export function usePostGetComments<TData = Awaited<ReturnType<typeof postGetComm
     queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
     const queryOptions = getPostGetCommentsQueryOptions(id, options);
+
+    const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const postGetSeo = (id: string, signal?: AbortSignal) => {
+    return axiosCall<SeoItem>({ url: `/post/seo/${id}`, method: 'GET', signal });
+};
+
+export const getPostGetSeoQueryKey = (id: string) => {
+    return [`/post/seo/${id}`] as const;
+};
+
+export const getPostGetSeoInfiniteQueryOptions = <
+    TData = InfiniteData<Awaited<ReturnType<typeof postGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options?: { query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof postGetSeo>>, TError, TData>> },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPostGetSeoQueryKey(id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof postGetSeo>>> = ({ signal }) => postGetSeo(id, signal);
+
+    return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof postGetSeo>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PostGetSeoInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof postGetSeo>>>;
+export type PostGetSeoInfiniteQueryError = ErrorType<unknown>;
+
+export function usePostGetSeoInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof postGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options: {
+        query: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof postGetSeo>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof postGetSeo>>,
+                    TError,
+                    Awaited<ReturnType<typeof postGetSeo>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePostGetSeoInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof postGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof postGetSeo>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof postGetSeo>>,
+                    TError,
+                    Awaited<ReturnType<typeof postGetSeo>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePostGetSeoInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof postGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options?: { query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof postGetSeo>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePostGetSeoInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof postGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options?: { query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof postGetSeo>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPostGetSeoInfiniteQueryOptions(id, options);
+
+    const query = useInfiniteQuery(queryOptions, queryClient) as UseInfiniteQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const getPostGetSeoQueryOptions = <TData = Awaited<ReturnType<typeof postGetSeo>>, TError = ErrorType<unknown>>(
+    id: string,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof postGetSeo>>, TError, TData>> },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getPostGetSeoQueryKey(id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof postGetSeo>>> = ({ signal }) => postGetSeo(id, signal);
+
+    return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof postGetSeo>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type PostGetSeoQueryResult = NonNullable<Awaited<ReturnType<typeof postGetSeo>>>;
+export type PostGetSeoQueryError = ErrorType<unknown>;
+
+export function usePostGetSeo<TData = Awaited<ReturnType<typeof postGetSeo>>, TError = ErrorType<unknown>>(
+    id: string,
+    options: {
+        query: Partial<UseQueryOptions<Awaited<ReturnType<typeof postGetSeo>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof postGetSeo>>,
+                    TError,
+                    Awaited<ReturnType<typeof postGetSeo>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePostGetSeo<TData = Awaited<ReturnType<typeof postGetSeo>>, TError = ErrorType<unknown>>(
+    id: string,
+    options?: {
+        query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof postGetSeo>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof postGetSeo>>,
+                    TError,
+                    Awaited<ReturnType<typeof postGetSeo>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function usePostGetSeo<TData = Awaited<ReturnType<typeof postGetSeo>>, TError = ErrorType<unknown>>(
+    id: string,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof postGetSeo>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function usePostGetSeo<TData = Awaited<ReturnType<typeof postGetSeo>>, TError = ErrorType<unknown>>(
+    id: string,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof postGetSeo>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getPostGetSeoQueryOptions(id, options);
 
     const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
         queryKey: DataTag<QueryKey, TData, TError>;

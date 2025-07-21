@@ -21,7 +21,7 @@ import type {
     UseQueryResult,
 } from '@tanstack/react-query';
 
-import type { NewsCommentList, NewsItem, NewsPreviewList } from '../api.schemas';
+import type { NewsCommentList, NewsItem, NewsPreviewList, SeoItem } from '../api.schemas';
 
 import { axiosCall } from '.././api.axios';
 import type { ErrorType } from '.././api.axios';
@@ -675,6 +675,173 @@ export function useNewsGetComments<TData = Awaited<ReturnType<typeof newsGetComm
     queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
     const queryOptions = getNewsGetCommentsQueryOptions(id, options);
+
+    const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const newsGetSeo = (id: string, signal?: AbortSignal) => {
+    return axiosCall<SeoItem>({ url: `/news/seo/${id}`, method: 'GET', signal });
+};
+
+export const getNewsGetSeoQueryKey = (id: string) => {
+    return [`/news/seo/${id}`] as const;
+};
+
+export const getNewsGetSeoInfiniteQueryOptions = <
+    TData = InfiniteData<Awaited<ReturnType<typeof newsGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options?: { query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof newsGetSeo>>, TError, TData>> },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getNewsGetSeoQueryKey(id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof newsGetSeo>>> = ({ signal }) => newsGetSeo(id, signal);
+
+    return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof newsGetSeo>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type NewsGetSeoInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof newsGetSeo>>>;
+export type NewsGetSeoInfiniteQueryError = ErrorType<unknown>;
+
+export function useNewsGetSeoInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof newsGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options: {
+        query: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof newsGetSeo>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof newsGetSeo>>,
+                    TError,
+                    Awaited<ReturnType<typeof newsGetSeo>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useNewsGetSeoInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof newsGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof newsGetSeo>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof newsGetSeo>>,
+                    TError,
+                    Awaited<ReturnType<typeof newsGetSeo>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useNewsGetSeoInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof newsGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options?: { query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof newsGetSeo>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function useNewsGetSeoInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof newsGetSeo>>>,
+    TError = ErrorType<unknown>,
+>(
+    id: string,
+    options?: { query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof newsGetSeo>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getNewsGetSeoInfiniteQueryOptions(id, options);
+
+    const query = useInfiniteQuery(queryOptions, queryClient) as UseInfiniteQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const getNewsGetSeoQueryOptions = <TData = Awaited<ReturnType<typeof newsGetSeo>>, TError = ErrorType<unknown>>(
+    id: string,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof newsGetSeo>>, TError, TData>> },
+) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getNewsGetSeoQueryKey(id);
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof newsGetSeo>>> = ({ signal }) => newsGetSeo(id, signal);
+
+    return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof newsGetSeo>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type NewsGetSeoQueryResult = NonNullable<Awaited<ReturnType<typeof newsGetSeo>>>;
+export type NewsGetSeoQueryError = ErrorType<unknown>;
+
+export function useNewsGetSeo<TData = Awaited<ReturnType<typeof newsGetSeo>>, TError = ErrorType<unknown>>(
+    id: string,
+    options: {
+        query: Partial<UseQueryOptions<Awaited<ReturnType<typeof newsGetSeo>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof newsGetSeo>>,
+                    TError,
+                    Awaited<ReturnType<typeof newsGetSeo>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useNewsGetSeo<TData = Awaited<ReturnType<typeof newsGetSeo>>, TError = ErrorType<unknown>>(
+    id: string,
+    options?: {
+        query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof newsGetSeo>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof newsGetSeo>>,
+                    TError,
+                    Awaited<ReturnType<typeof newsGetSeo>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useNewsGetSeo<TData = Awaited<ReturnType<typeof newsGetSeo>>, TError = ErrorType<unknown>>(
+    id: string,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof newsGetSeo>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function useNewsGetSeo<TData = Awaited<ReturnType<typeof newsGetSeo>>, TError = ErrorType<unknown>>(
+    id: string,
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof newsGetSeo>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getNewsGetSeoQueryOptions(id, options);
 
     const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
         queryKey: DataTag<QueryKey, TData, TError>;
