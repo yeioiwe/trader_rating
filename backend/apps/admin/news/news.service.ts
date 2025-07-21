@@ -2,7 +2,8 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { NewsCommentEntity } from 'apps/libs/db/entity/news.comment.entity';
 import { NewsEntity } from 'apps/libs/db/entity/news.entity';
 import { EntityManager } from 'typeorm';
-import { NewsCreateComment, NewsCreateDto } from './news.dto';
+import { CreateSeoDto, NewsCreateComment, NewsCreateDto } from './news.dto';
+import { SeoItem } from './news.types';
 
 @Injectable()
 export class NewsService {
@@ -52,5 +53,17 @@ export class NewsService {
         const comments = await this.em.find(NewsCommentEntity, { where: { newsId }, order: { date: 'DESC' } });
 
         return { items: comments };
+    }
+
+    async seoCreate(id: number, dto: CreateSeoDto) {
+        await this.em.update(NewsEntity, { id }, { seo_title: dto.title, seo_description: dto.description });
+    }
+
+    async getSeo(id: number): Promise<SeoItem> {
+        const profile = await this.em.findOneBy(NewsEntity, { id });
+
+        if (!profile) throw new BadRequestException();
+
+        return { title: profile.seo_title, description: profile.seo_description };
     }
 }

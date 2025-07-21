@@ -2,7 +2,8 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { PostCommentEntity } from 'apps/libs/db/entity/post.comment.entity';
 import { PostEntity } from 'apps/libs/db/entity/post.entity';
 import { EntityManager } from 'typeorm';
-import { PostCreateComment, PostCreatePreviewDto, PostEditContentDto } from './post.dto';
+import { CreateSeoDto, PostCreateComment, PostCreatePreviewDto, PostEditContentDto } from './post.dto';
+import { SeoItem } from './post.types';
 
 @Injectable()
 export class PostService {
@@ -64,5 +65,17 @@ export class PostService {
         const comments = await this.em.find(PostCommentEntity, { where: { postId }, order: { date: 'DESC' } });
 
         return { items: comments };
+    }
+
+    async seoCreate(id: number, dto: CreateSeoDto) {
+        await this.em.update(PostEntity, { id }, { seo_title: dto.title, seo_description: dto.description });
+    }
+
+    async getSeo(id: number): Promise<SeoItem> {
+        const profile = await this.em.findOneBy(PostEntity, { id });
+
+        if (!profile) throw new BadRequestException();
+
+        return { title: profile.seo_title, description: profile.seo_description };
     }
 }

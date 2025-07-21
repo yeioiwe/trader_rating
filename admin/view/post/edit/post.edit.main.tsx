@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { PostEditCommentCreate, PostEditCommentList } from './post.edit.comments';
 import { PostEditContent } from './post.edit.content';
 import { PostEditPreview } from './post.edit.preview';
+import { PostSeoMain } from './seo/seo.main';
 
 export const PostEditMain = ({ id }: { id: number }) => {
     const { data: post } = usePostGetOne(id);
@@ -24,6 +25,7 @@ export const PostEditMain = ({ id }: { id: number }) => {
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                         <Tab label="Пост" {...a11yProps(0)} />
                         <Tab label="Комментарии" {...a11yProps(1)} />
+                        <Tab label="SEO Заголовки" {...a11yProps(2)} />
                     </Tabs>
                 </Box>
 
@@ -41,6 +43,10 @@ export const PostEditMain = ({ id }: { id: number }) => {
 
                         <PostEditCommentList id={id} />
                     </Col>
+                </CustomTabPanel>
+
+                <CustomTabPanel value={value} index={2}>
+                    <PostSeoMain id={id} />
                 </CustomTabPanel>
             </Box>
         </Col>

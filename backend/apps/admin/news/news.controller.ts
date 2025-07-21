@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { JwtGuard } from '../auth/guard/jwt.guard';
-import { NewsCreateComment, NewsCreateDto } from './news.dto';
+import { CreateSeoDto, NewsCreateComment, NewsCreateDto } from './news.dto';
 import { NewsService } from './news.service';
-import { NewsCommentList, NewsItem, NewsPreviewList } from './news.types';
+import { NewsCommentList, NewsItem, NewsPreviewList, SeoItem } from './news.types';
 
 @UseGuards(JwtGuard)
 @Controller('news')
@@ -50,5 +50,17 @@ export class NewsController {
     @ApiOkResponse({ type: NewsCommentList })
     async getCommentList(@Param('id') newsId: number): Promise<NewsCommentList> {
         return await this.newsService.getCommentList(newsId);
+    }
+
+    @Post('seo/create/:id')
+    @ApiOkResponse()
+    async editSeo(@Param('id') id: number, @Body() dto: CreateSeoDto): Promise<void> {
+        return await this.newsService.seoCreate(id, dto);
+    }
+
+    @Get('seo/:id')
+    @ApiOkResponse({ type: SeoItem })
+    async getSeo(@Param('id') id: number): Promise<SeoItem> {
+        return await this.newsService.getSeo(id);
     }
 }

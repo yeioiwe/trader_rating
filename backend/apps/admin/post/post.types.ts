@@ -41,3 +41,11 @@ export class PostCommentList {
     })
     items!: PostCommentItem[];
 }
+
+export class SeoItem {
+    @ApiProperty({ type: String })
+    title!: string;
+
+    @ApiProperty({ type: String })
+    description!: string;
+}

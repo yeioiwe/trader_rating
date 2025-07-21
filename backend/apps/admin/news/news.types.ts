@@ -35,3 +35,11 @@ export class NewsCommentList {
     })
     items!: NewsCommentItem[];
 }
+
+export class SeoItem {
+    @ApiProperty({ type: String })
+    title!: string;
+
+    @ApiProperty({ type: String })
+    description!: string;
+}

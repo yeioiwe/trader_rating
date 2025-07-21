@@ -80,6 +80,8 @@ export const PostItem = z
         readTime: z.number(),
         date: z.string().datetime({ offset: true }),
         notification: z.boolean().default(false),
+        seo_title: z.string(),
+        seo_description: z.string(),
     })
     .passthrough();
 export const PostCommentItem = z
@@ -186,6 +188,8 @@ export const NewsItem = z
         views: z.number(),
         date: z.string().datetime({ offset: true }),
         notification: z.boolean().default(false),
+        seo_title: z.string(),
+        seo_description: z.string(),
     })
     .passthrough();
 export const NewsCommentItem = z

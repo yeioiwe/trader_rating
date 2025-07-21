@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { JwtGuard } from '../auth/guard/jwt.guard';
-import { PostCreateComment, PostCreatePreviewDto, PostEditContentDto } from './post.dto';
+import { CreateSeoDto, PostCreateComment, PostCreatePreviewDto, PostEditContentDto } from './post.dto';
 import { PostService } from './post.service';
-import { PostCommentList, PostItem, PostPreviewList } from './post.types';
+import { PostCommentList, PostItem, PostPreviewList, SeoItem } from './post.types';
 
 @UseGuards(JwtGuard)
 @Controller('post')
@@ -62,5 +62,17 @@ export class PostController {
     @ApiOkResponse({ type: PostCommentList })
     async getCommentList(@Param('id') postId: number): Promise<PostCommentList> {
         return await this.postService.getCommentList(postId);
+    }
+
+    @Post('seo/create/:id')
+    @ApiOkResponse()
+    async editSeo(@Param('id') id: number, @Body() dto: CreateSeoDto): Promise<void> {
+        return await this.postService.seoCreate(id, dto);
+    }
+
+    @Get('seo/:id')
+    @ApiOkResponse({ type: SeoItem })
+    async getSeo(@Param('id') id: number): Promise<SeoItem> {
+        return await this.postService.getSeo(id);
     }
 }

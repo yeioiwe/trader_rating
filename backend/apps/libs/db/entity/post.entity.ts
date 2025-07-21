@@ -39,4 +39,19 @@ export class PostEntity {
     @Column('boolean')
     @ApiProperty({ type: 'boolean', default: false })
     notification!: boolean;
+
+    @Column('varchar', {
+        length: 255,
+        default: 'Блог - отзывы, проверки, новости и топ-прогнозы от ANTI SCAMER',
+    })
+    @ApiProperty()
+    seo_title!: string;
+
+    @Column('varchar', {
+        length: 255,
+        default:
+            'Блог | Честные отзывы, рейтинги и аналитика | Новости и статьи по криптовалютам, блокчейну, майнингу и инвестициям | Проверки компаний и брокеров | ТОП проверенных трейдеров от ANTI SCAMER',
+    })
+    @ApiProperty()
+    seo_description!: string;
 }

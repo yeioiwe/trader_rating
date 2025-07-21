@@ -37,3 +37,11 @@ export class NewsCreateComment {
     @IsEnum({ enum: { CommentStarRate } })
     starRate!: CommentStarRate;
 }
+
+export class CreateSeoDto {
+    @IsString()
+    title!: string;
+
+    @IsString()
+    description!: string;
+}

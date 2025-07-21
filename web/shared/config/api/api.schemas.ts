@@ -168,6 +168,8 @@ export interface PostItem {
     readTime: number;
     date: Date;
     notification: boolean;
+    seo_title: string;
+    seo_description: string;
 }
 
 export type PostCommentItemStarRate = (typeof PostCommentItemStarRate)[keyof typeof PostCommentItemStarRate];
@@ -398,6 +400,8 @@ export interface NewsItem {
     views: number;
     date: Date;
     notification: boolean;
+    seo_title: string;
+    seo_description: string;
 }
 
 export type NewsCommentItemStarRate = (typeof NewsCommentItemStarRate)[keyof typeof NewsCommentItemStarRate];

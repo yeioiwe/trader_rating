@@ -273,6 +273,8 @@ export interface PostItem {
     readTime: number;
     date: Date;
     notification: boolean;
+    seo_title: string;
+    seo_description: string;
 }
 
 export interface PostCreateComment {
@@ -578,6 +580,8 @@ export interface NewsItem {
     views: number;
     date: Date;
     notification: boolean;
+    seo_title: string;
+    seo_description: string;
 }
 
 export interface NewsCreateComment {
