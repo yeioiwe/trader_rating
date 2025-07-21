@@ -26,7 +26,7 @@ export const UploadAvatar = ({ img, setImg }: { img: any; setImg: Dispatch<any> 
     });
 
     return (
-        <Box width={350}>
+        <Box width={220}>
             <Box
                 display={'flex'}
                 alignItems={'center'}

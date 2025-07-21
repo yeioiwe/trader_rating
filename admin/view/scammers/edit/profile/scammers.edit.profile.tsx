@@ -81,7 +81,7 @@ export const ScammersEdit = ({ id }: { id: number }) => {
                         <OutlinedInput {...register('url')} />
                     </Col>
 
-                    <Row justifyContent={'space-between'}>
+                    <Row justifyContent={'space-between'} gap={1}>
                         <Col gap={2}>
                             <Row gap={4} justifyContent={'flex-start'}>
                                 <Typography>Название проекта :</Typography>
@@ -94,7 +94,7 @@ export const ScammersEdit = ({ id }: { id: number }) => {
                             <OutlinedInput {...register('name')} />
                         </Col>
 
-                        <Col gap={2}>
+                        <Col gap={2} alignSelf={'normal'} justifyContent={'space-between'}>
                             <Row gap={4} justifyContent={'flex-start'}>
                                 <Typography>TG username :</Typography>
 
@@ -156,10 +156,10 @@ export const ScammersEdit = ({ id }: { id: number }) => {
                         </Col>
                     </Row>
 
-                    <Row justifyContent={'space-between'}>
+                    <Row justifyContent={'space-between'} gap={1}>
                         <Col gap={2}>
                             <Row gap={4} justifyContent={'flex-start'}>
-                                <Typography>Картинка профиля (аватарка) :</Typography>
+                                <Typography>Аватарка:</Typography>
 
                                 <Tooltip title="Нажмите и выбирите файл для загрузки аватарки / фото профиля проекта">
                                     <InfoIcon />
@@ -171,7 +171,7 @@ export const ScammersEdit = ({ id }: { id: number }) => {
 
                         <Col gap={2}>
                             <Row gap={4} justifyContent={'flex-start'}>
-                                <Typography>Категория проекта :</Typography>
+                                <Typography>Категория:</Typography>
 
                                 <Tooltip title="Категория используется для быстрой сортировки в списке проектов">
                                     <InfoIcon />
@@ -190,7 +190,7 @@ export const ScammersEdit = ({ id }: { id: number }) => {
 
                         <Col gap={2}>
                             <Row gap={4} justifyContent={'flex-start'}>
-                                <Typography>К-во подписчиков :</Typography>
+                                <Typography>Подписчики:</Typography>
 
                                 <Tooltip title="Цифра, к-во подписчиков телеграмм канала, которая будет отображаться в блоке статистики профиля">
                                     <InfoIcon />
@@ -202,7 +202,7 @@ export const ScammersEdit = ({ id }: { id: number }) => {
 
                         <Col gap={2}>
                             <Row gap={4} justifyContent={'flex-start'}>
-                                <Typography>К-во жалоб на проект :</Typography>
+                                <Typography>Жалобы:</Typography>
 
                                 <Tooltip title="Цифра, количество жалоб которая будет отображаться в миниатюрном превью проекта и профиле.">
                                     <InfoIcon />
@@ -214,7 +214,7 @@ export const ScammersEdit = ({ id }: { id: number }) => {
 
                         <Col gap={2}>
                             <Row gap={4} justifyContent={'flex-start'}>
-                                <Typography>К-во письменных жалоб/отзывов :</Typography>
+                                <Typography>Отзывовы:</Typography>
 
                                 <Tooltip title="Цифра, количество жалоб/отзывов которая будет отображаться в миниатюрном превью проекта и профиле.">
                                     <InfoIcon />

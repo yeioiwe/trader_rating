@@ -1,5 +1,10 @@
 'use client';
-import { ScammerProfileItemCategory, ScummerStarRate, VerifiedProfileItemCategory, VerifiedStarRate } from '@/config/api/api.schemas';
+import {
+    ScammerProfileItemCategory,
+    ScummerStarRate,
+    VerifiedProfileItemCategory,
+    VerifiedStarRate,
+} from '@/config/api/api.schemas';
 import { useVerifiedEditProfile, useVerifiedGetOne } from '@/config/api/verified/verified';
 import { Col, Row } from '@/shared/ui/boxes';
 import { UploadAvatar } from '@/shared/ui/upload.avatar';
@@ -13,7 +18,6 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { TextFields } from '../../add/verified.add';
 import { VerifiedEditAbout } from './verified.edit.about';
-
 
 export const VerifiedEdit = ({ id }: { id: number }) => {
     const { data: projectProfile } = useVerifiedGetOne(id);
@@ -81,7 +85,7 @@ export const VerifiedEdit = ({ id }: { id: number }) => {
                         <OutlinedInput {...register('url')} />
                     </Col>
 
-                    <Row justifyContent={'space-between'}>
+                    <Row justifyContent={'space-between'} gap={1}>
                         <Col gap={2}>
                             <Row gap={4} justifyContent={'flex-start'}>
                                 <Typography>Название проекта :</Typography>
@@ -94,7 +98,7 @@ export const VerifiedEdit = ({ id }: { id: number }) => {
                             <OutlinedInput {...register('name')} />
                         </Col>
 
-                        <Col gap={2}>
+                        <Col gap={2} alignSelf={'normal'} justifyContent={'space-between'}>
                             <Row gap={4} justifyContent={'flex-start'}>
                                 <Typography>TG username :</Typography>
 
@@ -156,10 +160,10 @@ export const VerifiedEdit = ({ id }: { id: number }) => {
                         </Col>
                     </Row>
 
-                    <Row justifyContent={'space-between'}>
+                    <Row justifyContent={'space-between'} gap={1}>
                         <Col gap={2}>
                             <Row gap={4} justifyContent={'flex-start'}>
-                                <Typography>Картинка профиля (аватарка) :</Typography>
+                                <Typography>Аватарка:</Typography>
 
                                 <Tooltip title="Нажмите и выбирите файл для загрузки аватарки / фото профиля проекта">
                                     <InfoIcon />
@@ -171,7 +175,7 @@ export const VerifiedEdit = ({ id }: { id: number }) => {
 
                         <Col gap={2}>
                             <Row gap={4} justifyContent={'flex-start'}>
-                                <Typography>Категория проекта :</Typography>
+                                <Typography>Категория:</Typography>
 
                                 <Tooltip title="Категория используется для быстрой сортировки в списке проектов">
                                     <InfoIcon />
@@ -190,7 +194,7 @@ export const VerifiedEdit = ({ id }: { id: number }) => {
 
                         <Col gap={2}>
                             <Row gap={4} justifyContent={'flex-start'}>
-                                <Typography>К-во подписчиков :</Typography>
+                                <Typography>Подписчики:</Typography>
 
                                 <Tooltip title="Цифра, к-во подписчиков телеграмм канала, которая будет отображаться в блоке статистики профиля">
                                     <InfoIcon />
@@ -202,9 +206,9 @@ export const VerifiedEdit = ({ id }: { id: number }) => {
 
                         <Col gap={2}>
                             <Row gap={4} justifyContent={'flex-start'}>
-                                <Typography>К-во прибыли в % 1-100:</Typography>
+                                <Typography>Прибыль:</Typography>
 
-                                <Tooltip title="Цифра, количество прибыли в % которая будет отображаться в миниатюрном превью проекта и профиле.">
+                                <Tooltip title="Цифра, количество прибыли в  1-100% которая будет отображаться в миниатюрном превью проекта и профиле.">
                                     <InfoIcon />
                                 </Tooltip>
                             </Row>
@@ -214,7 +218,7 @@ export const VerifiedEdit = ({ id }: { id: number }) => {
 
                         <Col gap={2}>
                             <Row gap={4} justifyContent={'flex-start'}>
-                                <Typography>К-во отзывов :</Typography>
+                                <Typography>Отзывы:</Typography>
 
                                 <Tooltip title="Цифра, количество отзывов которая будет отображаться в миниатюрном превью проекта и профиле.">
                                     <InfoIcon />
@@ -227,7 +231,7 @@ export const VerifiedEdit = ({ id }: { id: number }) => {
 
                     <Col gap={2}>
                         <Row gap={4} justifyContent={'flex-start'}>
-                            <Typography>Краткое описание проекта:</Typography>
+                            <Typography>Описание:</Typography>
 
                             <Tooltip title="Описание/краткая информация/заключение. Которая будет отображаться в списке всех проектов в миниатюрном превью проекта и профиле.">
                                 <InfoIcon />
