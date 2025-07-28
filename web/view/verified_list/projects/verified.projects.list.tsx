@@ -26,11 +26,11 @@ export const VerfiedProjectsList = () => {
                         isSm ? <VerifiedMobileItem project={s} key={i} /> : <VerifiedItem project={s} key={i} />,
                     )}
 
+                    {/* <VerifiedHiddenProject />
                     <VerifiedHiddenProject />
                     <VerifiedHiddenProject />
                     <VerifiedHiddenProject />
-                    <VerifiedHiddenProject />
-                    <VerifiedHiddenProject />
+                    <VerifiedHiddenProject /> */}
 
                     {/* <Row justifyContent={'center'}>
                         <Button sx={{ bgcolor: 'white', borderRadius: '9px', minWidth: 250, minHeight: 50 }}>

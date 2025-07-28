@@ -19,10 +19,10 @@ export const VerifiedList = () => {
             {data?.items.map((s, i) =>
                 isSm ? <VerifiedMobileItem project={s} key={i} /> : <VerifiedItem project={s} key={i} />,
             )}
+            {/* <VerifiedHiddenProject />
             <VerifiedHiddenProject />
             <VerifiedHiddenProject />
-            <VerifiedHiddenProject />
-            <VerifiedHiddenProject />
+            <VerifiedHiddenProject /> */}
 
             <Row justifyContent={'space-between'}>
                 <FullListButton text={t('main.button_full_list')} />
