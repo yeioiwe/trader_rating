@@ -189,6 +189,10 @@ export const VerifiedEdit = ({ id }: { id: number }) => {
                                 <MenuItem value={ScammerProfileItemCategory.GAME}>Крипто игры</MenuItem>
                                 <MenuItem value={ScammerProfileItemCategory.CASINO}>Казино</MenuItem>
                                 <MenuItem value={ScammerProfileItemCategory.EXCHANGES}>Крипто биржи</MenuItem>
+                                <MenuItem value={ScammerProfileItemCategory.TRADING}>Торговля</MenuItem>
+                                <MenuItem value={ScammerProfileItemCategory.BROKER}>Брокер</MenuItem>
+                                <MenuItem value={ScammerProfileItemCategory.TECHNOLOGIES}>IT-Технологии</MenuItem>
+                                <MenuItem value={ScammerProfileItemCategory.WORK}>Работа</MenuItem>
                             </Select>
                         </Col>
 

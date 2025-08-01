@@ -1,5 +1,10 @@
 'use client';
-import { ScammerProfileItemCategory, ScummerStarRate, VerifiedProfileItemCategory, VerifiedStarRate } from '@/config/api/api.schemas';
+import {
+    ScammerProfileItemCategory,
+    ScummerStarRate,
+    VerifiedProfileItemCategory,
+    VerifiedStarRate,
+} from '@/config/api/api.schemas';
 import { useVerifiedCreate } from '@/config/api/verified/verified';
 import { Col, Row } from '@/shared/ui/boxes';
 import { UploadAvatar } from '@/shared/ui/upload.avatar';
@@ -196,6 +201,10 @@ export const VerifiedAdd = () => {
                                 <MenuItem value={ScammerProfileItemCategory.GAME}>Крипто игры</MenuItem>
                                 <MenuItem value={ScammerProfileItemCategory.CASINO}>Казино</MenuItem>
                                 <MenuItem value={ScammerProfileItemCategory.EXCHANGES}>Крипто биржи</MenuItem>
+                                <MenuItem value={ScammerProfileItemCategory.TRADING}>Торговля</MenuItem>
+                                <MenuItem value={ScammerProfileItemCategory.BROKER}>Брокер</MenuItem>
+                                <MenuItem value={ScammerProfileItemCategory.TECHNOLOGIES}>IT-Технологии</MenuItem>
+                                <MenuItem value={ScammerProfileItemCategory.WORK}>Работа</MenuItem>
                             </Select>
                         </Col>
 
