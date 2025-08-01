@@ -8,6 +8,7 @@ import { PostsCard } from './cards/posts.card';
 import { ScammersCard } from './cards/scammers.card';
 import { SearchCard } from './cards/search.card';
 import { YoutubeCard } from './cards/youtube.card';
+import { VerifiedsCard } from './cards/verified.card';
 
 export const SideBarMain = () => {
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
@@ -19,7 +20,7 @@ export const SideBarMain = () => {
             <YoutubeCard />
             <LawyerCard />
             <ScammersCard />
-            {/* <VerifiedsCard /> */}
+            <VerifiedsCard />
             <PostsCard />
             <NewsCard />
         </Col>

@@ -8,6 +8,49 @@ import { SeoItem } from './verified.types';
 export class VerifiedService {
     constructor(private em: EntityManager) {}
 
+    async getTopFive() {
+        const projects = await this.em.find(VerifiedEntity, {
+            order: { positionTop: 'ASC' },
+            where: { visible: VerifiedVisible.VISIBLE },
+        });
+
+        const topFive = projects.slice(0, 5);
+
+        const sortedTopFive = topFive.map(
+            ({
+                id,
+                url,
+                name,
+                avatar_url,
+                positionTop,
+                starRate,
+                rate,
+                profit,
+                reviews,
+                shortDescription,
+                tgUsername,
+                category,
+                visible,
+            }) => ({
+                id,
+                url,
+                name,
+                avatar_url,
+                positionTop,
+                starRate,
+                rate,
+                profit,
+                reviews,
+                shortDescription,
+                tgUsername,
+                category,
+                visible,
+            }),
+        );
+
+        return { items: sortedTopFive };
+    }
+
     async getList() {
         const projects = await this.em.find(VerifiedEntity, {
             order: { positionTop: 'ASC' },

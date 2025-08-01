@@ -6,7 +6,7 @@ import { VerifiedList } from './verified.list';
 import { VerifiedTitle } from './verified.title';
 import dayjs from 'dayjs';
 
-export const VerifiedMain = () => {
+export const VerifiedMain = ({ verifiedTopFiveInitialData }: { verifiedTopFiveInitialData: any }) => {
     const { t } = useTranslation();
 
     return (
@@ -19,7 +19,7 @@ export const VerifiedMain = () => {
                 </Typography>
             </Col>
 
-            <VerifiedList />
+            <VerifiedList verifiedTopFiveInitialData={verifiedTopFiveInitialData} />
         </Col>
     );
 };

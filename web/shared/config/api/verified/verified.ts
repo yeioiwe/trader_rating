@@ -26,6 +26,184 @@ import type { SeoItem, VerifiedCommentList, VerifiedDemoProfileItemList, Verifie
 import { axiosCall } from '.././api.axios';
 import type { ErrorType } from '.././api.axios';
 
+export const verifiedGetTopFive = (signal?: AbortSignal) => {
+    return axiosCall<VerifiedDemoProfileItemList>({ url: `/verified/top_five`, method: 'GET', signal });
+};
+
+export const getVerifiedGetTopFiveQueryKey = () => {
+    return [`/verified/top_five`] as const;
+};
+
+export const getVerifiedGetTopFiveInfiniteQueryOptions = <
+    TData = InfiniteData<Awaited<ReturnType<typeof verifiedGetTopFive>>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof verifiedGetTopFive>>, TError, TData>>;
+}) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getVerifiedGetTopFiveQueryKey();
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof verifiedGetTopFive>>> = ({ signal }) =>
+        verifiedGetTopFive(signal);
+
+    return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof verifiedGetTopFive>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type VerifiedGetTopFiveInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof verifiedGetTopFive>>>;
+export type VerifiedGetTopFiveInfiniteQueryError = ErrorType<unknown>;
+
+export function useVerifiedGetTopFiveInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof verifiedGetTopFive>>>,
+    TError = ErrorType<unknown>,
+>(
+    options: {
+        query: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof verifiedGetTopFive>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof verifiedGetTopFive>>,
+                    TError,
+                    Awaited<ReturnType<typeof verifiedGetTopFive>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useVerifiedGetTopFiveInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof verifiedGetTopFive>>>,
+    TError = ErrorType<unknown>,
+>(
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof verifiedGetTopFive>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof verifiedGetTopFive>>,
+                    TError,
+                    Awaited<ReturnType<typeof verifiedGetTopFive>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useVerifiedGetTopFiveInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof verifiedGetTopFive>>>,
+    TError = ErrorType<unknown>,
+>(
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof verifiedGetTopFive>>, TError, TData>>;
+    },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function useVerifiedGetTopFiveInfinite<
+    TData = InfiniteData<Awaited<ReturnType<typeof verifiedGetTopFive>>>,
+    TError = ErrorType<unknown>,
+>(
+    options?: {
+        query?: Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof verifiedGetTopFive>>, TError, TData>>;
+    },
+    queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getVerifiedGetTopFiveInfiniteQueryOptions(options);
+
+    const query = useInfiniteQuery(queryOptions, queryClient) as UseInfiniteQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
+export const getVerifiedGetTopFiveQueryOptions = <
+    TData = Awaited<ReturnType<typeof verifiedGetTopFive>>,
+    TError = ErrorType<unknown>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof verifiedGetTopFive>>, TError, TData>>;
+}) => {
+    const { query: queryOptions } = options ?? {};
+
+    const queryKey = queryOptions?.queryKey ?? getVerifiedGetTopFiveQueryKey();
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof verifiedGetTopFive>>> = ({ signal }) =>
+        verifiedGetTopFive(signal);
+
+    return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof verifiedGetTopFive>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type VerifiedGetTopFiveQueryResult = NonNullable<Awaited<ReturnType<typeof verifiedGetTopFive>>>;
+export type VerifiedGetTopFiveQueryError = ErrorType<unknown>;
+
+export function useVerifiedGetTopFive<
+    TData = Awaited<ReturnType<typeof verifiedGetTopFive>>,
+    TError = ErrorType<unknown>,
+>(
+    options: {
+        query: Partial<UseQueryOptions<Awaited<ReturnType<typeof verifiedGetTopFive>>, TError, TData>> &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof verifiedGetTopFive>>,
+                    TError,
+                    Awaited<ReturnType<typeof verifiedGetTopFive>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useVerifiedGetTopFive<
+    TData = Awaited<ReturnType<typeof verifiedGetTopFive>>,
+    TError = ErrorType<unknown>,
+>(
+    options?: {
+        query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof verifiedGetTopFive>>, TError, TData>> &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof verifiedGetTopFive>>,
+                    TError,
+                    Awaited<ReturnType<typeof verifiedGetTopFive>>
+                >,
+                'initialData'
+            >;
+    },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+export function useVerifiedGetTopFive<
+    TData = Awaited<ReturnType<typeof verifiedGetTopFive>>,
+    TError = ErrorType<unknown>,
+>(
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof verifiedGetTopFive>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+export function useVerifiedGetTopFive<
+    TData = Awaited<ReturnType<typeof verifiedGetTopFive>>,
+    TError = ErrorType<unknown>,
+>(
+    options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof verifiedGetTopFive>>, TError, TData>> },
+    queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    const queryOptions = getVerifiedGetTopFiveQueryOptions(options);
+
+    const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+}
+
 export const verifiedGetList = (signal?: AbortSignal) => {
     return axiosCall<VerifiedDemoProfileItemList>({ url: `/verified/list`, method: 'GET', signal });
 };

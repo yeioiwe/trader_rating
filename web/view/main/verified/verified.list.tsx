@@ -1,16 +1,15 @@
 'use client';
 import theme from '@/shared/config/theme/theme';
 import { Col, Row } from '@/shared/ui/boxes';
-import { VerifiedHiddenProject } from '@/view/verified_list/projects/verified.hidden.item';
 import { Button, Typography, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { VerifiedMobileItem } from './mobile/verified.mobile.item';
 import { VerifiedItem } from './verified.item';
-import { useVerifiedGetList } from '@/shared/config/api/verified/verified';
 import { useRouter } from 'next/navigation';
+import { useVerifiedGetTopFive } from '@/shared/config/api/verified/verified';
 
-export const VerifiedList = () => {
-    const { data } = useVerifiedGetList();
+export const VerifiedList = ({ verifiedTopFiveInitialData }: { verifiedTopFiveInitialData: any }) => {
+    const { data } = useVerifiedGetTopFive({ query: { initialData: verifiedTopFiveInitialData } });
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     const { t } = useTranslation();
 
@@ -40,11 +39,13 @@ const FullListButton = ({ text }: { text: string }) => {
     const router = useRouter();
 
     return (
-        <Button sx={{ bgcolor: 'white', borderRadius: '9px', minWidth: isSm ? '100%' : 250, minHeight: 50 }} onClick={() => router.push('/verified')}>
+        <Button
+            sx={{ bgcolor: 'white', borderRadius: '9px', minWidth: isSm ? '100%' : 250, minHeight: 50 }}
+            onClick={() => router.push('/verified')}
+        >
             <Typography color="#5297FF" fontSize={16} fontWeight={700}>
                 {text}
             </Typography>
         </Button>
     );
 };
-

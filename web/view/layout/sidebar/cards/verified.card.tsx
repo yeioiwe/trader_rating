@@ -1,12 +1,18 @@
+'use client';
 import VerifiedIcon from '@/public/icons/layout_verified.svg';
 import { Col, Row } from '@/shared/ui/boxes';
 import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { SidebarCard } from './card';
+import { useVerifiedGetTopFive } from '@/shared/config/api/verified/verified';
+import { useRouter } from 'next/navigation';
+import { StarsGroup } from '@/shared/ui/stars.group';
+import { ScammerDemoProfileItemStarRate } from '@/shared/config/api/api.schemas';
 
 export const VerifiedsCard = () => {
     const { t } = useTranslation();
+    const { data } = useVerifiedGetTopFive();
 
     return (
         <SidebarCard bgcolor={'#ECF5FF'} icon={<VerifiedIcon />}>
@@ -22,41 +28,16 @@ export const VerifiedsCard = () => {
                 </Col>
 
                 <Col gap={1}>
-                    <VerifiedCard
-                        name="TopTrader"
-                        position={1}
-                        rating={1}
-                        avatarUrl={'/avatar.jpg'}
-                        profileUrl={'google.com'}
-                    />
-                    <VerifiedCard
-                        name="TopTrader"
-                        position={2}
-                        rating={1}
-                        avatarUrl={'/avatar.jpg'}
-                        profileUrl={'google.com'}
-                    />
-                    <VerifiedCard
-                        name="TopTrader"
-                        position={3}
-                        rating={2}
-                        avatarUrl={'/avatar.jpg'}
-                        profileUrl={'google.com'}
-                    />
-                    <VerifiedCard
-                        name="TopTrader"
-                        position={4}
-                        rating={2}
-                        avatarUrl={'/avatar.jpg'}
-                        profileUrl={'google.com'}
-                    />
-                    <VerifiedCard
-                        name="TopTrader"
-                        position={5}
-                        rating={3}
-                        avatarUrl={'/avatar.jpg'}
-                        profileUrl={'google.com'}
-                    />
+                    {data?.items.map((p, i) => (
+                        <VerifiedCard
+                            key={i}
+                            name={p.name}
+                            position={p.positionTop}
+                            rating={p.starRate}
+                            avatarUrl={p.avatar_url}
+                            profileUrl={p.url}
+                        />
+                    ))}
                 </Col>
 
                 <AllListButton />
@@ -73,13 +54,13 @@ const VerifiedCard = ({
     profileUrl,
 }: {
     name: string;
-    rating: number;
+    rating: ScammerDemoProfileItemStarRate;
     avatarUrl: string;
     position: number;
     profileUrl: string;
 }) => {
     const { t } = useTranslation();
-
+    const router = useRouter();
     return (
         <Row
             position="relative"
@@ -114,11 +95,14 @@ const VerifiedCard = ({
                         {name}
                     </Typography>
 
-                    {/* <StarsGroup rating={rating} /> */}
+                    <StarsGroup rating={rating} />
                 </Col>
             </Row>
 
-            <Button sx={{ py: 1.25, px: 2, bgcolor: '#3BB974', borderRadius: '8px' }}>
+            <Button
+                sx={{ py: 1.25, px: 2, bgcolor: '#3BB974', borderRadius: '8px' }}
+                onClick={() => router.push(`/verified/${profileUrl}`)}
+            >
                 <Typography fontSize={16} fontWeight={700} color="white">
                     {t('sidebar.verified.button_card')}
                 </Typography>
@@ -129,9 +113,9 @@ const VerifiedCard = ({
 
 const AllListButton = () => {
     const { t } = useTranslation();
-
+    const router = useRouter();
     return (
-        <Button sx={{ bgcolor: '#FFFFFF', py: 1.75, borderRadius: '13px' }}>
+        <Button sx={{ bgcolor: '#FFFFFF', py: 1.75, borderRadius: '13px' }} onClick={() => router.push('/verified')}>
             <Typography color="#5297FF" fontSize={16} fontWeight={700}>
                 {t('sidebar.verified.button')}
             </Typography>

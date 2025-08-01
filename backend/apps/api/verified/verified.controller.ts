@@ -7,6 +7,12 @@ import { SeoItem, VerifiedCommentList, VerifiedDemoProfileItemList, VerifiedProf
 export class VerifiedController {
     constructor(private verifiedService: VerifiedService) {}
 
+    @Get('top_five')
+    @ApiOkResponse({ type: VerifiedDemoProfileItemList })
+    async getTopFive(): Promise<VerifiedDemoProfileItemList> {
+        return await this.verifiedService.getTopFive();
+    }
+
     @Get('list')
     @ApiOkResponse({ type: VerifiedDemoProfileItemList })
     async getList(): Promise<VerifiedDemoProfileItemList> {
