@@ -27,6 +27,10 @@ export const ScammerDemoProfileItemCategory = {
     GAME: 'GAME',
     CASINO: 'CASINO',
     EXCHANGES: 'EXCHANGES',
+    TRADING: 'TRADING',
+    BROKER: 'BROKER',
+    TECHNOLOGIES: 'TECHNOLOGIES',
+    WORK: 'WORK',
 } as const;
 
 export type ScammerDemoProfileItemVisible =
@@ -87,6 +91,10 @@ export const ScammerProfileItemCategory = {
     GAME: 'GAME',
     CASINO: 'CASINO',
     EXCHANGES: 'EXCHANGES',
+    TRADING: 'TRADING',
+    BROKER: 'BROKER',
+    TECHNOLOGIES: 'TECHNOLOGIES',
+    WORK: 'WORK',
 } as const;
 
 export interface ScammerProfileItem {
@@ -451,6 +459,10 @@ export const VerifiedDemoProfileItemCategory = {
     GAME: 'GAME',
     CASINO: 'CASINO',
     EXCHANGES: 'EXCHANGES',
+    TRADING: 'TRADING',
+    BROKER: 'BROKER',
+    TECHNOLOGIES: 'TECHNOLOGIES',
+    WORK: 'WORK',
 } as const;
 
 export type VerifiedDemoProfileItemVisible =
@@ -513,6 +525,10 @@ export const VerifiedProfileItemCategory = {
     GAME: 'GAME',
     CASINO: 'CASINO',
     EXCHANGES: 'EXCHANGES',
+    TRADING: 'TRADING',
+    BROKER: 'BROKER',
+    TECHNOLOGIES: 'TECHNOLOGIES',
+    WORK: 'WORK',
 } as const;
 
 export interface VerifiedProfileItem {

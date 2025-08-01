@@ -36,7 +36,6 @@ export const ScammerProjectsList = ({ initialData }: { initialData: any }) => {
     return (
         <Col gap={2.5}>
             <ScammersListTypeSort sort={sort} setSort={setSort} />
-
             <Col gap={2}>
                 <ScammersProjectsTitle />
 

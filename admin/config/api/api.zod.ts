@@ -3,7 +3,18 @@ import { z } from 'zod';
 export const AuthDto = z.object({ login: z.string(), password: z.string() }).passthrough();
 export const AuthResponse = z.object({ authToken: z.string() }).passthrough();
 export const ScummerStarRate = z.enum(['1', '2', '3', '4', '5']);
-export const ScummerCategory = z.enum(['INVESTMENTS', 'TRADER', 'CAPPER', 'GAME', 'CASINO', 'EXCHANGES']);
+export const ScummerCategory = z.enum([
+    'INVESTMENTS',
+    'TRADER',
+    'CAPPER',
+    'GAME',
+    'CASINO',
+    'EXCHANGES',
+    'TRADING',
+    'BROKER',
+    'TECHNOLOGIES',
+    'WORK',
+]);
 export const ScammerCreateDto = z
     .object({
         url: z.string(),
@@ -26,7 +37,18 @@ export const ScammerDemoProfileItem = z
         name: z.string(),
         positionTop: z.number(),
         tgUsername: z.string(),
-        category: z.enum(['INVESTMENTS', 'TRADER', 'CAPPER', 'GAME', 'CASINO', 'EXCHANGES']),
+        category: z.enum([
+            'INVESTMENTS',
+            'TRADER',
+            'CAPPER',
+            'GAME',
+            'CASINO',
+            'EXCHANGES',
+            'TRADING',
+            'BROKER',
+            'TECHNOLOGIES',
+            'WORK',
+        ]),
         visible: z.enum(['VISIBLE', 'HIDDEN']),
         notification: z.boolean(),
     })
@@ -48,7 +70,18 @@ export const ScammerProfileItem = z
         shortDescription: z.string(),
         tgUsername: z.string(),
         visible: z.enum(['VISIBLE', 'HIDDEN']).default('VISIBLE'),
-        category: z.enum(['INVESTMENTS', 'TRADER', 'CAPPER', 'GAME', 'CASINO', 'EXCHANGES']),
+        category: z.enum([
+            'INVESTMENTS',
+            'TRADER',
+            'CAPPER',
+            'GAME',
+            'CASINO',
+            'EXCHANGES',
+            'TRADING',
+            'BROKER',
+            'TECHNOLOGIES',
+            'WORK',
+        ]),
         createdAt: z.string().datetime({ offset: true }),
         reviewDate: z.string().datetime({ offset: true }),
         profileLikes: z.number(),
@@ -325,7 +358,18 @@ export const NewsCommentItem = z
     .passthrough();
 export const NewsCommentList = z.object({ items: z.array(NewsCommentItem) }).passthrough();
 export const VerifiedStarRate = z.enum(['1', '2', '3', '4', '5']);
-export const VerifiedCategory = z.enum(['INVESTMENTS', 'TRADER', 'CAPPER', 'GAME', 'CASINO', 'EXCHANGES']);
+export const VerifiedCategory = z.enum([
+    'INVESTMENTS',
+    'TRADER',
+    'CAPPER',
+    'GAME',
+    'CASINO',
+    'EXCHANGES',
+    'TRADING',
+    'BROKER',
+    'TECHNOLOGIES',
+    'WORK',
+]);
 export const VerifiedCreateDto = z
     .object({
         url: z.string(),
@@ -348,7 +392,18 @@ export const VerifiedDemoProfileItem = z
         name: z.string(),
         positionTop: z.number(),
         tgUsername: z.string(),
-        category: z.enum(['INVESTMENTS', 'TRADER', 'CAPPER', 'GAME', 'CASINO', 'EXCHANGES']),
+        category: z.enum([
+            'INVESTMENTS',
+            'TRADER',
+            'CAPPER',
+            'GAME',
+            'CASINO',
+            'EXCHANGES',
+            'TRADING',
+            'BROKER',
+            'TECHNOLOGIES',
+            'WORK',
+        ]),
         visible: z.enum(['VISIBLE', 'HIDDEN']),
         notification: z.boolean(),
     })
@@ -370,7 +425,18 @@ export const VerifiedProfileItem = z
         shortDescription: z.string(),
         tgUsername: z.string(),
         visible: z.enum(['VISIBLE', 'HIDDEN']).default('VISIBLE'),
-        category: z.enum(['INVESTMENTS', 'TRADER', 'CAPPER', 'GAME', 'CASINO', 'EXCHANGES']),
+        category: z.enum([
+            'INVESTMENTS',
+            'TRADER',
+            'CAPPER',
+            'GAME',
+            'CASINO',
+            'EXCHANGES',
+            'TRADING',
+            'BROKER',
+            'TECHNOLOGIES',
+            'WORK',
+        ]),
         createdAt: z.string().datetime({ offset: true }),
         reviewDate: z.string().datetime({ offset: true }),
         profileLikes: z.number(),

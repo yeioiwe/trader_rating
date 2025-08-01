@@ -11,6 +11,10 @@ const CategoryNames: Record<ScammerDemoProfileItemCategory, string> = {
     GAME: 'Крипто Игры',
     CASINO: 'Казино',
     EXCHANGES: 'Крипто биржи',
+    TRADING: 'Торговля',
+    BROKER: 'Брокер',
+    TECHNOLOGIES: 'IT-Технологии',
+    WORK: 'Работа',
 };
 
 const sortParams = Object.entries(ScammerDemoProfileItemCategory).map(([key, value]) => ({
@@ -28,8 +32,8 @@ export const ScammersListTypeSort = ({
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
-        <Box width={'100%'} sx={{ overflowX: 'auto' }}>
-            <Row gap={isSm ? 1 : 2} width={'100%'} justifyContent={'flex-start'}>
+        <Box width="100%" maxWidth="100%" sx={{ overflowX: 'auto', boxSizing: 'border-box' }}>
+            <Row gap={isSm ? 1 : 2} width="100%" justifyContent="flex-start" sx={{ flexWrap: 'wrap' }}>
                 <TypeSortButton active={sort === undefined} setSort={setSort} sort={undefined} displayName="Все" />
 
                 {sortParams.map(s => (

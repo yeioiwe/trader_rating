@@ -16,6 +16,10 @@ export enum ScummerCategory {
     GAME = 'GAME',
     CASINO = 'CASINO',
     EXCHANGES = 'EXCHANGES',
+    TRADING = 'TRADING',
+    BROKER = 'BROKER',
+    TECHNOLOGIES = 'TECHNOLOGIES',
+    WORK = 'WORK',
 }
 
 export enum ScummerVisible {
