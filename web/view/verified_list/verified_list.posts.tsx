@@ -12,7 +12,7 @@ export const VerifiedListPosts = () => {
 
                 <Col>
                     <Typography fontWeight={500} fontSize={isSm ? 15 : 24} color="#FFFFFF">
-                        Статьи редакции
+                        Отзывы
                     </Typography>
 
                     <Typography fontWeight={300} fontSize={isSm ? 12 : 16} color="#FFFFFF">

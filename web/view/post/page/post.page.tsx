@@ -33,7 +33,7 @@ export const PostOnePage = ({ url, initialData }: { url: string; initialData: an
 
                 <Col>
                     <Typography fontSize={18} fontWeight={500}>
-                        Статьи редакции
+                        Отзывы
                     </Typography>
 
                     <Typography color="grey">Время на прочтение: {post.readTime} мин.</Typography>

@@ -96,7 +96,7 @@ export const HeaderMobile = () => {
                             <ArticleIcon />
 
                             <Typography fontSize={21} fontWeight={700}>
-                                Статьи
+                                Отзывы
                             </Typography>
                         </Row>
                     </MenuItem>

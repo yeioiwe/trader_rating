@@ -39,7 +39,7 @@ export const Footer = () => {
 
                             <Link href={'/posts'}>
                                 <Typography fontWeight={700} fontSize={21}>
-                                    Статьи
+                                    Отзывы
                                 </Typography>
                             </Link>
                         </Row>

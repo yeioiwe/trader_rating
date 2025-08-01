@@ -17,7 +17,7 @@ export const PostListMain = ({ initialData }: { initialData: any }) => {
                     <PostsTitleIcon />
 
                     <Typography fontSize={30} fontWeight={700}>
-                        Статьи редакции
+                        Отзывы
                     </Typography>
                 </Row>
 
