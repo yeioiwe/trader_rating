@@ -15,6 +15,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     return {
         title: `${data.title}`,
         description: `${data.description}`,
+        alternates: {
+            canonical: `https://anti-scamer.ru/scammers/${id}`,
+        },
     };
 }
 

@@ -3,8 +3,12 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 export const metadata: Metadata = {
-    title: 'Новости - отзывы, проверки, новости и топ-прогнозы от ANTI SCAMER',
-    description: 'Новости | Честные отзывы, рейтинги и аналитика | Новости и статьи по криптовалютам, блокчейну, майнингу и инвестициям | Проверки компаний и брокеров | ТОП проверенных трейдеров от ANTI SCAMER',
+    title: 'Новости криптомошенничества и разоблачения — Anti-Scamer',
+    description:
+        'Актуальные новости о мошенничестве в крипте и Telegram: расследования, скандалы, разоблачения и анализ новых схем обмана.',
+    alternates: {
+        canonical: `https://anti-scamer.ru/news`,
+    },
 };
 
 export default async function NewsListPage() {
@@ -16,4 +20,4 @@ export default async function NewsListPage() {
     const data = await res.json();
 
     return <NewsListMain initialData={data} />;
-}   
+}

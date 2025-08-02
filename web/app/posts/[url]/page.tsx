@@ -15,6 +15,9 @@ export async function generateMetadata({ params }: { params: Promise<{ url: stri
     return {
         title: `${data.title}`,
         description: `${data.description}`,
+        alternates: {
+            canonical: `https://anti-scamer.ru/posts/${id}`,
+        },
     };
 }
 
