@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 export enum VerifiedStarRate {
     STAR_1 = '1',
@@ -129,4 +129,8 @@ export class VerifiedEntity {
     })
     @ApiProperty()
     description!: string;
+
+    @UpdateDateColumn({ type: 'timestamp' })
+    @ApiProperty({ type: Date })
+    lastmod!: Date;
 }

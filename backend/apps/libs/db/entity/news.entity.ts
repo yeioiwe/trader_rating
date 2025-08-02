@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('news')
 export class NewsEntity {
@@ -54,4 +54,8 @@ export class NewsEntity {
     })
     @ApiProperty()
     seo_description!: string;
+
+    @UpdateDateColumn({ type: 'timestamp' })
+    @ApiProperty({ type: Date })
+    lastmod!: Date;
 }
