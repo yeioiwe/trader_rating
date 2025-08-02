@@ -20,7 +20,7 @@ export const LawyerAvatar = ({ avatar, name }: { avatar: string; name: string })
                 height={210}
                 src={avatar}
                 style={{ borderRadius: '50%', border: '8px solid #69B2E4' }}
-                alt="lawyer"
+                alt="Lawyer photo image"
             />
 
             <Typography fontSize={24} color="white" fontWeight={700} textAlign={'center'}>
