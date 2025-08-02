@@ -58,7 +58,7 @@ export const Footer = () => {
                                 anti-scamer@onionmail.org
                             </Typography>
 
-                            <Link href={'/policy'}>
+                            <Link href={'/privacy-policy'}>
                                 <Typography sx={{ textDecoration: 'none', color: 'inherit' }}>
                                     Пользовательское соглашение
                                 </Typography>
