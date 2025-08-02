@@ -63,6 +63,10 @@ export const Footer = () => {
                                     Пользовательское соглашение
                                 </Typography>
                             </Link>
+
+                            <Link href={'/contact'}>
+                                <Typography sx={{ textDecoration: 'none', color: 'inherit' }}>Контакты</Typography>
+                            </Link>
                         </Col>
                     </Row>
                 </Col>

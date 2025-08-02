@@ -20,6 +20,10 @@ export const FooterMobile = () => {
                         </Typography>
                     </Link>
 
+                    <Link href={'/contact'}>
+                        <Typography sx={{ textDecoration: 'none', color: 'inherit' }}>Контакты</Typography>
+                    </Link>
+
                     <Col justifyContent={'flex-start'}>
                         <Typography>Copyright © 2025 anti-scamer.ru</Typography>
                         <Typography>All Rights Reserved.</Typography>
