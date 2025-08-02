@@ -82,6 +82,25 @@ async function generateSitemap() {
   console.log("generated:", outputPath);
 }
 
+function pingYandex(sitemapUrl) {
+  const pingUrl = `https://yandex.ru/ping?sitemap=${encodeURIComponent(
+    sitemapUrl
+  )}`;
+  https
+    .get(pingUrl, (res) => {
+      if (res.statusCode === 200) {
+        console.log("yandex pinged");
+      } else {
+        console.warn(`yandex ping failed`);
+      }
+    })
+    .on("error", (err) => {
+      console.error("error pinging", err);
+    });
+}
+
 generateSitemap().catch((err) => {
   console.error(err);
 });
+
+pingYandex("https://anti-scamer.ru/sitemap.xml");
