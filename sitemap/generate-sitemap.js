@@ -1,3 +1,4 @@
+const https = require("https");
 const fs = require("fs");
 const path = require("path");
 const mysql = require("mysql2/promise");
@@ -16,13 +17,30 @@ const STATIC_ROUTES = [
 
 const TODAY = new Date().toISOString().split("T")[0];
 
-const buildUrl = (loc, lastmod, changefreq = "monthly", priority = 0.5) => `
+/**
+ * @param {string} loc
+ * @param {string} lastmod
+ * @param {string} changefreq
+ * @param {number} priority
+ */
+
+const buildUrl = (loc, lastmod, changefreq = "monthly", priority = 0.5) => {
+  const cleanLoc = loc.replace(/^\/+/, "").replace(/\/+$/, "");
+  const fullUrl = `https://anti-scamer.ru/${cleanLoc}`;
+  return `
   <url>
-    <loc>https://anti-scamer.ru${loc}</loc>
+    <loc>${fullUrl}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
   </url>`;
+};
+
+function formatDate(date) {
+  if (!date) return TODAY;
+  if (typeof date === "string") return date.split("T")[0];
+  return new Date(date).toISOString().split("T")[0];
+}
 
 async function getDbEntries() {
   const connection = await mysql.createConnection({
@@ -42,22 +60,22 @@ async function getDbEntries() {
 
   await connection.end();
 
-  const formatEntries = (items, changefreq, priority) =>
+  const formatEntries = (items, changefreq, priority, prefix) =>
     items.map((item) =>
-      buildUrl(item.url, formatDate(item.lastmod), changefreq, priority)
+      buildUrl(
+        `${prefix}/${item.url}`,
+        formatDate(item.lastmod),
+        changefreq,
+        priority
+      )
     );
 
   return [
-    ...formatEntries(scammers, "weekly", 0.9),
-    ...formatEntries(verified, "weekly", 0.9),
-    ...formatEntries(posts, "weekly", 0.7),
-    ...formatEntries(news, "daily", 0.6),
+    ...formatEntries(scammers, "weekly", 0.9, "scammers"),
+    ...formatEntries(verified, "weekly", 0.9, "verified"),
+    ...formatEntries(posts, "weekly", 0.7, "posts"),
+    ...formatEntries(news, "daily", 0.6, "news"),
   ];
-}
-
-function formatDate(date) {
-  if (typeof date === "string") return date.split("T")[0];
-  return new Date(date).toISOString().split("T")[0];
 }
 
 async function generateSitemap() {
@@ -66,10 +84,12 @@ async function generateSitemap() {
     `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`,
   ];
 
+  // Добавляем статические страницы
   for (const route of STATIC_ROUTES) {
     sitemapEntries.push(buildUrl(route.loc, TODAY, "monthly", route.priority));
   }
 
+  // Добавляем страницы из базы
   const dbUrls = await getDbEntries();
   sitemapEntries.push(...dbUrls);
 
@@ -99,8 +119,5 @@ function pingYandex(sitemapUrl) {
     });
 }
 
-generateSitemap().catch((err) => {
-  console.error(err);
-});
-
+generateSitemap().catch(console.error);
 pingYandex("https://anti-scamer.ru/sitemap.xml");

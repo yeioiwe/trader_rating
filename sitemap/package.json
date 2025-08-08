@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "mysql2": "^3.14.3"
+  },
+  "scripts": {
+    "generate-sitemap": "node sitemap/generate-sitemap.js"
   }
 }
