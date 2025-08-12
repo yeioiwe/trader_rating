@@ -10,6 +10,7 @@ export class NewsService {
 
     async getList() {
         const news = await this.em.find(NewsEntity, {
+            take: 40,
             select: ['id', 'url', 'title', 'avatar', 'views', 'date'],
             order: { date: 'DESC' },
         });
