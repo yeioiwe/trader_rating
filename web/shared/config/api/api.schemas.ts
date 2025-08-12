@@ -121,6 +121,7 @@ export interface ScammerProfileItem {
     notification: boolean;
     title: string;
     description: string;
+    lastmod: Date;
 }
 
 export type ScammerCommentItemStarRate = (typeof ScammerCommentItemStarRate)[keyof typeof ScammerCommentItemStarRate];
@@ -178,6 +179,7 @@ export interface PostItem {
     notification: boolean;
     seo_title: string;
     seo_description: string;
+    lastmod: Date;
 }
 
 export type PostCommentItemStarRate = (typeof PostCommentItemStarRate)[keyof typeof PostCommentItemStarRate];
@@ -410,6 +412,7 @@ export interface NewsItem {
     notification: boolean;
     seo_title: string;
     seo_description: string;
+    lastmod: Date;
 }
 
 export type NewsCommentItemStarRate = (typeof NewsCommentItemStarRate)[keyof typeof NewsCommentItemStarRate];
@@ -555,6 +558,7 @@ export interface VerifiedProfileItem {
     notification: boolean;
     title: string;
     description: string;
+    lastmod: Date;
 }
 
 export type VerifiedCommentItemStarRate =

@@ -154,6 +154,7 @@ export interface ScammerProfileItem {
     notification: boolean;
     title: string;
     description: string;
+    lastmod: Date;
 }
 
 export type ScammerProfileAboutVisible = (typeof ScammerProfileAboutVisible)[keyof typeof ScammerProfileAboutVisible];
@@ -287,6 +288,7 @@ export interface PostItem {
     notification: boolean;
     seo_title: string;
     seo_description: string;
+    lastmod: Date;
 }
 
 export interface PostCreateComment {
@@ -594,6 +596,7 @@ export interface NewsItem {
     notification: boolean;
     seo_title: string;
     seo_description: string;
+    lastmod: Date;
 }
 
 export interface NewsCreateComment {
@@ -770,6 +773,7 @@ export interface VerifiedProfileItem {
     notification: boolean;
     title: string;
     description: string;
+    lastmod: Date;
 }
 
 export type VerifiedProfileAboutVisible =

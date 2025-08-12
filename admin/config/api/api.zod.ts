@@ -90,6 +90,7 @@ export const ScammerProfileItem = z
         notification: z.boolean().default(false),
         title: z.string(),
         description: z.string(),
+        lastmod: z.string().datetime({ offset: true }),
     })
     .passthrough();
 export const ScammerProfileAbout = z
@@ -170,6 +171,7 @@ export const PostItem = z
         notification: z.boolean().default(false),
         seo_title: z.string(),
         seo_description: z.string(),
+        lastmod: z.string().datetime({ offset: true }),
     })
     .passthrough();
 export const PostCreateComment = z
@@ -336,6 +338,7 @@ export const NewsItem = z
         notification: z.boolean().default(false),
         seo_title: z.string(),
         seo_description: z.string(),
+        lastmod: z.string().datetime({ offset: true }),
     })
     .passthrough();
 export const NewsCreateComment = z
@@ -445,6 +448,7 @@ export const VerifiedProfileItem = z
         notification: z.boolean().default(false),
         title: z.string(),
         description: z.string(),
+        lastmod: z.string().datetime({ offset: true }),
     })
     .passthrough();
 export const VerifiedProfileAbout = z
