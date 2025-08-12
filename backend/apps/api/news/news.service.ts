@@ -9,31 +9,30 @@ export class NewsService {
     constructor(private em: EntityManager) {}
 
     async getList() {
-        const news = await this.em.find(NewsEntity, { order: { date: 'DESC' } });
+        const news = await this.em.find(NewsEntity, {
+            select: ['id', 'url', 'title', 'avatar', 'views', 'date'],
+            order: { date: 'DESC' },
+        });
 
-        const demoPosts = news.map(({ id, url, title, avatar, views, date }) => ({
-            id,
-            url,
-            title,
-            avatar,
-            views,
-            date,
-        }));
+        // const demoPosts = news.map(({ id, url, title, avatar, views, date }) => ({
+        //     id,
+        //     url,
+        //     title,
+        //     avatar,
+        //     views,
+        //     date,
+        // }));
 
-        return { items: demoPosts };
+        return { items: news };
     }
 
     async getTop() {
-        const news = await this.em.find(NewsEntity, { order: { date: 'DESC' } });
+        const news = await this.em.find(NewsEntity, {
+            select: ['id', 'url', 'title', 'avatar', 'views', 'date'],
+            order: { date: 'DESC' },
+        });
 
-        const demoPosts = news.slice(0, 4).map(({ id, url, title, avatar, views, date }) => ({
-            id,
-            url,
-            title,
-            avatar,
-            views,
-            date,
-        }));
+        const demoPosts = news.slice(0, 4);
 
         return { items: demoPosts };
     }
